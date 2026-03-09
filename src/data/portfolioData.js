@@ -38,10 +38,9 @@ export const socialLinks = [
 ];
 
 export const stats = [
-  { label: "AI Agents Built", value: 12 },
-  { label: "Automations", value: 30 },
-  { label: "Models Deployed", value: 18 },
-  { label: "GPA", value: 9.2 },
+  { label: "AI Agents Built", value: 3, suffix: "+" },
+  { label: "Automations", value: 10, suffix: "+" },
+  { label: "Models Deployed", value: 5, suffix: "+" },
 ];
 
 export const skillCategories = [

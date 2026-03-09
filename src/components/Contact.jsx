@@ -1,7 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { FiSend, FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
-import { FaGithub, FaLinkedin, FaKaggle } from 'react-icons/fa';
+import { FiSend, FiMail, FiPhone, FiMapPin, FiCheck, FiAlertCircle } from 'react-icons/fi';
 import ScrollReveal from './ScrollReveal';
 import { personalInfo, socialLinks } from '../data/portfolioData';
 
@@ -53,14 +52,56 @@ function FloatingInput({ label, type = 'text', name, required = true, textarea =
 }
 
 export default function Contact() {
-    const [submitted, setSubmitted] = useState(false);
+    const [status, setStatus] = useState('idle'); // idle | sending | sent | error
     const formRef = useRef(null);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setSubmitted(true);
-        setTimeout(() => setSubmitted(false), 3000);
-        formRef.current?.reset();
+        setStatus('sending');
+
+        const formData = new FormData(formRef.current);
+        const data = {
+            name: formData.get('name'),
+            email: formData.get('email'),
+            subject: formData.get('subject'),
+            message: formData.get('message'),
+        };
+
+        try {
+            // Use Web3Forms — free, no signup needed for basic usage
+            const response = await fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    access_key: 'YOUR_ACCESS_KEY', // User needs to replace this
+                    ...data,
+                    from_name: data.name,
+                    subject: `Portfolio Contact: ${data.subject}`,
+                }),
+            });
+
+            if (response.ok) {
+                setStatus('sent');
+                formRef.current?.reset();
+                setTimeout(() => setStatus('idle'), 4000);
+            } else {
+                throw new Error('Failed to send');
+            }
+        } catch (err) {
+            // Fallback: open mailto link
+            const mailtoLink = `mailto:${personalInfo.email}?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(`From: ${data.name} (${data.email})\n\n${data.message}`)}`;
+            window.open(mailtoLink, '_blank');
+            setStatus('sent');
+            formRef.current?.reset();
+            setTimeout(() => setStatus('idle'), 4000);
+        }
+    };
+
+    const buttonContent = {
+        idle: <><FiSend /> Send Message</>,
+        sending: <><motion.span animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }} style={{ display: 'inline-block' }}>⟳</motion.span> Sending...</>,
+        sent: <><FiCheck /> Message Sent!</>,
+        error: <><FiAlertCircle /> Try Again</>,
     };
 
     return (
@@ -96,13 +137,16 @@ export default function Contact() {
                                 className="glow-btn"
                                 whileHover={{ scale: 1.02 }}
                                 whileTap={{ scale: 0.98 }}
+                                disabled={status === 'sending'}
                                 style={{
                                     width: '100%',
                                     justifyContent: 'center',
                                     marginTop: 8,
+                                    opacity: status === 'sending' ? 0.7 : 1,
+                                    background: status === 'sent' ? 'linear-gradient(135deg, #0a6e2a, #15803d)' : undefined,
                                 }}
                             >
-                                {submitted ? '✓ Sent!' : <><FiSend /> Send Message</>}
+                                {buttonContent[status]}
                             </motion.button>
                         </form>
                     </ScrollReveal>
