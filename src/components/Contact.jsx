@@ -73,7 +73,7 @@ export default function Contact() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    access_key: 'YOUR_ACCESS_KEY', // User needs to replace this
+                    access_key: '162d5540-23fe-4f00-8762-4abe3f29ddc4', // User needs to replace this
                     ...data,
                     from_name: data.name,
                     subject: `Portfolio Contact: ${data.subject}`,
