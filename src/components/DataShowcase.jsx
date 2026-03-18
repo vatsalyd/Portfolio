@@ -71,7 +71,7 @@ function CodeBlock({ code }) {
                     <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#00CA4E' }} />
                 </div>
                 <span style={{ fontFamily: 'var(--font-mono)', fontSize: '0.7rem', color: 'var(--text-muted)' }}>
-                    agent_core.py
+                    ai_core.py
                 </span>
                 <motion.button
                     whileTap={{ scale: 0.9 }}
@@ -125,7 +125,7 @@ export default function DataShowcase() {
                 <ScrollReveal>
                     <div className="section-header">
                         <span className="section-label">// Data in Action</span>
-                        <h2 className="section-title">AI Agent Metrics</h2>
+                        <h2 className="section-title">AI & ML Metrics</h2>
                         <p className="section-subtitle">
                             Real metrics from my AI and ML projects — because engineers should show, not tell
                         </p>
@@ -135,7 +135,7 @@ export default function DataShowcase() {
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }} className="data-grid">
                     <ScrollReveal variant="fadeLeft" delay={0.1}>
                         <div className="glass-card" style={{ padding: 24 }}>
-                            <h3 style={{ fontSize: '0.95rem', marginBottom: 4 }}>Agent Training Accuracy</h3>
+                            <h3 style={{ fontSize: '0.95rem', marginBottom: 4 }}>Model Training Progression</h3>
                             <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: 20, fontFamily: 'var(--font-mono)' }}>
                                 Reward model convergence
                             </p>
@@ -164,9 +164,9 @@ export default function DataShowcase() {
 
                     <ScrollReveal variant="fadeRight" delay={0.2}>
                         <div className="glass-card" style={{ padding: 24 }}>
-                            <h3 style={{ fontSize: '0.95rem', marginBottom: 4 }}>Agent Performance Factors</h3>
-                            <p style={{ fontSize: '0.75rem', color: 'var(--text-muted)', marginBottom: 20, fontFamily: 'var(--font-mono)' }}>
-                                Multi-agent benchmark analysis
+                            <h3 style={{ fontSize: '0.95rem', marginBottom: 4 }}>Model Performance Factors</h3>
+                            <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                                System benchmark analysis
                             </p>
                             <ResponsiveContainer width="100%" height={250}>
                                 <BarChart data={dataShowcaseData.featureImportance} layout="vertical">

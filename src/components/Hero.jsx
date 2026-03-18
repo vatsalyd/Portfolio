@@ -19,11 +19,11 @@ function GlitchText({ text }) {
 function TerminalBlock() {
     const [lines, setLines] = useState([]);
     const allLines = [
-        { text: '> sys.boot("vatsal_agent_v2")', delay: 100, color: 'var(--text-muted)' },
-        { text: '> loading LLM backbone ━━━━━━━━━━ 100%', delay: 400, color: '#C3110C' },
-        { text: '> tools: [search, analyze, code, deploy]', delay: 700, color: 'var(--text-secondary)' },
+        { text: '> sys.boot("ai_core_v2.0")', delay: 100, color: 'var(--text-muted)' },
+        { text: '> loading ML backbone ━━━━━━━━━━ 100%', delay: 400, color: '#C3110C' },
+        { text: '> modules: [data, train, infer, deploy]', delay: 700, color: 'var(--text-secondary)' },
         { text: '> memory: vector_store [ACTIVE]', delay: 1000, color: 'var(--text-secondary)' },
-        { text: '> agent.status = AUTONOMOUS', delay: 1300, color: '#E6501B' },
+        { text: '> module.status = OPTIMIZED', delay: 1300, color: '#E6501B' },
         { text: '> ready to execute', delay: 1600, color: '#fff' },
     ];
 
@@ -68,7 +68,7 @@ function TerminalBlock() {
                 <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#C3110C', boxShadow: '0 0 6px rgba(195,17,12,0.7)' }} />
                 <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#E6501B', boxShadow: '0 0 6px rgba(230,80,27,0.7)' }} />
                 <div style={{ width: 8, height: 8, borderRadius: '50%', background: '#B8C0CC', boxShadow: '0 0 6px rgba(184,192,204,0.5)' }} />
-                <span style={{ marginLeft: 8, color: 'var(--text-muted)', fontSize: '0.65rem', letterSpacing: 0.5 }}>agent_core.py — zsh</span>
+                <span style={{ marginLeft: 8, color: 'var(--text-muted)', fontSize: '0.65rem', letterSpacing: 0.5 }}>ai_core.py — zsh</span>
             </div>
             {lines.map((line, i) => (
                 <motion.div key={i} initial={{ opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.25 }} style={{ color: line.color }}>
@@ -143,7 +143,7 @@ export default function Hero() {
                 <div style={{ display: 'flex', justifyContent: 'center', gap: 28, marginBottom: 36, flexWrap: 'wrap' }}>
                     {[
                         { label: 'STATUS', value: 'ONLINE', color: '#C3110C' },
-                        { label: 'AGENTS', value: '12 ACTIVE', color: '#E6501B' },
+                        { label: 'MODELS', value: '5 DEPLOYED', color: '#E6501B' },
                         { label: 'UPTIME', value: '99.97%', color: '#B8C0CC' },
                     ].map((item) => (
                         <div key={item.label} style={{ display: 'flex', alignItems: 'center', gap: 8, fontFamily: 'var(--font-mono)', fontSize: '0.72rem', letterSpacing: 1 }}>

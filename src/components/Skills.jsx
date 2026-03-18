@@ -243,7 +243,7 @@ export default function Skills() {
                         <span className="section-label">// Skills Matrix</span>
                         <h2 className="section-title">AI Engineering Capabilities</h2>
                         <p className="section-subtitle">
-                            Mapped from GitHub projects and tuned for agentic AI, automation, and production ML roles
+                            Mapped from GitHub projects and tuned for Gen AI, Data Science, and production ML roles
                         </p>
                     </div>
                 </ScrollReveal>

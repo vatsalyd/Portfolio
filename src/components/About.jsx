@@ -114,7 +114,7 @@ export default function About() {
                                 {[
                                     { icon: FiBook, label: 'University', value: personalInfo.university },
                                     { icon: FiAward, label: 'Degree', value: personalInfo.degree },
-                                    { icon: TbRobot, label: 'Focus', value: 'AI Agent Automation' },
+                                    { icon: TbRobot, label: 'Focus', value: 'Gen AI & Data Science' },
                                     { icon: FiMapPin, label: 'Location', value: personalInfo.location },
                                 ].map((item) => (
                                     <div key={item.label} style={{

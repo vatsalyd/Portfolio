@@ -12,13 +12,12 @@ export const personalInfo = {
   lastName: "Yadav",
   initials: "VY",
   roles: [
-    "AI Agent Automation Engineer",
-    "LLM Systems Architect",
-    "Autonomous Agent Builder",
+    "AI & ML Engineer",
     "Data Scientist",
-    "ML Ops Engineer",
+    "Generative AI Developer",
+    "LLM Systems Builder",
   ],
-  bio: "I architect autonomous AI agent systems that think, reason, and act. Specializing in LLM orchestration, multi-agent frameworks, and intelligent automation pipelines — I build the infrastructure that turns raw intelligence into real-world impact.",
+  bio: "I build intelligent systems that turn raw data into real-world impact. Specializing in Machine Learning, Generative AI, and Data Science — I architect models, multi-agent frameworks, and scalable AI pipelines.",
   email: "vatsal.y.official@gmail.com",
   phone: "+91 7983709173",
   location: "India",
@@ -38,8 +37,8 @@ export const socialLinks = [
 ];
 
 export const stats = [
-  { label: "AI Agents Built", value: 3, suffix: "+" },
-  { label: "Automations", value: 10, suffix: "+" },
+  { label: "AI & ML Projects", value: 6, suffix: "+" },
+  { label: "Data Pipelines", value: 10, suffix: "+" },
   { label: "Models Deployed", value: 5, suffix: "+" },
 ];
 
@@ -169,6 +168,16 @@ export const projects = [
     category: "Dev",
     image: null,
     github: "https://github.com/vatsalyd/ShiftSync",
+    live: null,
+    featured: true,
+  },
+  {
+    title: "ReAct Paper Implementation",
+    description: "From-scratch educational implementation of ReAct: Synergizing Reasoning and Acting in Language Models (ICLR 2023). Features a minimal reasoning loop (Thought → Action → Observation) with Wikipedia Search/Lookup tools, custom LLM wrapper for Groq/OpenAI, and few-shot evaluation on HotpotQA and FEVER.",
+    tags: ["ReAct", "Agents", "Groq", "Python", "LLMs", "NLP"],
+    category: "AI",
+    image: null,
+    github: "https://github.com/vatsalyd/ReAct-Paper-Implementation",
     live: null,
     featured: true,
   },
