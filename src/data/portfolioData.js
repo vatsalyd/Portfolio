@@ -25,7 +25,7 @@ export const personalInfo = {
   degree: "B.Tech in Data Science & Artificial Intelligence",
   year: "1st Year",
   gpa: "9.2 / 10",
-  resumeLink: "#",
+  resumeLink: "/Portfolio/resume.pdf",
   avatarUrl: null,
 };
 

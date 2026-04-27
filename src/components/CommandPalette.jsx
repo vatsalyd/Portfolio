@@ -31,7 +31,7 @@ export default function CommandPalette() {
     const allItems = [
         ...navLinks.map(l => ({ ...l, type: 'section' })),
         { name: 'Go to Top', href: '#hero', type: 'action' },
-        { name: 'Download Resume', href: '#', type: 'action' },
+        { name: 'Download Resume', href: '/Portfolio/resume.pdf', type: 'action' },
     ];
 
     const filtered = allItems.filter(item =>
