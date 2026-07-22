@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
-import { FiArrowRight, FiTerminal, FiChevronDown, FiSparkles } from 'react-icons/fi';
+import { FiArrowRight, FiTerminal, FiChevronDown, FiZap } from 'react-icons/fi';
 import { personalInfo, socialLinks } from '../data/portfolioData';
 
 /* Ambient Aurora Gradient Mesh */
@@ -64,7 +64,7 @@ function AuroraOrbMesh() {
                         fontSize: '1.5rem',
                         boxShadow: '0 8px 24px rgba(139,92,246,0.4)',
                     }}>
-                        <FiSparkles />
+                        <FiZap />
                     </div>
 
                     <div style={{
