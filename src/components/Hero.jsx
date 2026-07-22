@@ -75,7 +75,7 @@ function AuroraOrbMesh() {
                         textTransform: 'uppercase',
                         marginBottom: 6,
                     }}>
-                        IIT BHILAI & INCRIจับSOFT
+                        IIT BHILAI & INCRIVELSOFT
                     </div>
 
                     <div style={{
@@ -180,9 +180,9 @@ export default function Hero() {
                             Architecting <br />
                             <span style={{
                                 background: 'var(--gradient-aurora-wide)',
-                                -webkit-background-clip: text,
-                                -webkit-text-fill-color: transparent,
-                                backgroundClip: text,
+                                WebkitBackgroundClip: 'text',
+                                WebkitTextFillColor: 'transparent',
+                                backgroundClip: 'text',
                             }}>
                                 Autonomous AI
                             </span>
