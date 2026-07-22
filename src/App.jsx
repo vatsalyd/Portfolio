@@ -6,10 +6,10 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
-import DataShowcase from './components/DataShowcase';
 import Projects from './components/Projects';
 import Experience from './components/Experience';
 import Contact from './components/Contact';
+import Footer from './components/Footer';
 import CommandPalette from './components/CommandPalette';
 
 export default function App() {
@@ -21,7 +21,7 @@ export default function App() {
 
       {!loading && (
         <>
-          {/* Fixed background layer — stars/particles, z-index -1, no layout impact */}
+          {/* Fixed background layer — subtle aurora particles, z-index 0 */}
           <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
             <ParticleBackground />
           </div>
@@ -29,17 +29,17 @@ export default function App() {
           <Navbar />
           <CommandPalette />
 
-          {/* Main content layer — sits above particles */}
+          {/* Main content layer */}
           <main style={{ position: 'relative', zIndex: 1 }}>
             <Hero />
             <About />
             <Skills />
-            <DataShowcase />
             <Projects />
             <Experience />
             <Contact />
           </main>
 
+          <Footer />
         </>
       )}
     </>
