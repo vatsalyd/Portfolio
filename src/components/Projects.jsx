@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiGithub, FiExternalLink, FiX } from 'react-icons/fi';
+import { FiGithub, FiExternalLink, FiX, FiStar, FiLayers } from 'react-icons/fi';
 import ScrollReveal from './ScrollReveal';
 import { projects } from '../data/portfolioData';
 
-const categories = ['All', 'AI', 'ML', 'DL'];
+const categories = ['All', 'AI', 'ML', 'Dev'];
 
 function ProjectCard({ project, index, onClick }) {
     const [hovered, setHovered] = useState(false);
@@ -12,11 +12,11 @@ function ProjectCard({ project, index, onClick }) {
     return (
         <motion.div
             layout
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ delay: index * 0.08, duration: 0.4 }}
-            className="project-card glass-card"
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ delay: index * 0.06, duration: 0.4 }}
+            className="glass-card"
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
             onClick={onClick}
@@ -24,76 +24,90 @@ function ProjectCard({ project, index, onClick }) {
                 padding: 0,
                 overflow: 'hidden',
                 cursor: 'pointer',
+                display: 'flex',
+                flexDirection: 'column',
+                height: '100%',
                 position: 'relative',
-                transform: hovered ? 'perspective(1000px) rotateY(2deg) rotateX(-2deg)' : 'none',
-                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                boxShadow: hovered ? 'var(--shadow-glow-green)' : 'var(--shadow-card)',
             }}
         >
-            {/* Gradient top bar */}
+            {/* Top Aurora Shimmer Line */}
             <div style={{
-                height: 4,
-                background: 'var(--gradient-main)',
-                backgroundSize: '200% 200%',
-                animation: hovered ? 'gradient-shift 2s ease infinite' : 'none',
+                height: 3,
+                background: project.featured ? 'var(--gradient-aurora-wide)' : 'var(--gradient-subtle)',
+                transition: 'all 0.3s ease',
             }} />
 
-            {/* Featured badge */}
-            {project.featured && (
-                <div style={{
-                    position: 'absolute',
-                    top: 16,
-                    right: 16,
-                    padding: '4px 10px',
-                    fontSize: '0.65rem',
-                    fontFamily: 'var(--font-mono)',
-                    fontWeight: 600,
-                    color: '#fff',
-                    background: 'var(--gradient-warm)',
-                    borderRadius: 20,
-                    letterSpacing: 1,
-                    textTransform: 'uppercase',
-                    zIndex: 2,
-                }}>
-                    ★ Featured
+            <div style={{ padding: 28, display: 'flex', flexDirection: 'column', flex: 1 }}>
+                {/* Header Row */}
+                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 12 }}>
+                    <h3 style={{
+                        fontSize: '1.2rem',
+                        color: 'var(--text-heading)',
+                        fontWeight: 700,
+                        lineHeight: 1.3,
+                    }}>
+                        {project.title}
+                    </h3>
+                    {project.featured && (
+                        <span style={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: 4,
+                            padding: '3px 9px',
+                            fontSize: '0.65rem',
+                            fontFamily: 'var(--font-mono)',
+                            color: 'var(--accent-amber)',
+                            background: 'rgba(245, 158, 11, 0.1)',
+                            border: '1px solid rgba(245, 158, 11, 0.25)',
+                            borderRadius: 'var(--border-radius-pill)',
+                            textTransform: 'uppercase',
+                            letterSpacing: 0.5,
+                            flexShrink: 0,
+                        }}>
+                            <FiStar style={{ fontSize: '0.7rem' }} /> Featured
+                        </span>
+                    )}
                 </div>
-            )}
 
-            <div style={{ padding: 24 }}>
-                <h3 style={{ fontSize: '1.15rem', marginBottom: 8 }}>{project.title}</h3>
+                {/* Description */}
                 <p style={{
-                    fontSize: '0.88rem',
-                    color: 'var(--text-muted)',
+                    fontSize: '0.9rem',
+                    color: 'var(--text-secondary)',
                     lineHeight: 1.7,
-                    marginBottom: 16,
+                    marginBottom: 20,
+                    flex: 1,
                     display: '-webkit-box',
-                    WebkitLineClamp: 3,
+                    WebkitLineClamp: 4,
                     WebkitBoxOrient: 'vertical',
                     overflow: 'hidden',
                 }}>
                     {project.description}
                 </p>
 
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 20 }}>
+                {/* Tech Tags */}
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 24 }}>
                     {project.tags.map(tag => (
                         <span key={tag} className="tag">{tag}</span>
                     ))}
                 </div>
 
-                <div style={{ display: 'flex', gap: 12 }}>
+                {/* Footer Action Links */}
+                <div style={{ display: 'flex', gap: 14, marginTop: 'auto', paddingTop: 12, borderTop: '1px solid rgba(255,255,255,0.04)' }}>
                     {project.github && (
                         <motion.a
                             href={project.github}
                             target="_blank"
                             rel="noopener noreferrer"
-                            whileHover={{ scale: 1.1 }}
+                            whileHover={{ scale: 1.05 }}
                             onClick={(e) => e.stopPropagation()}
                             style={{
-                                display: 'flex',
+                                display: 'inline-flex',
                                 alignItems: 'center',
                                 gap: 6,
-                                fontSize: '0.85rem',
+                                fontSize: '0.82rem',
                                 color: 'var(--text-secondary)',
+                                fontFamily: 'var(--font-mono)',
+                                textDecoration: 'none',
                             }}
                         >
                             <FiGithub /> Code
@@ -104,17 +118,19 @@ function ProjectCard({ project, index, onClick }) {
                             href={project.live}
                             target="_blank"
                             rel="noopener noreferrer"
-                            whileHover={{ scale: 1.1 }}
+                            whileHover={{ scale: 1.05 }}
                             onClick={(e) => e.stopPropagation()}
                             style={{
-                                display: 'flex',
+                                display: 'inline-flex',
                                 alignItems: 'center',
                                 gap: 6,
-                                fontSize: '0.85rem',
-                                color: 'var(--accent-primary)',
+                                fontSize: '0.82rem',
+                                color: 'var(--accent-cyan)',
+                                fontFamily: 'var(--font-mono)',
+                                textDecoration: 'none',
                             }}
                         >
-                            <FiExternalLink /> Live Demo
+                            <FiExternalLink /> Live API / Demo
                         </motion.a>
                     )}
                 </div>
@@ -136,67 +152,91 @@ function ProjectModal({ project, onClose }) {
                 position: 'fixed',
                 inset: 0,
                 zIndex: 9999,
-                background: 'rgba(0,0,0,0.8)',
+                background: 'rgba(5, 5, 10, 0.82)',
+                backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
                 padding: 24,
-                backdropFilter: 'blur(8px)',
             }}
         >
             <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.9, opacity: 0 }}
+                initial={{ scale: 0.94, opacity: 0, y: 20 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.94, opacity: 0, y: 20 }}
                 onClick={(e) => e.stopPropagation()}
                 className="glass-card"
                 style={{
-                    maxWidth: 600,
+                    maxWidth: 640,
                     width: '100%',
-                    padding: 32,
+                    padding: 36,
                     position: 'relative',
-                    maxHeight: '80vh',
-                    overflow: 'auto',
+                    maxHeight: '85vh',
+                    overflowY: 'auto',
+                    border: '1px solid rgba(139, 92, 246, 0.25)',
                 }}
             >
-                <motion.button
-                    whileHover={{ scale: 1.1, rotate: 90 }}
+                <button
                     onClick={onClose}
                     style={{
                         position: 'absolute',
-                        top: 16,
-                        right: 16,
-                        background: 'none',
-                        border: 'none',
+                        top: 20,
+                        right: 20,
+                        background: 'rgba(255,255,255,0.05)',
+                        border: '1px solid rgba(255,255,255,0.1)',
+                        borderRadius: '50%',
+                        width: 34,
+                        height: 34,
                         color: 'var(--text-muted)',
-                        fontSize: '1.3rem',
                         cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '1rem',
+                        transition: 'all 0.2s',
                     }}
                 >
                     <FiX />
-                </motion.button>
+                </button>
 
-                <div style={{ height: 4, background: 'var(--gradient-main)', borderRadius: 2, marginBottom: 24 }} />
-                <h2 style={{ fontSize: '1.5rem', marginBottom: 12 }}>{project.title}</h2>
-                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 20 }}>
+                <div style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: '0.72rem',
+                    color: 'var(--accent-cyan)',
+                    textTransform: 'uppercase',
+                    letterSpacing: 1,
+                    marginBottom: 10,
+                }}>
+                    <FiLayers /> {project.category} Project Architecture
+                </div>
+
+                <h2 style={{ fontSize: '1.6rem', marginBottom: 16, color: '#fff' }}>
+                    {project.title}
+                </h2>
+
+                <p style={{ color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 24, fontSize: '0.98rem' }}>
                     {project.description}
                 </p>
 
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 24 }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 32 }}>
                     {project.tags.map(tag => (
-                        <span key={tag} className="tag">{tag}</span>
+                        <span key={tag} className="tag" style={{ padding: '6px 14px', fontSize: '0.78rem' }}>{tag}</span>
                     ))}
                 </div>
 
-                <div style={{ display: 'flex', gap: 16 }}>
+                <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
                     {project.github && (
-                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="glow-btn-outline" style={{ padding: '10px 20px', fontSize: '0.85rem' }}>
-                            <FiGithub /> View Code
+                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="glow-btn-outline" style={{ padding: '11px 22px' }}>
+                            <FiGithub /> View Repository
                         </a>
                     )}
                     {project.live && (
-                        <a href={project.live} target="_blank" rel="noopener noreferrer" className="glow-btn" style={{ padding: '10px 20px', fontSize: '0.85rem' }}>
-                            <FiExternalLink /> Live Demo
+                        <a href={project.live} target="_blank" rel="noopener noreferrer" className="glow-btn" style={{ padding: '11px 22px' }}>
+                            <FiExternalLink /> Open Live Demo / Docs
                         </a>
                     )}
                 </div>
@@ -217,9 +257,9 @@ export default function Projects() {
                 <ScrollReveal>
                     <div className="section-header">
                         <span className="section-label">// Portfolio</span>
-                        <h2 className="section-title">Featured Projects</h2>
+                        <h2 className="section-title">Featured Engineering</h2>
                         <p className="section-subtitle">
-                            A selection of my data science and AI projects
+                            Architected systems across multi-agent orchestration, RAG pipelines, ML classifiers, and real-time microservices
                         </p>
                     </div>
                 </ScrollReveal>
@@ -229,27 +269,27 @@ export default function Projects() {
                     <div style={{
                         display: 'flex',
                         justifyContent: 'center',
-                        gap: 8,
-                        marginBottom: 48,
+                        gap: 10,
+                        marginBottom: 44,
                         flexWrap: 'wrap',
                     }}>
                         {categories.map(cat => (
                             <motion.button
                                 key={cat}
                                 onClick={() => setFilter(cat)}
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
+                                whileHover={{ scale: 1.03 }}
+                                whileTap={{ scale: 0.97 }}
                                 style={{
-                                    padding: '8px 20px',
-                                    borderRadius: 50,
-                                    border: filter === cat ? 'none' : 'var(--border-glass)',
-                                    fontFamily: 'var(--font-primary)',
-                                    fontWeight: 500,
-                                    fontSize: '0.85rem',
+                                    padding: '8px 22px',
+                                    borderRadius: 'var(--border-radius-pill)',
+                                    border: filter === cat ? '1px solid rgba(139, 92, 246, 0.4)' : '1px solid rgba(255, 255, 255, 0.06)',
+                                    fontFamily: 'var(--font-display)',
+                                    fontWeight: filter === cat ? 600 : 500,
+                                    fontSize: '0.86rem',
                                     cursor: 'pointer',
-                                    background: filter === cat ? 'var(--gradient-main)' : 'transparent',
+                                    background: filter === cat ? 'var(--gradient-subtle)' : 'rgba(22, 22, 34, 0.4)',
                                     color: filter === cat ? '#fff' : 'var(--text-secondary)',
-                                    transition: 'all 0.3s',
+                                    transition: 'all 0.3s ease',
                                 }}
                             >
                                 {cat}
@@ -263,7 +303,7 @@ export default function Projects() {
                     layout
                     style={{
                         display: 'grid',
-                        gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
+                        gridTemplateColumns: 'repeat(auto-fill, minmax(330px, 1fr))',
                         gap: 24,
                     }}
                 >
@@ -279,21 +319,13 @@ export default function Projects() {
                     </AnimatePresence>
                 </motion.div>
 
-                {/* Modal */}
+                {/* Project Modal Detail */}
                 <AnimatePresence>
                     {selectedProject && (
                         <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
                     )}
                 </AnimatePresence>
             </div>
-
-            <style>{`
-        @media (max-width: 768px) {
-          #projects .container > div > div {
-            grid-template-columns: 1fr !important;
-          }
-        }
-      `}</style>
         </section>
     );
 }
