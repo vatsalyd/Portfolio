@@ -19,28 +19,28 @@ function FloatingInput({ label, type = 'text', name, required = true, textarea =
                 onBlur={(e) => { setFocused(false); setHasValue(!!e.target.value); }}
                 style={{
                     width: '100%',
-                    padding: '16px 14px 6px',
-                    fontSize: '0.9rem',
+                    padding: '18px 16px 8px',
+                    fontSize: '0.95rem',
                     fontFamily: 'var(--font-primary)',
                     color: 'var(--text-primary)',
-                    background: 'rgba(5,5,5,0.6)',
-                    border: `1px solid ${focused ? 'rgba(195,17,12,0.3)' : 'rgba(255,255,255,0.06)'}`,
+                    background: 'rgba(10, 10, 15, 0.6)',
+                    border: `1px solid ${focused ? 'rgba(139, 92, 246, 0.45)' : 'rgba(255, 255, 255, 0.08)'}`,
                     borderRadius: 'var(--border-radius-sm)',
                     outline: 'none',
                     resize: textarea ? 'vertical' : 'none',
-                    minHeight: textarea ? 120 : 'auto',
-                    transition: 'border-color 0.3s, box-shadow 0.3s',
-                    boxShadow: focused ? '0 0 12px rgba(195,17,12,0.08)' : 'none',
+                    minHeight: textarea ? 130 : 'auto',
+                    transition: 'all 0.25s ease',
+                    boxShadow: focused ? '0 0 16px rgba(139, 92, 246, 0.15)' : 'none',
                 }}
             />
             <label style={{
                 position: 'absolute',
-                left: 14,
-                top: focused || hasValue ? 6 : 14,
-                fontSize: focused || hasValue ? '0.65rem' : '0.85rem',
+                left: 16,
+                top: focused || hasValue ? 6 : 16,
+                fontSize: focused || hasValue ? '0.68rem' : '0.88rem',
                 fontFamily: 'var(--font-mono)',
-                color: focused ? 'var(--accent-primary)' : 'var(--text-muted)',
-                transition: 'all 0.2s',
+                color: focused ? 'var(--accent-violet)' : 'var(--text-muted)',
+                transition: 'all 0.2s ease',
                 pointerEvents: 'none',
                 textTransform: 'uppercase',
                 letterSpacing: focused || hasValue ? 1 : 0,
@@ -68,12 +68,11 @@ export default function Contact() {
         };
 
         try {
-            // Use Web3Forms — free, no signup needed for basic usage
             const response = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    access_key: '162d5540-23fe-4f00-8762-4abe3f29ddc4', // User needs to replace this
+                    access_key: '162d5540-23fe-4f00-8762-4abe3f29ddc4',
                     ...data,
                     from_name: data.name,
                     subject: `Portfolio Contact: ${data.subject}`,
@@ -88,7 +87,6 @@ export default function Contact() {
                 throw new Error('Failed to send');
             }
         } catch (err) {
-            // Fallback: open mailto link
             const mailtoLink = `mailto:${personalInfo.email}?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(`From: ${data.name} (${data.email})\n\n${data.message}`)}`;
             window.open(mailtoLink, '_blank');
             setStatus('sent');
@@ -109,26 +107,26 @@ export default function Contact() {
             <div className="container">
                 <ScrollReveal>
                     <div className="section-header">
-                        <span className="section-label">// Get in Touch</span>
+                        <span className="section-label">// Get In Touch</span>
                         <h2 className="section-title">Let's Connect</h2>
                         <p className="section-subtitle">
-                            Have an AI project in mind or want to collaborate? I'd love to hear from you.
+                            Interested in collaborating on AI projects, multi-agent frameworks, or production ML development? Reach out directly.
                         </p>
                     </div>
                 </ScrollReveal>
 
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: '1fr 1fr',
-                    gap: 48,
-                    maxWidth: 900,
+                    gridTemplateColumns: '1.1fr 0.9fr',
+                    gap: 40,
+                    maxWidth: 960,
                     margin: '0 auto',
                 }} className="contact-grid">
                     {/* Form */}
                     <ScrollReveal variant="fadeLeft" delay={0.1}>
-                        <form ref={formRef} onSubmit={handleSubmit}>
-                            <FloatingInput label="Name" name="name" />
-                            <FloatingInput label="Email" name="email" type="email" />
+                        <form ref={formRef} onSubmit={handleSubmit} className="glass-card" style={{ padding: 32 }}>
+                            <FloatingInput label="Your Name" name="name" />
+                            <FloatingInput label="Your Email" name="email" type="email" />
                             <FloatingInput label="Subject" name="subject" />
                             <FloatingInput label="Message" name="message" textarea />
 
@@ -143,7 +141,7 @@ export default function Contact() {
                                     justifyContent: 'center',
                                     marginTop: 8,
                                     opacity: status === 'sending' ? 0.7 : 1,
-                                    background: status === 'sent' ? 'linear-gradient(135deg, #0a6e2a, #15803d)' : undefined,
+                                    background: status === 'sent' ? 'linear-gradient(135deg, #10B981, #059669)' : undefined,
                                 }}
                             >
                                 {buttonContent[status]}
@@ -151,7 +149,7 @@ export default function Contact() {
                         </form>
                     </ScrollReveal>
 
-                    {/* Contact Info */}
+                    {/* Contact Info Cards */}
                     <ScrollReveal variant="fadeRight" delay={0.2}>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                             {[
@@ -163,40 +161,41 @@ export default function Contact() {
                                     key={item.label}
                                     href={item.href || '#'}
                                     className="glass-card"
-                                    whileHover={{ y: -2 }}
+                                    whileHover={{ y: -3 }}
                                     style={{
-                                        padding: '16px 20px',
+                                        padding: '20px 24px',
                                         display: 'flex',
                                         alignItems: 'center',
-                                        gap: 14,
+                                        gap: 16,
                                         textDecoration: 'none',
                                     }}
                                 >
                                     <div style={{
-                                        width: 40,
-                                        height: 40,
-                                        borderRadius: 4,
+                                        width: 44,
+                                        height: 44,
+                                        borderRadius: 'var(--border-radius-sm)',
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
-                                        background: 'rgba(195,17,12,0.05)',
-                                        border: '1px solid rgba(195,17,12,0.1)',
-                                        color: 'var(--accent-primary)',
-                                        fontSize: '1rem',
+                                        background: 'rgba(139, 92, 246, 0.1)',
+                                        border: '1px solid rgba(139, 92, 246, 0.2)',
+                                        color: 'var(--accent-violet)',
+                                        fontSize: '1.15rem',
+                                        flexShrink: 0,
                                     }}>
                                         <item.icon />
                                     </div>
                                     <div>
                                         <div style={{
                                             fontFamily: 'var(--font-mono)',
-                                            fontSize: '0.65rem',
+                                            fontSize: '0.68rem',
                                             color: 'var(--text-muted)',
                                             textTransform: 'uppercase',
                                             letterSpacing: 1,
-                                            marginBottom: 2,
+                                            marginBottom: 3,
                                         }}>{item.label}</div>
                                         <div style={{
-                                            fontSize: '0.85rem',
+                                            fontSize: '0.95rem',
                                             color: 'var(--text-primary)',
                                             fontWeight: 500,
                                         }}>{item.value}</div>
@@ -204,45 +203,53 @@ export default function Contact() {
                                 </motion.a>
                             ))}
 
-                            {/* Social links */}
-                            <div style={{
-                                display: 'flex',
-                                gap: 12,
-                                marginTop: 16,
-                            }}>
-                                {socialLinks.map((link) => (
-                                    <motion.a
-                                        key={link.name}
-                                        href={link.url}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        whileHover={{ y: -3 }}
-                                        style={{
-                                            width: 44,
-                                            height: 44,
-                                            borderRadius: 4,
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            border: '1px solid rgba(195,17,12,0.08)',
-                                            background: 'var(--bg-glass)',
-                                            color: 'var(--text-muted)',
-                                            fontSize: '1.1rem',
-                                            transition: 'all 0.3s',
-                                        }}
-                                        onMouseEnter={(e) => {
-                                            e.currentTarget.style.color = 'var(--accent-primary)';
-                                            e.currentTarget.style.borderColor = 'rgba(195,17,12,0.3)';
-                                        }}
-                                        onMouseLeave={(e) => {
-                                            e.currentTarget.style.color = 'var(--text-muted)';
-                                            e.currentTarget.style.borderColor = 'rgba(195,17,12,0.08)';
-                                        }}
-                                        aria-label={link.name}
-                                    >
-                                        <link.icon />
-                                    </motion.a>
-                                ))}
+                            {/* Social Buttons Block */}
+                            <div className="glass-card" style={{ padding: 24, marginTop: 8 }}>
+                                <div style={{
+                                    fontFamily: 'var(--font-mono)',
+                                    fontSize: '0.7rem',
+                                    color: 'var(--text-muted)',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: 1.5,
+                                    marginBottom: 14,
+                                }}>
+                                    Developer Profiles
+                                </div>
+                                <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                                    {socialLinks.map((link) => (
+                                        <motion.a
+                                            key={link.name}
+                                            href={link.url}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            whileHover={{ y: -3, scale: 1.05 }}
+                                            style={{
+                                                display: 'inline-flex',
+                                                alignItems: 'center',
+                                                gap: 8,
+                                                padding: '9px 16px',
+                                                borderRadius: 'var(--border-radius-sm)',
+                                                border: '1px solid rgba(255, 255, 255, 0.08)',
+                                                background: 'rgba(10, 10, 15, 0.6)',
+                                                color: 'var(--text-secondary)',
+                                                fontSize: '0.85rem',
+                                                fontFamily: 'var(--font-display)',
+                                                textDecoration: 'none',
+                                                transition: 'all 0.25s',
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                e.currentTarget.style.color = 'var(--accent-cyan)';
+                                                e.currentTarget.style.borderColor = 'rgba(6, 182, 212, 0.3)';
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                e.currentTarget.style.color = 'var(--text-secondary)';
+                                                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                                            }}
+                                        >
+                                            <link.icon /> {link.name}
+                                        </motion.a>
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </ScrollReveal>
