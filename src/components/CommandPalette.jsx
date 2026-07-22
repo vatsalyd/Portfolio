@@ -40,48 +40,17 @@ export default function CommandPalette() {
 
     const navigate = (item) => {
         setIsOpen(false);
-        const el = document.querySelector(item.href);
-        if (el) el.scrollIntoView({ behavior: 'smooth' });
-        else if (item.href === '#hero') window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (item.href === '#hero') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+            const el = document.querySelector(item.href);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
     };
-
-    // Konami code easter egg
-    useEffect(() => {
-        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
-        let index = 0;
-
-        const handler = (e) => {
-            if (e.key === konamiCode[index]) {
-                index++;
-                if (index === konamiCode.length) {
-                    // Easter egg: party mode
-                    document.body.style.transition = 'filter 0.5s';
-                    document.body.style.filter = 'hue-rotate(90deg)';
-                    setTimeout(() => {
-                        document.body.style.filter = 'hue-rotate(180deg)';
-                    }, 500);
-                    setTimeout(() => {
-                        document.body.style.filter = 'hue-rotate(270deg)';
-                    }, 1000);
-                    setTimeout(() => {
-                        document.body.style.filter = 'hue-rotate(360deg)';
-                    }, 1500);
-                    setTimeout(() => {
-                        document.body.style.filter = 'none';
-                    }, 2000);
-                    index = 0;
-                }
-            } else {
-                index = 0;
-            }
-        };
-        window.addEventListener('keydown', handler);
-        return () => window.removeEventListener('keydown', handler);
-    }, []);
 
     return (
         <>
-            {/* Trigger hint */}
+            {/* Trigger hint button */}
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -96,20 +65,22 @@ export default function CommandPalette() {
                     alignItems: 'center',
                     gap: 8,
                     padding: '8px 16px',
-                    background: 'var(--bg-card)',
-                    border: 'var(--border-glass)',
-                    borderRadius: 50,
+                    background: 'rgba(22, 22, 34, 0.85)',
+                    border: '1px solid rgba(139, 92, 246, 0.25)',
+                    borderRadius: 'var(--border-radius-pill)',
                     cursor: 'pointer',
-                    backdropFilter: 'blur(10px)',
+                    backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
                     fontSize: '0.8rem',
-                    color: 'var(--text-muted)',
+                    color: 'var(--text-secondary)',
                     fontFamily: 'var(--font-mono)',
+                    boxShadow: '0 4px 20px rgba(0,0,0,0.5)',
                 }}
             >
-                <FiCommand /> Ctrl+K
+                <FiCommand style={{ color: 'var(--accent-violet)' }} /> Ctrl+K
             </motion.div>
 
-            {/* Modal */}
+            {/* Command Palette Modal */}
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
@@ -121,41 +92,44 @@ export default function CommandPalette() {
                             position: 'fixed',
                             inset: 0,
                             zIndex: 99999,
-                            background: 'rgba(0,0,0,0.6)',
+                            background: 'rgba(5, 5, 10, 0.75)',
                             display: 'flex',
                             alignItems: 'flex-start',
                             justifyContent: 'center',
-                            paddingTop: '20vh',
-                            backdropFilter: 'blur(4px)',
+                            paddingTop: '18vh',
+                            backdropFilter: 'blur(8px)',
+                            WebkitBackdropFilter: 'blur(8px)',
                         }}
                     >
                         <motion.div
-                            initial={{ scale: 0.95, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0.95, opacity: 0 }}
+                            initial={{ scale: 0.95, opacity: 0, y: -10 }}
+                            animate={{ scale: 1, opacity: 1, y: 0 }}
+                            exit={{ scale: 0.95, opacity: 0, y: -10 }}
                             onClick={(e) => e.stopPropagation()}
                             className="glass-card"
                             style={{
                                 width: '100%',
-                                maxWidth: 500,
+                                maxWidth: 520,
                                 overflow: 'hidden',
                                 margin: '0 16px',
+                                border: '1px solid rgba(139, 92, 246, 0.3)',
+                                boxShadow: '0 20px 60px rgba(0,0,0,0.8)',
                             }}
                         >
-                            {/* Search input */}
+                            {/* Search Input Bar */}
                             <div style={{
                                 display: 'flex',
                                 alignItems: 'center',
                                 gap: 12,
                                 padding: '16px 20px',
-                                borderBottom: 'var(--border-glass)',
+                                borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
                             }}>
-                                <FiSearch style={{ color: 'var(--accent-cyan)', fontSize: '1.1rem', flexShrink: 0 }} />
+                                <FiSearch style={{ color: 'var(--accent-violet)', fontSize: '1.15rem', flexShrink: 0 }} />
                                 <input
                                     ref={inputRef}
                                     value={query}
                                     onChange={(e) => setQuery(e.target.value)}
-                                    placeholder="Search sections, actions..."
+                                    placeholder="Search sections or commands..."
                                     style={{
                                         flex: 1,
                                         background: 'none',
@@ -167,11 +141,11 @@ export default function CommandPalette() {
                                     }}
                                 />
                                 <kbd style={{
-                                    padding: '2px 8px',
-                                    fontSize: '0.7rem',
+                                    padding: '3px 8px',
+                                    fontSize: '0.68rem',
                                     fontFamily: 'var(--font-mono)',
-                                    background: 'rgba(255,255,255,0.05)',
-                                    border: 'var(--border-glass)',
+                                    background: 'rgba(255,255,255,0.06)',
+                                    border: '1px solid rgba(255,255,255,0.1)',
                                     borderRadius: 4,
                                     color: 'var(--text-muted)',
                                 }}>
@@ -179,18 +153,18 @@ export default function CommandPalette() {
                                 </kbd>
                             </div>
 
-                            {/* Results */}
-                            <div style={{ padding: '8px 0', maxHeight: 300, overflow: 'auto' }}>
+                            {/* Search Results List */}
+                            <div style={{ padding: '8px 0', maxHeight: 320, overflowY: 'auto' }}>
                                 {filtered.length === 0 && (
                                     <p style={{
-                                        padding: '12px 20px',
+                                        padding: '16px 20px',
                                         color: 'var(--text-muted)',
                                         fontSize: '0.9rem',
                                     }}>
-                                        No results found.
+                                        No matching commands found.
                                     </p>
                                 )}
-                                {filtered.map((item, i) => (
+                                {filtered.map((item) => (
                                     <motion.button
                                         key={item.name}
                                         onClick={() => navigate(item)}
@@ -205,20 +179,20 @@ export default function CommandPalette() {
                                             border: 'none',
                                             color: 'var(--text-primary)',
                                             fontFamily: 'var(--font-primary)',
-                                            fontSize: '0.9rem',
+                                            fontSize: '0.92rem',
                                             cursor: 'pointer',
                                             textAlign: 'left',
                                             transition: 'background 0.2s',
                                         }}
-                                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.03)'}
+                                        onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(139, 92, 246, 0.08)'}
                                         onMouseLeave={(e) => e.currentTarget.style.background = 'none'}
                                     >
                                         <span style={{
                                             fontFamily: 'var(--font-mono)',
-                                            fontSize: '0.7rem',
+                                            fontSize: '0.72rem',
                                             color: 'var(--accent-cyan)',
                                             padding: '2px 8px',
-                                            background: 'rgba(0,240,255,0.1)',
+                                            background: 'rgba(6, 182, 212, 0.1)',
                                             borderRadius: 4,
                                         }}>
                                             {item.type === 'section' ? '§' : '⚡'}
