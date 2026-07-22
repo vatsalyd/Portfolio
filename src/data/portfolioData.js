@@ -1,9 +1,9 @@
 // ── Portfolio Data — Single Source of Truth ──
-// Edit this file to customize all content on the site.
+// Updated to reflect latest resume details (IIT Bhilai B.Tech DSAI, CGPA 7.61, Incrivelsoft Internship, FinSight AI)
 
 import { FaPython, FaDocker, FaGitAlt, FaAws, FaGithub, FaLinkedin, FaKaggle } from 'react-icons/fa';
-import { SiTensorflow, SiPytorch, SiScikitlearn, SiPandas, SiNumpy, SiMongodb, SiStreamlit, SiLangchain, SiFastapi, SiOpenai, SiLeetcode } from 'react-icons/si';
-import { TbBrandVscode, TbRobot, TbApi } from 'react-icons/tb';
+import { SiPytorch, SiScikitlearn, SiPandas, SiNumpy, SiMongodb, SiStreamlit, SiLangchain, SiFastapi, SiOpenai, SiLeetcode } from 'react-icons/si';
+import { TbBrandVscode, TbRobot, TbApi, TbBrain, TbDatabase, TbServer } from 'react-icons/tb';
 import { BiLogoJavascript, BiLogoTypescript } from 'react-icons/bi';
 
 export const personalInfo = {
@@ -13,18 +13,18 @@ export const personalInfo = {
   initials: "VY",
   roles: [
     "AI & ML Engineer",
+    "Multi-Agent Systems Builder",
     "Data Scientist",
-    "Generative AI Developer",
-    "LLM Systems Builder",
+    "LLM Pipeline Architect",
   ],
-  bio: "I build intelligent systems that turn raw data into real-world impact. Specializing in Machine Learning, Generative AI, and Data Science — I architect models, multi-agent frameworks, and scalable AI pipelines.",
+  bio: "B.Tech student in Data Science & AI at IIT Bhilai and AI & ML Intern at Incrivelsoft. I architect autonomous multi-agent frameworks, RAG pipelines, and production machine learning models that turn complex data into intelligent action.",
   email: "vatsal.y.official@gmail.com",
   phone: "+91 7983709173",
-  location: "India",
+  location: "Bhilai / Agra, India",
   university: "Indian Institute of Technology (IIT) Bhilai",
   degree: "B.Tech in Data Science & Artificial Intelligence",
-  year: "1st Year",
-  gpa: "9.2 / 10",
+  year: "2nd Year (2024 – 2028)",
+  gpa: "7.61 / 10.0",
   resumeLink: "/Portfolio/resume.pdf",
   avatarUrl: null,
 };
@@ -37,168 +37,182 @@ export const socialLinks = [
 ];
 
 export const stats = [
+  { label: "CGPA (IIT Bhilai)", value: 7.61 },
   { label: "AI & ML Projects", value: 6, suffix: "+" },
-  { label: "Data Pipelines", value: 10, suffix: "+" },
-  { label: "Models Deployed", value: 5, suffix: "+" },
+  { label: "Models & Agents Deployed", value: 5, suffix: "+" },
+  { label: "Hackathon Participants Mentored", value: 100, suffix: "+" },
 ];
 
 export const skillCategories = [
   {
-    name: "AI/ML Specializations",
-    subtitle: "High-priority capabilities aligned with current industry demand",
-    accent: "#C3110C",
+    name: "AI & Multi-Agent Engineering",
+    subtitle: "Autonomous agentic workflows, LLM orchestration, and RAG systems",
+    icon: TbBrain,
     skills: [
-      { name: "Generative AI", icon: TbRobot, level: 90, color: "#C3110C", evidence: "HelixDesk, LLM projects" },
-      { name: "Multi-Agent Systems", icon: TbRobot, level: 92, color: "#E6501B", evidence: "Multi-Agent-System-Planning" },
-      { name: "Retrieval-Augmented Generation (RAG)", icon: TbApi, level: 88, color: "#FF7A4A", evidence: "HelixDesk" },
-      { name: "RAG Pipelines", icon: TbApi, level: 88, color: "#E6501B", evidence: "HelixDesk" },
-      { name: "Prompt Engineering", icon: TbApi, level: 87, color: "#B8C0CC", evidence: "LLM orchestration workflows" },
-      { name: "Model Evaluation & Fine-tuning", icon: TbApi, level: 85, color: "#E6501B", evidence: "JobFit-AI" },
-      { name: "Model Evaluation", icon: TbApi, level: 85, color: "#FF7A4A", evidence: "JobFit-AI" },
-      { name: "Feature Engineering", icon: TbApi, level: 88, color: "#C3110C", evidence: "JobFit-AI" },
-      { name: "Tool Orchestration", icon: TbApi, level: 87, color: "#EE4C2C", evidence: "Multi-Agent-System-Planning" },
-      { name: "Natural Language Processing (NLP)", icon: TbRobot, level: 86, color: "#C3110C", evidence: "JobFit-AI" },
-      { name: "Machine Learning", icon: TbApi, level: 90, color: "#F7931E", evidence: "JobFit-AI, music-mood-classifier" },
-      { name: "Deep Learning", icon: SiPytorch, level: 82, color: "#EE4C2C", evidence: "Sentence-BERT workflows" },
+      { name: "Multi-Agent Systems", category: "Core", icon: TbRobot, tag: "LangGraph / NUMAA.ai" },
+      { name: "LangGraph", category: "Framework", icon: TbRobot, tag: "State Machines" },
+      { name: "LangChain", category: "Framework", icon: SiLangchain, tag: "Agentic Chains" },
+      { name: "Retrieval-Augmented Generation (RAG)", category: "Architecture", icon: TbApi, tag: "ChromaDB / Vector Search" },
+      { name: "Prompt Engineering", category: "LLMs", icon: TbApi, tag: "ReAct / Dynamic Prompting" },
+      { name: "OpenAI / Groq API", category: "LLMs", icon: SiOpenai, tag: "Llama-3.3-70b / GPT-4o" },
+      { name: "Inter-Agent Protocols", category: "Architecture", icon: TbServer, tag: "State Handoffs" },
+      { name: "ReAct Framework", category: "Architecture", icon: TbBrain, tag: "Thought-Action Loops" },
     ]
   },
   {
-    name: "Languages & Frameworks",
-    subtitle: "Core languages and frameworks for AI engineering",
-    accent: "#E6501B",
+    name: "Machine Learning & NLP",
+    subtitle: "Predictive modeling, deep learning, sentence transformers, and evaluation",
+    icon: TbRobot,
     skills: [
-      { name: "Python", icon: FaPython, level: 95, color: "#3776AB", evidence: "All core repos" },
-      { name: "LangChain", icon: SiLangchain, level: 90, color: "#E6501B", evidence: "HelixDesk" },
-      { name: "LangGraph", icon: TbRobot, level: 92, color: "#C3110C", evidence: "HelixDesk" },
-      { name: "FastAPI", icon: SiFastapi, level: 89, color: "#009688", evidence: "HelixDesk" },
-      { name: "Hugging Face Transformers", icon: TbRobot, level: 82, color: "#FF7A4A", evidence: "JobFit-AI" },
-      { name: "PyTorch", icon: SiPytorch, level: 80, color: "#EE4C2C", evidence: "JobFit-AI" },
-      { name: "Sentence Transformers", icon: SiPytorch, level: 87, color: "#C3110C", evidence: "HelixDesk, JobFit-AI" },
-      { name: "TensorFlow", icon: SiTensorflow, level: 72, color: "#FF6F00", evidence: "AI coursework" },
-      { name: "Scikit-learn", icon: SiScikitlearn, level: 90, color: "#F7931E", evidence: "JobFit-AI, music-mood-classifier" },
-      { name: "XGBoost", icon: TbApi, level: 84, color: "#C3110C", evidence: "JobFit-AI" },
-      { name: "OpenAI API", icon: SiOpenai, level: 86, color: "#B8C0CC", evidence: "LLM projects" },
-      { name: "Groq API", icon: SiOpenai, level: 88, color: "#E6501B", evidence: "HelixDesk" },
-      { name: "Flask", icon: TbApi, level: 75, color: "#E6501B", evidence: "Python backend experimentation" },
-      { name: "JavaScript", icon: BiLogoJavascript, level: 74, color: "#F7DF1E", evidence: "Web projects" },
-      { name: "TypeScript", icon: BiLogoTypescript, level: 72, color: "#3178C6", evidence: "DSAI-club-Website" },
-      { name: "SQL", icon: TbApi, level: 82, color: "#C3110C", evidence: "Data workflows" },
-      { name: "C", icon: TbApi, level: 66, color: "#B8C0CC", evidence: "no.-guesser" },
+      { name: "PyTorch", category: "Deep Learning", icon: SiPytorch, tag: "Neural Networks" },
+      { name: "Sentence Transformers (SBERT)", category: "NLP", icon: SiPytorch, tag: "Dual-Encoders / Embeddings" },
+      { name: "Scikit-learn", category: "Machine Learning", icon: SiScikitlearn, tag: "Regression / Classification" },
+      { name: "XGBoost", category: "Machine Learning", icon: TbApi, tag: "Gradient Boosting" },
+      { name: "Natural Language Processing (NLP)", category: "Domain", icon: TbBrain, tag: "spaCy / Tokenization" },
+      { name: "Audio ML (librosa)", category: "Domain", icon: TbRobot, tag: "MFCCs / Spectral Feature Extract" },
+      { name: "Feature Engineering", category: "Data Science", icon: TbDatabase, tag: "TF-IDF / Jaccard / Cosine" },
+      { name: "Model Calibration & Ranking", category: "MLOps", icon: TbApi, tag: "Rank-based Scoring" },
     ]
   },
   {
-    name: "Cloud & MLOps",
-    subtitle: "Productionization, deployment, and AI delivery pipelines",
-    accent: "#740A03",
+    name: "Backend, Cloud & MLOps",
+    subtitle: "Production deployment, microservices, containerization, and REST APIs",
+    icon: TbServer,
     skills: [
-      { name: "Docker", icon: FaDocker, level: 82, color: "#2496ED", evidence: "HelixDesk" },
-      { name: "MLflow", icon: TbApi, level: 74, color: "#E6501B", evidence: "Model tracking workflows" },
-      { name: "AWS (EC2)", icon: FaAws, level: 76, color: "#FF9900", evidence: "HelixDesk deployment" },
-      { name: "AWS (ECS)", icon: FaAws, level: 70, color: "#C3110C", evidence: "Container orchestration familiarity" },
-      { name: "GitHub Actions", icon: FaGitAlt, level: 78, color: "#F05032", evidence: "HelixDesk CI/CD" },
-      { name: "Uvicorn", icon: TbApi, level: 82, color: "#B8C0CC", evidence: "HelixDesk" },
-      { name: "Pydantic", icon: TbApi, level: 84, color: "#FF7A4A", evidence: "HelixDesk" },
-      { name: "Model Monitoring", icon: TbApi, level: 78, color: "#E6501B", evidence: "Evaluation-first ML workflow" },
-      { name: "Pytest", icon: TbApi, level: 80, color: "#C3110C", evidence: "HelixDesk tests" },
+      { name: "FastAPI", category: "Backend", icon: SiFastapi, tag: "Async REST APIs" },
+      { name: "Docker", category: "Containerization", icon: FaDocker, tag: "Microservices" },
+      { name: "AWS EC2 / ECR", category: "Cloud", icon: FaAws, tag: "Cloud Infrastructure" },
+      { name: "GitHub Actions (CI/CD)", category: "DevOps", icon: FaGitAlt, tag: "Push-to-Deploy Pipelines" },
+      { name: "ChromaDB", category: "Databases", icon: SiMongodb, tag: "Vector Database" },
+      { name: "Streamlit", category: "Deployment", icon: SiStreamlit, tag: "Interactive AI Interfaces" },
+      { name: "Server-Sent Events (SSE)", category: "Streaming", icon: TbServer, tag: "Real-time Streaming" },
+      { name: "Python", category: "Language", icon: FaPython, tag: "Primary Stack" },
     ]
   },
   {
-    name: "Tools & Libraries",
-    subtitle: "Data, experimentation, visualization, and applied AI tooling",
-    accent: "#B8C0CC",
+    name: "Data Science & Development Tools",
+    subtitle: "Data manipulation, analytics visualization, and core languages",
+    icon: TbDatabase,
     skills: [
-      { name: "Pandas", icon: SiPandas, level: 90, color: "#150458", evidence: "JobFit-AI, music-mood-classifier" },
-      { name: "NumPy", icon: SiNumpy, level: 89, color: "#4D77CF", evidence: "JobFit-AI, music-mood-classifier" },
-      { name: "Matplotlib", icon: TbApi, level: 82, color: "#E6501B", evidence: "Notebook analysis workflows" },
-      { name: "Seaborn", icon: TbApi, level: 80, color: "#C3110C", evidence: "Notebook analysis workflows" },
-      { name: "Plotly", icon: TbApi, level: 82, color: "#B8C0CC", evidence: "JobFit-AI visual analytics" },
-      { name: "librosa", icon: TbRobot, level: 82, color: "#EE4C2C", evidence: "music-mood-classifier" },
-      { name: "spaCy", icon: TbRobot, level: 86, color: "#C3110C", evidence: "JobFit-AI" },
-      { name: "OpenCV", icon: TbRobot, level: 72, color: "#E6501B", evidence: "Computer vision coursework" },
-      { name: "Streamlit", icon: SiStreamlit, level: 88, color: "#FF4B4B", evidence: "JobFit-AI, music-mood-classifier" },
-      { name: "FAISS", icon: TbApi, level: 80, color: "#E6501B", evidence: "Vector search work" },
-      { name: "Pinecone", icon: SiMongodb, level: 78, color: "#C3110C", evidence: "RAG familiarity" },
-      { name: "ChromaDB", icon: SiMongodb, level: 86, color: "#B8C0CC", evidence: "HelixDesk" },
-      { name: "Selenium", icon: TbRobot, level: 80, color: "#C3110C", evidence: "Automation workflows" },
-      { name: "BeautifulSoup", icon: TbRobot, level: 84, color: "#E6501B", evidence: "Data extraction tasks" },
-      { name: "Jupyter Notebooks", icon: TbApi, level: 90, color: "#FF7A4A", evidence: "JobFit-AI, music-mood-classifier" },
-      { name: "RapidFuzz", icon: TbApi, level: 82, color: "#E6501B", evidence: "JobFit-AI" },
-      { name: "PyPDF2 / DOCX Parsing", icon: TbApi, level: 78, color: "#B8C0CC", evidence: "JobFit-AI" },
-      { name: "Git", icon: FaGitAlt, level: 90, color: "#F05032", evidence: "All repos" },
-      { name: "VS Code", icon: TbBrandVscode, level: 93, color: "#007ACC", evidence: "Daily workflow" },
+      { name: "Pandas & NumPy", category: "Data Manipulation", icon: SiPandas, tag: "Vectorized Analytics" },
+      { name: "Matplotlib / Seaborn / Plotly", category: "Visualization", icon: TbDatabase, tag: "Exploratory Analytics" },
+      { name: "SQL", category: "Databases", icon: TbDatabase, tag: "Relational Queries" },
+      { name: "C Language", category: "Systems", icon: TbApi, tag: "Systems Programming" },
+      { name: "TypeScript / JavaScript", category: "Web", icon: BiLogoTypescript, tag: "Frontend & Web Apps" },
+      { name: "Git & GitHub", category: "Version Control", icon: FaGitAlt, tag: "Collaborative Workflows" },
+      { name: "VS Code & Linux", category: "Environment", icon: TbBrandVscode, tag: "Development Setup" },
     ]
   },
 ];
 
 export const projects = [
   {
-    title: "HelixDesk",
-    description: "Deployed a multi-agent AI system for enterprise support teams that resolves tickets using specialized agents (classify, research, draft). Architecture: State-machine orchestrated agent graph backed by ChromaDB vector search over internal knowledge bases.",
-    tags: ["LangGraph", "Groq", "ChromaDB", "FastAPI", "Sentence-BERT", "Docker"],
+    title: "HelixDesk — Enterprise Support Intelligence",
+    description: "Enterprise multi-agent customer support system powered by a 3-agent LangGraph state machine (Triage → Retrieval → Resolution) using Llama-3.3-70b via Groq. Features auto-escalation for low-confidence tickets, semantic ChromaDB search with Sentence-Transformers for citation-backed responses, and FastAPI REST endpoints integrated with Slack & webhooks. Achieves ~1.8s average resolution time.",
+    tags: ["LangGraph", "Llama-3.3-70b", "ChromaDB", "FastAPI", "Docker", "AWS EC2", "CI/CD"],
     category: "AI",
     image: null,
     github: "https://github.com/vatsalyd/Multi-Agent-System-Planning",
+    live: "http://44.214.206.48:8000/api/v1/docs",
+    featured: true,
+  },
+  {
+    title: "FinSight AI — Intelligent Portfolio Co-Pilot",
+    description: "Real-time AI financial microservice featuring a 4-stage pipeline (Rate Limiter → Safety Guard → Intent Classifier → Agent Router) classifying queries across 10 financial domains with 100% accuracy. Includes a Portfolio Health Agent computing CAGR, benchmark alpha, and concentration risk from live yfinance data, streamed via Server-Sent Events (SSE) with 166ms cached latency.",
+    tags: ["Python", "FastAPI", "SSE", "yfinance", "Rate Limiter", "Financial AI"],
+    category: "AI",
+    image: null,
+    github: "https://github.com/vatsalyd",
     live: null,
     featured: true,
   },
   {
-    title: "JobFit AI",
-    description: "AI-powered resume–job description matching system with multi-model scoring. Extracts skills via SpaCy NER and fuzzy matching, computes rule-based overlap, ML-based feature scoring (Random Forest/XGBoost), and semantic similarity via fine-tuned Sentence-BERT (all-MiniLM-L6-v2). Interactive Streamlit UI for instant gap analysis.",
-    tags: ["SpaCy", "Sentence-BERT", "Scikit-learn", "Streamlit", "NLP", "Python"],
-    category: "AI",
+    title: "JobFit-AI — Resume Matching Engine",
+    description: "3-model resume-JD matching system trained on 13,000+ pairs across 24 job categories. Combines spaCy skill NER, XGBoost trained on 10 custom feature metrics (TF-IDF, Jaccard, SBERT cosine), and a fine-tuned Sentence-BERT dual-encoder. Deployed on AWS EC2 (t3.small) via containerized Streamlit.",
+    tags: ["XGBoost", "PyTorch", "Sentence-BERT", "spaCy", "Streamlit", "AWS EC2"],
+    category: "ML",
     image: null,
     github: "https://github.com/vatsalyd/JobFit-AI",
-    live: null,
+    live: "http://54.211.51.42:8501/",
     featured: true,
   },
   {
     title: "Music Mood Classifier",
-    description: "Audio mood prediction system that classifies songs into mood categories (happy, sad, romantic, dramatic, angry) by extracting acoustic features — tempo, spectral centroid, chroma STFT, ZCR, and MFCCs — using librosa. Trained with Random Forest Classifier and deployed via Streamlit web app and CLI predictor.",
-    tags: ["librosa", "Scikit-learn", "Streamlit", "Audio ML", "Python"],
+    description: "Audio classification system that predicts song moods (happy, sad, romantic, dramatic, angry) by extracting acoustic features — tempo, spectral centroid, chroma STFT, ZCR, and MFCCs — using librosa. Trained with Random Forest Classifiers and served via Streamlit.",
+    tags: ["librosa", "Scikit-learn", "Random Forest", "Audio ML", "Streamlit"],
     category: "ML",
     image: null,
     github: "https://github.com/vatsalyd/music-mood-classifier",
     live: null,
-    featured: true,
-  },
-  {
-    title: "ShiftSync",
-    description: "Cross-platform mobile application built with React Native and Expo for shift scheduling and team coordination. Features real-time sync, component-based architecture, and custom hooks for state management.",
-    tags: ["React Native", "Expo", "TypeScript", "Mobile", "JavaScript"],
-    category: "Dev",
-    image: null,
-    github: "https://github.com/vatsalyd/ShiftSync",
-    live: null,
-    featured: true,
+    featured: false,
   },
   {
     title: "ReAct Paper Implementation",
-    description: "From-scratch educational implementation of ReAct: Synergizing Reasoning and Acting in Language Models (ICLR 2023). Features a minimal reasoning loop (Thought → Action → Observation) with Wikipedia Search/Lookup tools, custom LLM wrapper for Groq/OpenAI, and few-shot evaluation on HotpotQA and FEVER.",
-    tags: ["ReAct", "Agents", "Groq", "Python", "LLMs", "NLP"],
+    description: "From-scratch Python implementation of ReAct: Synergizing Reasoning and Acting in Language Models (ICLR 2023). Implements an autonomous Thought → Action → Observation loop with Wikipedia search tools and few-shot evaluation on HotpotQA and FEVER.",
+    tags: ["ReAct", "LangChain", "Groq", "Python", "LLMs"],
     category: "AI",
     image: null,
     github: "https://github.com/vatsalyd/ReAct-Paper-Implementation",
     live: null,
-    featured: true,
+    featured: false,
+  },
+  {
+    title: "ShiftSync — Shift Scheduling App",
+    description: "Cross-platform mobile application built with React Native and Expo for shift scheduling and team coordination. Features real-time state sync, component architecture, and custom hooks.",
+    tags: ["React Native", "Expo", "TypeScript", "Mobile"],
+    category: "Dev",
+    image: null,
+    github: "https://github.com/vatsalyd/ShiftSync",
+    live: null,
+    featured: false,
   },
 ];
 
 export const experience = [
   {
     type: "experience",
-    title: "Core Member / Leading Member — DSAI Club",
-    organization: "IIT Bhilai",
-    period: "2024 – Present",
-    description: "Core and leading member of the Data Science & Artificial Intelligence Club at IIT Bhilai. Organizing technical workshops, mentoring peers in ML/DL, and leading teams on AI research projects.",
-    skills: ["Leadership", "ML/DL", "Workshops", "Research"],
+    title: "AI & ML Intern",
+    organization: "Incrivelsoft Private Limited",
+    period: "May 2026 – Present",
+    location: "Remote",
+    description: "Owning end-to-end development of the Nutrition Agent within the NUMAA.ai multi-agent platform. Regulating core agent functionality, diagnosing production bugs, and shipping feature enhancements for response quality. Designing inter-agent communication flows and state-handoff protocols with domain agents.",
+    skills: ["Multi-Agent Systems", "NUMAA.ai", "State Handoffs", "Agent Orchestration", "Python"],
+  },
+  {
+    type: "experience",
+    title: "Coordinator | Core Member",
+    organization: "Data Science & AI Club (DSAI), IIT Bhilai",
+    period: "Aug 2024 – Present",
+    location: "Bhilai, Chhattisgarh",
+    description: "Promoted to Coordinator overseeing the club's AI/ML initiatives. Organized a high-impact hackathon at Meraz (IIT Bhilai's annual fest) for 100+ participants, delivered machine learning workshops, and mentored junior members in deep learning and data science.",
+    skills: ["Leadership", "Hackathon Management", "ML Workshops", "Mentorship"],
+  },
+  {
+    type: "experience",
+    title: "Student Volunteer",
+    organization: "Centre for Career Planning & Services (CCPS), IIT Bhilai",
+    period: "Sep 2024 – Present",
+    location: "Bhilai, Chhattisgarh",
+    description: "Leading outreach to 100+ companies for campus placement drives. Maintaining recruiter relational databases and coordinating official placement communications and logistics.",
+    skills: ["Corporate Outreach", "Database Management", "Event Coordination"],
   },
   {
     type: "education",
-    title: "B.Tech — Data Science & AI",
+    title: "B.Tech in Data Science & Artificial Intelligence",
     organization: "Indian Institute of Technology (IIT) Bhilai",
     period: "2024 – 2028",
-    description: "Specializing in Data Science & Artificial Intelligence. Coursework includes Machine Learning, Deep Learning, NLP, Computer Vision, and Multi-Agent Systems.",
-    skills: ["DSAI", "IIT Bhilai"],
+    location: "Bhilai, Chhattisgarh",
+    description: "Current CGPA: 7.61 / 10.0. Core coursework includes Machine Learning, Deep Learning, Natural Language Processing, Computer Vision, Multi-Agent Systems, Data Structures & Algorithms, and Linear Algebra.",
+    skills: ["Data Science", "Artificial Intelligence", "IIT Bhilai", "CGPA 7.61"],
+  },
+  {
+    type: "education",
+    title: "Class XII (ICSE / ISC)",
+    organization: "St. Peters College",
+    period: "2023",
+    location: "Agra, Uttar Pradesh",
+    description: "Completed Grade 12 with 94% aggregate score.",
+    skills: ["Mathematics", "Physics", "Computer Science"],
   },
 ];
 
@@ -209,51 +223,3 @@ export const navLinks = [
   { name: "Experience", href: "#experience" },
   { name: "Contact", href: "#contact" },
 ];
-
-export const dataShowcaseData = {
-  accuracyCurve: [
-    { epoch: 1, train: 0.45, val: 0.42 },
-    { epoch: 2, train: 0.62, val: 0.58 },
-    { epoch: 3, train: 0.74, val: 0.69 },
-    { epoch: 4, train: 0.82, val: 0.78 },
-    { epoch: 5, train: 0.87, val: 0.83 },
-    { epoch: 6, train: 0.91, val: 0.86 },
-    { epoch: 7, train: 0.93, val: 0.88 },
-    { epoch: 8, train: 0.95, val: 0.90 },
-    { epoch: 9, train: 0.96, val: 0.91 },
-    { epoch: 10, train: 0.97, val: 0.92 },
-  ],
-  featureImportance: [
-    { name: "Agent Reasoning", value: 0.95 },
-    { name: "Tool Selection", value: 0.88 },
-    { name: "Memory Recall", value: 0.82 },
-    { name: "Context Window", value: 0.76 },
-    { name: "Chain Planning", value: 0.70 },
-    { name: "Error Recovery", value: 0.64 },
-  ],
-  codeSnippet: `from langgraph.graph import StateGraph
-from langchain_groq import ChatGroq
-
-# Initialize HelixDesk agent pipeline
-llm = ChatGroq(model="llama-3.3-70b-versatile")
-
-# Define agent state machine
-graph = StateGraph(TicketState)
-graph.add_node("classifier", classify_ticket)
-graph.add_node("researcher", search_knowledge)
-graph.add_node("drafter", draft_resolution)
-
-# Add conditional routing
-graph.add_conditional_edges(
-    "classifier",
-    route_by_confidence,
-    {"research": "researcher", "escalate": END}
-)
-graph.add_edge("researcher", "drafter")
-
-# Compile and execute
-app = graph.compile()
-result = app.invoke({
-    "ticket": "VPN not connecting remotely"
-})`,
-};
