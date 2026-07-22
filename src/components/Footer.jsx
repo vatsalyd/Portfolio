@@ -1,14 +1,14 @@
 import { motion } from 'framer-motion';
 import { FiArrowUp } from 'react-icons/fi';
-import { FaGithub, FaLinkedin, FaKaggle } from 'react-icons/fa';
 import { personalInfo, socialLinks } from '../data/portfolioData';
 import VYLogo from './VYLogo';
 
 export default function Footer() {
     return (
         <footer style={{
-            padding: '40px 24px',
-            borderTop: '1px solid rgba(195,17,12,0.06)',
+            padding: '48px 24px 32px',
+            borderTop: '1px solid rgba(139, 92, 246, 0.12)',
+            background: '#07070B',
             position: 'relative',
             zIndex: 1,
         }}>
@@ -17,60 +17,49 @@ export default function Footer() {
                 alignItems: 'center',
                 justifyContent: 'space-between',
                 flexWrap: 'wrap',
-                gap: 16,
+                gap: 20,
             }}>
-                {/* Logo */}
-                <VYLogo size={28} />
-
-                {/* Social links */}
-                <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-                    {socialLinks.map((link) => (
-                        <motion.a
-                            key={link.name}
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            whileHover={{ y: -2 }}
-                            style={{
-                                color: 'var(--text-muted)',
-                                fontSize: '0.95rem',
-                                transition: 'color 0.3s',
-                            }}
-                            onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent-primary)'}
-                            onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-muted)'}
-                            aria-label={link.name}
-                        >
-                            <link.icon />
-                        </motion.a>
-                    ))}
+                {/* Logo & Name */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+                    <VYLogo size={28} />
+                    <span style={{
+                        fontFamily: 'var(--font-display)',
+                        fontWeight: 700,
+                        fontSize: '0.95rem',
+                        color: 'var(--text-heading)',
+                    }}>
+                        Vatsal Yadav
+                    </span>
                 </div>
 
                 {/* Copyright */}
                 <p style={{
                     fontFamily: 'var(--font-mono)',
-                    fontSize: '0.7rem',
+                    fontSize: '0.75rem',
                     color: 'var(--text-muted)',
-                    letterSpacing: 0.5,
+                    letterSpacing: 0.3,
                 }}>
-                    © {new Date().getFullYear()} {personalInfo.name}
+                    © {new Date().getFullYear()} Vatsal Yadav · Built with React, Vite & Framer Motion
                 </p>
 
                 {/* Back to top */}
                 <motion.button
-                    whileHover={{ y: -2 }}
+                    whileHover={{ y: -3 }}
                     whileTap={{ scale: 0.9 }}
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     style={{
-                        background: 'transparent',
-                        border: '1px solid rgba(195,17,12,0.12)',
-                        borderRadius: 4,
-                        width: 36,
-                        height: 36,
+                        background: 'rgba(22, 22, 34, 0.6)',
+                        border: '1px solid rgba(139, 92, 246, 0.25)',
+                        borderRadius: 'var(--border-radius-sm)',
+                        width: 38,
+                        height: 38,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         cursor: 'pointer',
-                        color: 'var(--accent-primary)',
+                        color: 'var(--accent-violet)',
+                        fontSize: '1.1rem',
+                        transition: 'all 0.25s',
                     }}
                     aria-label="Back to top"
                 >
