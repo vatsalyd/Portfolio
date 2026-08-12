@@ -135,7 +135,7 @@ export default function About() {
                             gridTemplateColumns: 'repeat(2, 1fr)',
                             gap: 16,
                         }} className="about-bento-grid">
-                            {bentoCards.map((card, i) => (
+                            {bentoCards.map((card) => (
                                 <motion.div
                                     key={card.label}
                                     className="glass-card"

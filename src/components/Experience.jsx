@@ -9,10 +9,10 @@ export default function Experience() {
             <div className="container">
                 <ScrollReveal>
                     <div className="section-header">
-                        <span className="section-label">// Experience & Journey</span>
+                        <span className="section-label">// Experience & Education</span>
                         <h2 className="section-title">Industry & Academic Track</h2>
                         <p className="section-subtitle">
-                            Professional AI engineering internship, campus leadership, and academic specialization
+                            Professional AI engineering internship, campus leadership, and academic milestones. Education entries are tinted cyan to tell them apart from work experience.
                         </p>
                     </div>
                 </ScrollReveal>
@@ -72,20 +72,36 @@ export default function Experience() {
                                                 gap: 8,
                                                 marginBottom: 10,
                                             }}>
-                                                <span style={{
-                                                    display: 'inline-flex',
-                                                    alignItems: 'center',
-                                                    gap: 6,
-                                                    fontFamily: 'var(--font-mono)',
-                                                    fontSize: '0.75rem',
-                                                    color: iconColor,
-                                                    background: badgeBg,
-                                                    padding: '4px 12px',
-                                                    borderRadius: 'var(--border-radius-pill)',
-                                                    border: `1px solid ${iconColor}30`,
-                                                }}>
-                                                    <FiCalendar /> {item.period}
-                                                </span>
+                                                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
+                                                    <span style={{
+                                                        display: 'inline-flex',
+                                                        alignItems: 'center',
+                                                        gap: 6,
+                                                        fontFamily: 'var(--font-mono)',
+                                                        fontSize: '0.75rem',
+                                                        color: iconColor,
+                                                        background: badgeBg,
+                                                        padding: '4px 12px',
+                                                        borderRadius: 'var(--border-radius-pill)',
+                                                        border: `1px solid ${iconColor}30`,
+                                                    }}>
+                                                        <FiCalendar /> {item.period}
+                                                    </span>
+                                                    <span style={{
+                                                        fontFamily: 'var(--font-mono)',
+                                                        fontSize: '0.66rem',
+                                                        textTransform: 'uppercase',
+                                                        letterSpacing: 1,
+                                                        color: iconColor,
+                                                        opacity: 0.85,
+                                                        border: `1px solid ${iconColor}25`,
+                                                        padding: '2px 8px',
+                                                        borderRadius: 'var(--border-radius-pill)',
+                                                        background: 'transparent',
+                                                    }}>
+                                                        {isExp ? 'Work' : 'Education'}
+                                                    </span>
+                                                </div>
                                                 {item.location && (
                                                     <span style={{
                                                         fontFamily: 'var(--font-mono)',

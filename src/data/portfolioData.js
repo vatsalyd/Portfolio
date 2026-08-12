@@ -217,9 +217,203 @@ export const experience = [
 ];
 
 export const navLinks = [
-  { name: "About", href: "#about" },
+  { name: "Intro", href: "#hero" },
+  { name: "Chat", href: "#chatbot" },
+  { name: "Open Source", href: "#opensource" },
   { name: "Skills", href: "#skills" },
   { name: "Projects", href: "#projects" },
   { name: "Experience", href: "#experience" },
-  { name: "Contact", href: "#contact" },
+  { name: "Articles", href: "#articles" },
+  { name: "Movies", href: "#movies" },
+  { name: "Reach Out", href: "#contact" },
 ];
+
+// Ordered list of sections for the Mentos Life guided tour.
+// meta.title shows in the tour progress indicator; meta.hint shows as the spotlight caption.
+export const tourSections = [
+  { id: "hero", name: "Intro", title: "Intro", hint: "That's me — Vatsal. AI/ML engineer, IIT Bhilai student." },
+  { id: "chatbot", name: "Chat", title: "Chat", hint: "Ask me anything — this little bot answers for me." },
+  { id: "opensource", name: "Open Source", title: "Open Source", hint: "Live GitHub activity, straight from the API." },
+  { id: "skills", name: "Skills", title: "Skills", hint: "Move your cursor — the boxes react. Physics, baby." },
+  { id: "projects", name: "Projects", title: "Projects", hint: "Click any card to open the full detail page." },
+  { id: "experience", name: "Experience", title: "Experience", hint: "Internship, leadership, and education timeline." },
+  { id: "articles", name: "Articles", title: "Articles", hint: "Things I've written. (Placeholders for now.)" },
+  { id: "movies", name: "Movies", title: "Movies", hint: "What I watch when I'm not training models." },
+  { id: "contact", name: "Reach Out", title: "Reach Out", hint: "Last stop. Drop a message and let's talk." },
+];
+
+// ── Chatbot ──
+// Casual & fun tone. Each entry: keywords[] to pattern-match (lowercased), and an `answer`.
+// The first matching entry wins, so order broad → specific.
+export const chatbotResponses = [
+  {
+    keywords: ["hi", "hello", "hey", "yo", "sup", "namaste"],
+    answer: "Heyy! 👋 I'm Vatsal's mini-bot. Ask me about his stack, his internship, his projects, or what he's looking for. Or just type whatever — I'll do my best.",
+  },
+  {
+    keywords: ["tech stack", "stack", "technologies", "tools", "what do you use", "frameworks"],
+    answer: "Vatsal's daily stack: Python + FastAPI for backends, LangGraph/LangChain for multi-agent systems, PyTorch + scikit-learn for ML, ChromaDB for RAG, Docker + AWS EC2 for deploy, and a sprinkle of Streamlit for quick UIs. TypeScript/React when the frontend needs love too.",
+  },
+  {
+    keywords: ["internship", "intern", "incrivelsoft", "numaa", "nutrition agent"],
+    answer: "He's currently an AI/ML Intern at Incrivelsoft, owning the Nutrition Agent inside the NUMAA.ai multi-agent platform — regulating agent behaviour, debugging production bugs, and designing inter-agent state handoffs. Started May 2026, remote.",
+  },
+  {
+    keywords: ["project", "projects", "work", "portfolio", "what have you built", "showcase"],
+    answer: "Top builds: HelixDesk (3-agent LangGraph support system, ~1.8s resolution), FinSight AI (4-stage financial microservice, 100% intent accuracy), and JobFit-AI (resume-JD matcher on 13k+ pairs, fine-tuned SBERT). Scroll down to the Projects section — each card opens a full detail page.",
+  },
+  {
+    keywords: ["looking for", "looking", "opportunity", "role", "job", "hire", "available"],
+    answer: "He's open to AI/ML Engineering internships & full-time roles, multi-agent / LLM / RAG work especially. Remote-first, but open to relocate for the right team. Currently based out of Bhilai/Agra, India.",
+  },
+  {
+    keywords: ["education", "college", "university", "iit", "study", "degree", "cgpa", "gpa"],
+    answer: "B.Tech in Data Science & AI at IIT Bhilai (2024–2028), current CGPA 7.61/10. Core coursework spans ML, DL, NLP, CV, multi-agent systems, DSA, and linear algebra.",
+  },
+  {
+    keywords: ["multi-agent", "agent", "langgraph", "langchain", "rag", "llm", "groq", "llama"],
+    answer: "Multi-agent systems are his happy place — LangGraph state machines, ReAct loops, RAG with ChromaDB + Sentence-Transformers, served via FastAPI with Llama-3.3-70b on Groq. HelixDesk and the ReAct paper implementation both live on his GitHub.",
+  },
+  {
+    keywords: ["resume", "cv", "download cv", "download resume"],
+    answer: "You can grab his resume from the 'Resume' button up in the navbar — top-right. PDF, always up to date.",
+  },
+  {
+    keywords: ["contact", "email", "reach", "phone", "get in touch", "message"],
+    answer: "Easiest: email him at vatsal.y.official@gmail.com. Or scroll to the 'Reach Out' section at the bottom — there's a form that goes straight to his inbox. He replies fast.",
+  },
+  {
+    keywords: ["github", "open source", "contributions", "commits", "prs", "pull request"],
+    answer: "His GitHub is github.com/vatsalyd — check the 'Open Source' section just below, it pulls live activity straight from the GitHub API. PRs, events, and a little heatmap.",
+  },
+  {
+    keywords: ["movies", "film", "favorite movie", "favourite", "cinema", "watch"],
+    answer: "Oh you noticed the Movies section 👀 — that's his vibe check. Sci-fi and mind-bendy stuff mostly. Scroll down to see the picks with his notes on why.",
+  },
+  {
+    keywords: ["where", "location", "based", "city", "live"],
+    answer: "Bhilai (Chhattisgarh) during the semester, Agra (UP) during breaks. Remote-friendly everywhere else.",
+  },
+];
+
+export const chatbotFallback = "Great question! For that one, reach out to me directly — vatsal.y.official@gmail.com. I'd rather give you a real answer than a guessed one.";
+
+export const chatbotSuggestions = [
+  "What's your tech stack?",
+  "Tell me about your internship",
+  "What have you built?",
+  "What are you looking for?",
+];
+
+// ── Articles (placeholder) ──
+// Replace `url`, `excerpt`, `date`, `readTime` with real values later.
+export const articles = [
+  {
+    title: "Building a 3-Agent Support System with LangGraph",
+    excerpt: "How I architected HelixDesk — a Triage → Retrieval → Resolution state machine using Llama-3.3-70b on Groq, semantic ChromaDB search, and auto-escalation for low-confidence tickets.",
+    date: "Jun 2026",
+    readTime: "8 min read",
+    url: "#",
+    tag: "Multi-Agent",
+  },
+  {
+    title: "ReAct from Scratch: Thought → Action → Observation",
+    excerpt: "A from-scratch Python implementation of the ReAct paper (ICLR 2023). Walking through the autonomous loop, Wikipedia tools, and few-shot evaluation on HotpotQA and FEVER.",
+    date: "May 2026",
+    readTime: "11 min read",
+    url: "#",
+    tag: "LLMs",
+  },
+  {
+    title: "Resume-JD Matching: 3 Models Beat 1",
+    excerpt: "Why a stacked spaCy NER + XGBoost + fine-tuned Sentence-BERT ensemble outperformed any single model on 13,000+ resume-JD pairs across 24 job categories.",
+    date: "Apr 2026",
+    readTime: "9 min read",
+    url: "#",
+    tag: "ML",
+  },
+  {
+    title: "Audio Mood Classification with librosa",
+    excerpt: "Extracting MFCCs, spectral centroid, chroma STFT, and ZCR — then predicting song mood with Random Forest. A small but fun audio ML walkthrough.",
+    date: "Mar 2026",
+    readTime: "6 min read",
+    url: "#",
+    tag: "Audio ML",
+  },
+  {
+    title: "SSE Over FastAPI for Real-Time AI Responses",
+    excerpt: "Streaming LLM tokens andpipeline progress to the client with Server-Sent Events — patterns, gotchas, and a 166ms cached-latency benchmark.",
+    date: "Feb 2026",
+    readTime: "7 min read",
+    url: "#",
+    tag: "Backend",
+  },
+  {
+    title: "From IIT Bhilai to Multi-Agent Internship",
+    excerpt: "How my DSAI coursework, DSAI Club leadership, and side projects lined up to land the Incrivelsoft internship — and what I learned in the first months.",
+    date: "Jan 2026",
+    readTime: "5 min read",
+    url: "#",
+    tag: "Journey",
+  },
+];
+
+// ── Favourite Movies (placeholder — swap with real picks later) ──
+export const favMovies = [
+  {
+    title: "Interstellar",
+    year: 2014,
+    note: "The time-dilation scene broke my brain. Gargantua physics + Hans Zimmer organs = perfect.",
+    accent: "violet",
+    emoji: "🪐",
+  },
+  {
+    title: "Inception",
+    year: 2010,
+    note: "Nested dreams as nested loop architectures.Christopher Nolan engineers stories like systems.",
+    accent: "cyan",
+    emoji: "🌀",
+  },
+  {
+    title: "The Matrix",
+    year: 1999,
+    note: "The OG. Every AI conversation leads back here eventually. Red pill, always.",
+    accent: "emerald",
+    emoji: "💊",
+  },
+  {
+    title: "Blade Runner 2049",
+    year: 2017,
+    note: "Visual mood-board for any agentic-system future. 'Tears in rain' energy throughout.",
+    accent: "amber",
+    emoji: "🌆",
+  },
+  {
+    title: "Arrival",
+    year: 2016,
+    note: "Linguistics as the real alien tech. Made me rethink how agents 'understand' each other.",
+    accent: "rose",
+    emoji: "🛸",
+  },
+  {
+    title: "Ex Machina",
+    year: 2014,
+    note: "Cautionary tale for anyone dating their own chatbot. Small cast, huge ideas.",
+    accent: "violet",
+    emoji: "🤖",
+  },
+];
+
+// ── GitHub Open Source / static fallback data ──
+// Used if the live API rate-limits. Keep the `events` shape matching GitHub's events API.
+export const githubUser = "vatsalyd";
+export const staticGithubFallback = {
+  repos: 17,
+  prs: [
+    { repo: "vatsalyd/Multi-Agent-System-Planning", title: "HelixDesk: 3-agent LangGraph state machine", state: "merged", createdAt: "2026-06-12" },
+    { repo: "vatsalyd/ReAct-Paper-Implementation", title: "ReAct Thought → Action → Observation loop", state: "merged", createdAt: "2026-05-08" },
+    { repo: "vatsalyd/JobFit-AI", title: "Stacked spaCy + XGBoost + SBERT matcher", state: "merged", createdAt: "2026-04-21" },
+    { repo: "vatsalyd/music-mood-classifier", title: "Audio feature extraction + Random Forest", state: "open", createdAt: "2026-03-15" },
+  ],
+  heatmap: Array.from({ length: 7 * 26 }, () => (Math.random() > 0.6 ? (Math.floor(Math.random() * 4) + 1) : 0)),
+};

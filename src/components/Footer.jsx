@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { FiArrowUp } from 'react-icons/fi';
-import { personalInfo, socialLinks } from '../data/portfolioData';
 import VYLogo from './VYLogo';
 
 export default function Footer() {

@@ -86,7 +86,7 @@ export default function Contact() {
             } else {
                 throw new Error('Failed to send');
             }
-        } catch (err) {
+        } catch {
             const mailtoLink = `mailto:${personalInfo.email}?subject=${encodeURIComponent(data.subject)}&body=${encodeURIComponent(`From: ${data.name} (${data.email})\n\n${data.message}`)}`;
             window.open(mailtoLink, '_blank');
             setStatus('sent');
@@ -107,10 +107,10 @@ export default function Contact() {
             <div className="container">
                 <ScrollReveal>
                     <div className="section-header">
-                        <span className="section-label">// Get In Touch</span>
-                        <h2 className="section-title">Let's Connect</h2>
+                        <span className="section-label">// Reach Out</span>
+                        <h2 className="section-title">Let's Talk</h2>
                         <p className="section-subtitle">
-                            Interested in collaborating on AI projects, multi-agent frameworks, or production ML development? Reach out directly.
+                            If any of that was interesting — the multi-agent stuff, the ML, the movies — drop a message. I read every one and reply fast.
                         </p>
                     </div>
                 </ScrollReveal>

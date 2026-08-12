@@ -23,7 +23,10 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // `motion` is whitelisted because ESLint's JSX parser doesn't count
+      // <motion.X> JSX member-expression tag names as a usage of the `motion`
+      // binding (known ESLint 9 quirk), even though motion IS used.
+      'no-unused-vars': ['error', { varsIgnorePattern: '^(motion|[A-Z_])' }],
     },
   },
 ])

@@ -126,7 +126,7 @@ jobs:
 
       - name: Push to Overleaf
         run: |
-          git remote add overleaf https://git.overleaf.com/\$OL_ID
+          git remote add overleaf https://git.overleaf.com/$OL_ID
           git subtree push --prefix=output/resume overleaf main
         env:
           OL_ID: \${{ secrets.OVERLEAF_PROJECT_ID }}`,

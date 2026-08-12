@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence, useScroll } from 'framer-motion';
+import { AnimatePresence, useScroll, motion } from 'framer-motion';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
 import { FiDownload } from 'react-icons/fi';
 import VYLogo from './VYLogo';
+import MentosLifeButton from './MentosLifeButton';
 import { navLinks, personalInfo } from '../data/portfolioData';
 
 export default function Navbar() {
@@ -137,6 +138,7 @@ export default function Navbar() {
 
                 {/* Resume button */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }} className="nav-right-actions">
+                    <MentosLifeButton />
                     <a
                         href={personalInfo.resumeLink}
                         className="glow-btn-outline"
@@ -238,6 +240,7 @@ export default function Navbar() {
           .nav-links-desktop { display: none !important; }
           .nav-hamburger { display: flex !important; }
           .nav-mobile-menu { display: flex !important; }
+          .nav-right-actions .mentos-btn { display: none !important; }
         }
       `}</style>
         </motion.nav>
