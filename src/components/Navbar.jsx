@@ -9,7 +9,7 @@ import { navLinks, personalInfo } from '../data/portfolioData';
 export default function Navbar() {
     const [scrolled, setScrolled] = useState(false);
     const [mobileOpen, setMobileOpen] = useState(false);
-    const [activeSection, setActiveSection] = useState('about');
+    const [activeSection, setActiveSection] = useState('hero');
     const { scrollYProgress } = useScroll();
 
     useEffect(() => {
@@ -47,16 +47,14 @@ export default function Navbar() {
                 left: 0,
                 right: 0,
                 zIndex: 1000,
-                padding: '0 24px',
-                height: 70,
+                padding: '0 32px',
+                height: 72,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                background: scrolled ? 'rgba(10, 10, 15, 0.85)' : 'transparent',
-                backdropFilter: scrolled ? 'blur(16px)' : 'none',
-                WebkitBackdropFilter: scrolled ? 'blur(16px)' : 'none',
-                borderBottom: scrolled ? '1px solid rgba(139, 92, 246, 0.12)' : '1px solid transparent',
-                transition: 'all 0.35s ease',
+                background: 'transparent',
+                borderBottom: scrolled ? '1px solid rgba(26, 26, 26, 0.08)' : '1px solid transparent',
+                transition: 'border-color 0.3s ease',
             }}
         >
             <div style={{
@@ -66,35 +64,49 @@ export default function Navbar() {
                 alignItems: 'center',
                 justifyContent: 'space-between',
             }}>
-                {/* Logo */}
+                {/* Boxed VY Logo — Noah style */}
                 <motion.a
                     href="#"
-                    whileHover={{ scale: 1.04 }}
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.98 }}
                     onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
-                    style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', textDecoration: 'none' }}
+                    style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', textDecoration: 'none' }}
                 >
-                    <VYLogo size={32} />
+                    <span style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: 38,
+                        height: 38,
+                        background: 'var(--text-heading)',
+                        color: 'var(--bg-primary)',
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '0.82rem',
+                        fontWeight: 700,
+                        letterSpacing: '0.02em',
+                        borderRadius: 'var(--border-radius)',
+                        border: '1px solid var(--text-heading)',
+                        boxShadow: '0 2px 8px rgba(26,26,26,0.12)',
+                        transition: 'all 0.2s ease',
+                    }}>
+                        VY
+                    </span>
                     <span style={{
                         fontFamily: 'var(--font-display)',
                         fontWeight: 700,
-                        fontSize: '1.05rem',
+                        fontSize: '0.95rem',
                         color: 'var(--text-heading)',
                         letterSpacing: '-0.02em',
                     }}>
-                        Vatsal<span style={{ color: 'var(--accent-violet)' }}>.</span>
+                        Vatsal Yadav
                     </span>
                 </motion.a>
 
-                {/* Desktop Nav */}
+                {/* Desktop Nav — plain editorial links */}
                 <div className="nav-links-desktop" style={{
                     display: 'flex',
                     alignItems: 'center',
-                    gap: 8,
-                    background: 'rgba(22, 22, 34, 0.5)',
-                    padding: '4px 8px',
-                    borderRadius: 'var(--border-radius-pill)',
-                    border: '1px solid rgba(255, 255, 255, 0.05)',
-                    backdropFilter: 'blur(10px)',
+                    gap: 32,
                 }}>
                     {navLinks.map((link) => {
                         const isActive = activeSection === link.href.replace('#', '');
@@ -104,49 +116,35 @@ export default function Navbar() {
                                 href={link.href}
                                 onClick={(e) => { e.preventDefault(); handleNavClick(link.href); }}
                                 style={{
-                                    fontFamily: 'var(--font-display)',
-                                    fontSize: '0.84rem',
-                                    fontWeight: 500,
-                                    color: isActive ? '#fff' : 'var(--text-secondary)',
-                                    padding: '7px 16px',
-                                    borderRadius: 'var(--border-radius-pill)',
-                                    position: 'relative',
-                                    transition: 'color 0.25s ease',
+                                    fontFamily: 'var(--font-primary)',
+                                    fontSize: '0.78rem',
+                                    fontWeight: isActive ? 700 : 400,
+                                    letterSpacing: '0.5px',
+                                    textTransform: 'uppercase',
+                                    color: isActive ? 'var(--accent-violet-dim)' : 'var(--text-secondary)',
+                                    padding: '6px 0 8px',
+                                    borderBottom: isActive ? '2px solid var(--accent-violet)' : '2px solid transparent',
                                     textDecoration: 'none',
+                                    transition: 'all 0.25s ease',
                                 }}
                             >
-                                {isActive && (
-                                    <motion.div
-                                        layoutId="nav-pill"
-                                        style={{
-                                            position: 'absolute',
-                                            inset: 0,
-                                            borderRadius: 'var(--border-radius-pill)',
-                                            background: 'var(--gradient-subtle)',
-                                            border: '1px solid rgba(139, 92, 246, 0.3)',
-                                            boxShadow: '0 0 16px rgba(139, 92, 246, 0.15)',
-                                            zIndex: -1,
-                                        }}
-                                        transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                                    />
-                                )}
                                 {link.name}
                             </a>
                         );
                     })}
                 </div>
 
-                {/* Resume button */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 12 }} className="nav-right-actions">
+                {/* Right actions: Mentos Life + Resume */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 16 }} className="nav-right-actions">
                     <MentosLifeButton />
                     <a
                         href={personalInfo.resumeLink}
                         className="glow-btn-outline"
-                        style={{ padding: '8px 18px', fontSize: '0.8rem', borderRadius: 'var(--border-radius-pill)' }}
+                        style={{ padding: '10px 20px', fontSize: '0.7rem' }}
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        <FiDownload style={{ fontSize: '0.9rem' }} /> Resume
+                        <FiDownload style={{ fontSize: '0.8rem', marginRight: 6 }} /> RESUME
                     </a>
 
                     {/* Mobile Toggle */}
@@ -157,7 +155,7 @@ export default function Navbar() {
                             background: 'none',
                             border: 'none',
                             color: 'var(--text-primary)',
-                            fontSize: '1.5rem',
+                            fontSize: '1.4rem',
                             cursor: 'pointer',
                             display: 'none',
                             alignItems: 'center',
@@ -181,18 +179,17 @@ export default function Navbar() {
                         className="nav-mobile-menu"
                         style={{
                             position: 'absolute',
-                            top: 70,
+                            top: 72,
                             left: 0,
                             right: 0,
-                            background: 'rgba(10, 10, 15, 0.96)',
-                            backdropFilter: 'blur(20px)',
-                            WebkitBackdropFilter: 'blur(20px)',
-                            padding: '24px 32px',
+                            background: 'var(--bg-card)',
+                            borderBottom: '1px solid rgba(26, 26, 26, 0.08)',
+                            padding: '28px 32px',
                             display: 'flex',
                             flexDirection: 'column',
-                            gap: 16,
-                            borderBottom: '1px solid rgba(139, 92, 246, 0.15)',
+                            gap: 20,
                             overflow: 'hidden',
+                            boxShadow: '0 12px 32px rgba(26,26,26,0.08)',
                         }}
                     >
                         {navLinks.map((link, i) => (
@@ -205,11 +202,16 @@ export default function Navbar() {
                                 transition={{ delay: i * 0.05 }}
                                 style={{
                                     fontFamily: 'var(--font-display)',
-                                    fontSize: '1.05rem',
-                                    fontWeight: 600,
-                                    color: activeSection === link.href.replace('#', '') ? 'var(--accent-violet)' : 'var(--text-secondary)',
-                                    padding: '8px 0',
+                                    fontSize: '1.1rem',
+                                    fontWeight: 500,
+                                    color: activeSection === link.href.replace('#', '')
+                                        ? 'var(--accent-violet-dim)'
+                                        : 'var(--text-primary)',
+                                    padding: '6px 0',
                                     textDecoration: 'none',
+                                    borderBottom: activeSection === link.href.replace('#', '')
+                                        ? '2px solid var(--accent-violet)'
+                                        : 'none',
                                 }}
                             >
                                 {link.name}
@@ -219,7 +221,7 @@ export default function Navbar() {
                 )}
             </AnimatePresence>
 
-            {/* Scroll progress bar line */}
+            {/* Scroll progress bar line — mentos violet */}
             <motion.div
                 style={{
                     position: 'absolute',
@@ -229,8 +231,8 @@ export default function Navbar() {
                     height: 2,
                     scaleX: scrollYProgress,
                     transformOrigin: 'left',
-                    background: 'var(--gradient-aurora)',
-                    boxShadow: '0 0 10px rgba(139, 92, 246, 0.5)',
+                    background: 'var(--accent-violet)',
+                    boxShadow: '0 0 10px rgba(202, 130, 248, 0.4)',
                 }}
             />
 
