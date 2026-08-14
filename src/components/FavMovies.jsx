@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import { FiFilm } from 'react-icons/fi';
 import ScrollReveal from './ScrollReveal';
+import EditorialSection from './EditorialSection';
 import { favMovies } from '../data/portfolioData';
 
 function MovieCard({ movie, index }) {
@@ -14,18 +15,15 @@ function MovieCard({ movie, index }) {
         const y = e.clientY - rect.top;
         const cx = rect.width / 2;
         const cy = rect.height / 2;
-        const rx = ((y - cy) / cy) * -8; // tilt X (rotateX)
-        const ry = ((x - cx) / cx) * 8;  // tilt Y (rotateY)
+        const rx = ((y - cy) / cy) * -8;
+        const ry = ((x - cx) / cx) * 8;
         el.style.transform = `perspective(700px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateZ(0)`;
-        // Subtle glow that follows cursor
-        el.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(139,92,246,0.12), var(--bg-card) 60%)`;
     };
 
     const handleLeave = () => {
         const el = ref.current;
         if (!el) return;
         el.style.transform = 'perspective(700px) rotateX(0deg) rotateY(0deg) translateZ(0)';
-        el.style.background = '';
     };
 
     return (
@@ -37,12 +35,14 @@ function MovieCard({ movie, index }) {
                 onMouseLeave={handleLeave}
                 style={{ transition: 'transform 0.18s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease' }}
             >
-                <div className="movie-emoji">{movie.emoji}</div>
-                <div>
+                <div className="movie-poster">
+                    <span className="movie-emoji">{movie.emoji}</span>
+                </div>
+                <div className="movie-body">
                     <div className="movie-title">{movie.title}</div>
                     <div className="movie-year">{movie.year}</div>
+                    <div className="movie-note">{movie.note}</div>
                 </div>
-                <div className="movie-note">{movie.note}</div>
             </div>
         </ScrollReveal>
     );
@@ -50,7 +50,12 @@ function MovieCard({ movie, index }) {
 
 export default function FavMovies() {
     return (
-        <section id="movies" className="section">
+        <EditorialSection
+            id="movies"
+            ghost="REELS"
+            eyebrowIndex="08"
+            eyebrowLabel="REELS"
+        >
             <div className="container">
                 <ScrollReveal>
                     <div className="section-header">
@@ -90,6 +95,6 @@ export default function FavMovies() {
                     Placeholder picks — swap me out for real favourites later.
                 </div>
             </div>
-        </section>
+        </EditorialSection>
     );
 }

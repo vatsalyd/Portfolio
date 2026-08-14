@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { FiSend, FiMail, FiPhone, FiMapPin, FiCheck, FiAlertCircle } from 'react-icons/fi';
 import ScrollReveal from './ScrollReveal';
+import EditorialSection from './EditorialSection';
 import { personalInfo, socialLinks } from '../data/portfolioData';
 
 function FloatingInput({ label, type = 'text', name, required = true, textarea = false }) {
@@ -23,14 +24,14 @@ function FloatingInput({ label, type = 'text', name, required = true, textarea =
                     fontSize: '0.95rem',
                     fontFamily: 'var(--font-primary)',
                     color: 'var(--text-primary)',
-                    background: 'rgba(10, 10, 15, 0.6)',
-                    border: `1px solid ${focused ? 'rgba(139, 92, 246, 0.45)' : 'rgba(255, 255, 255, 0.08)'}`,
+                    background: 'var(--bg-secondary)',
+                    border: `1px solid ${focused ? 'rgba(202, 130, 248, 0.45)' : 'rgba(26, 26, 26, 0.12)'}`,
                     borderRadius: 'var(--border-radius-sm)',
                     outline: 'none',
                     resize: textarea ? 'vertical' : 'none',
                     minHeight: textarea ? 130 : 'auto',
                     transition: 'all 0.25s ease',
-                    boxShadow: focused ? '0 0 16px rgba(139, 92, 246, 0.15)' : 'none',
+                    boxShadow: focused ? '0 0 16px rgba(202, 130, 248, 0.15)' : 'none',
                 }}
             />
             <label style={{
@@ -52,7 +53,7 @@ function FloatingInput({ label, type = 'text', name, required = true, textarea =
 }
 
 export default function Contact() {
-    const [status, setStatus] = useState('idle'); // idle | sending | sent | error
+    const [status, setStatus] = useState('idle');
     const formRef = useRef(null);
 
     const handleSubmit = async (e) => {
@@ -97,13 +98,18 @@ export default function Contact() {
 
     const buttonContent = {
         idle: <><FiSend /> Send Message</>,
-        sending: <><motion.span animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }} style={{ display: 'inline-block' }}>⟳</motion.span> Sending...</>,
+        sending: <><motion.span animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }} style={{ display: 'inline-block' }}>���</motion.span> Sending...</>,
         sent: <><FiCheck /> Message Sent!</>,
         error: <><FiAlertCircle /> Try Again</>,
     };
 
     return (
-        <section id="contact" className="section">
+        <EditorialSection
+            id="contact"
+            ghost="REACH"
+            eyebrowIndex="09"
+            eyebrowLabel="REACH"
+        >
             <div className="container">
                 <ScrollReveal>
                     <div className="section-header">
@@ -177,8 +183,8 @@ export default function Contact() {
                                         display: 'flex',
                                         alignItems: 'center',
                                         justifyContent: 'center',
-                                        background: 'rgba(139, 92, 246, 0.1)',
-                                        border: '1px solid rgba(139, 92, 246, 0.2)',
+                                        background: 'rgba(202, 130, 248, 0.12)',
+                                        border: '1px solid rgba(202, 130, 248, 0.3)',
                                         color: 'var(--accent-violet)',
                                         fontSize: '1.15rem',
                                         flexShrink: 0,
@@ -229,8 +235,8 @@ export default function Contact() {
                                                 gap: 8,
                                                 padding: '9px 16px',
                                                 borderRadius: 'var(--border-radius-sm)',
-                                                border: '1px solid rgba(255, 255, 255, 0.08)',
-                                                background: 'rgba(10, 10, 15, 0.6)',
+                                                border: '1px solid rgba(26,26,26,0.1)',
+                                                background: 'var(--bg-secondary)',
                                                 color: 'var(--text-secondary)',
                                                 fontSize: '0.85rem',
                                                 fontFamily: 'var(--font-display)',
@@ -239,11 +245,11 @@ export default function Contact() {
                                             }}
                                             onMouseEnter={(e) => {
                                                 e.currentTarget.style.color = 'var(--accent-cyan)';
-                                                e.currentTarget.style.borderColor = 'rgba(6, 182, 212, 0.3)';
+                                                e.currentTarget.style.borderColor = 'rgba(42,140,140,0.4)';
                                             }}
                                             onMouseLeave={(e) => {
                                                 e.currentTarget.style.color = 'var(--text-secondary)';
-                                                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                                                e.currentTarget.style.borderColor = 'rgba(26,26,26,0.1)';
                                             }}
                                         >
                                             <link.icon /> {link.name}
@@ -254,13 +260,13 @@ export default function Contact() {
                         </div>
                     </ScrollReveal>
                 </div>
-            </div>
 
-            <style>{`
-        @media (max-width: 768px) {
-          .contact-grid { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
-        </section>
+                <style>{`
+            @media (max-width: 768px) {
+              .contact-grid { grid-template-columns: 1fr !important; }
+            }
+          `}</style>
+            </div>
+        </EditorialSection>
     );
 }

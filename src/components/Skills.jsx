@@ -1,8 +1,8 @@
 import { useRef, useEffect, useState } from 'react';
 import ScrollReveal from './ScrollReveal';
+import EditorialSection from './EditorialSection';
 import { skillCategories } from '../data/portfolioData';
 
-// Flatten to physics skill objects. Category → accent class for color coding.
 const AI = 'AI', ML = 'ML', Backend = 'Backend', Data = 'Data';
 const CATEGORY_MAP = {
     'AI & Multi-Agent Engineering': AI,
@@ -37,8 +37,7 @@ export default function Skills() {
     const [hint, setHint] = useState('Move your cursor through the boxes.');
     const [ready, setReady] = useState(false);
 
-    // Physics state (refs — not React state, to avoid re-renders every frame)
-    const boxesRef = useRef([]); // [{ el, x, y, vx, vy, w, h, accentClass, name, Icon }]
+    const boxesRef = useRef([]);
     const mouseRef = useRef({ x: -9999, y: -9999, active: false });
     const rafRef = useRef(0);
     const sizeRef = useRef({ w: 0, h: 0 });
@@ -47,26 +46,22 @@ export default function Skills() {
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
-        if (initializedRef.current) return; // initialize once
+        if (initializedRef.current) return;
         initializedRef.current = true;
 
-        // Build skill elements in DOM (absolute positioned .physics-skill)
         const skillList = buildSkills();
         const boxes = skillList.map((s) => {
             const el = document.createElement('div');
             el.className = `physics-skill cat-${s.accentClass}`;
             const Icon = s.icon;
             el.innerHTML = `<span class="physics-skill-icon">${Icon ? '' : ''}</span><span class="physics-skill-name"></span>`;
-            // Set text via textContent for the name (we render the icon via React component below won't work — use react-icons's rendered approach)
-            // Since react-icons renders SVG components, but we're constructing DOM manually here, we'll use a unicode glyph fallback per category.
             const nameEl = el.querySelector('.physics-skill-name');
             nameEl.textContent = s.name;
             const iconEl = el.querySelector('.physics-skill-icon');
-            // Category glyph (since react-icons must be JSX, use emoji-ish per accent)
             const glyph = s.accentClass === AI ? '◆'
-                : s.accentClass === ML ? '∑'
-                : s.accentClass === Backend ? '⌗'
-                : '▤';
+                : s.accentClass === ML ? '��'
+                : s.accentClass === Backend ? '���'
+                : '��';
             iconEl.textContent = glyph;
             container.appendChild(el);
 
@@ -84,7 +79,6 @@ export default function Skills() {
         });
         boxesRef.current = boxes;
 
-        // Measure sizes after layout
         requestAnimationFrame(() => {
             boxes.forEach((b) => {
                 const r = b.el.getBoundingClientRect();
@@ -118,7 +112,6 @@ export default function Skills() {
             mouseRef.current.x = e.touches[0].clientX - rect.left;
             mouseRef.current.y = e.touches[0].clientY - rect.top;
             mouseRef.current.active = true;
-            // Brief ripple — deactivate after 600ms
             clearTimeout(rippleTimer);
             rippleTimer = setTimeout(() => { mouseRef.current.active = false; }, 600);
         };
@@ -129,7 +122,6 @@ export default function Skills() {
         container.addEventListener('touchmove', onTouch, { passive: true });
         container.addEventListener('touchstart', onTouch, { passive: true });
 
-        // Main physics loop
         const tick = () => {
             const { w: W, h: H } = sizeRef.current;
             const boxes = boxesRef.current;
@@ -139,7 +131,6 @@ export default function Skills() {
                 const b = boxes[i];
                 if (!b.w || !b.h) continue;
 
-                // Mouse repulsion
                 if (mouse.active) {
                     const dx = b.x + b.w / 2 - mouse.x;
                     const dy = b.y + b.h / 2 - mouse.y;
@@ -151,22 +142,15 @@ export default function Skills() {
                     }
                 }
 
-                // Gravity
                 b.vy += PHYSICS.gravity;
-
-                // Damping
                 b.vx *= PHYSICS.damping;
                 b.vy *= PHYSICS.damping;
-
-                // Integrate
                 b.x += b.vx;
                 b.y += b.vy;
 
-                // Walls
                 if (b.x < 0) { b.x = 0; b.vx = -b.vx * PHYSICS.wallBounce; }
                 if (b.x + b.w > W) { b.x = W - b.w; b.vx = -b.vx * PHYSICS.wallBounce; }
                 if (b.y < 0) { b.y = 0; b.vy = -b.vy * PHYSICS.wallBounce; }
-                // Floor
                 if (b.y + b.h > H) {
                     b.y = H - b.h;
                     b.vy = -b.vy * PHYSICS.wallBounce;
@@ -174,7 +158,6 @@ export default function Skills() {
                 }
             }
 
-            // Box-box AABB collisions (simple resolve — separate on min overlap axis)
             for (let i = 0; i < boxes.length; i++) {
                 const a = boxes[i];
                 if (!a.w) continue;
@@ -207,7 +190,6 @@ export default function Skills() {
                 }
             }
 
-            // Apply to DOM (batched transform set)
             for (let i = 0; i < boxes.length; i++) {
                 const b = boxes[i];
                 if (!b.w) continue;
@@ -217,7 +199,6 @@ export default function Skills() {
         };
         rafRef.current = requestAnimationFrame(tick);
 
-        // After 3s of no movement, switch hint
         const hintTimer = setTimeout(() => setHint('Tap to scatter — your cursor is a force field.'), 4000);
 
         return () => {
@@ -229,14 +210,12 @@ export default function Skills() {
             container.removeEventListener('touchstart', onTouch);
             clearTimeout(hintTimer);
             clearTimeout(rippleTimer);
-            // remove skill elements
             boxes.forEach((b) => b.el?.remove());
             boxesRef.current = [];
             initializedRef.current = false;
         };
     }, []);
 
-    // Category legend
     const legendItems = [
         { label: 'AI', class: 'cat-AI' },
         { label: 'ML', class: 'cat-ML' },
@@ -245,7 +224,12 @@ export default function Skills() {
     ];
 
     return (
-        <section id="skills" className="section">
+        <EditorialSection
+            id="skills"
+            ghost="SKILLS"
+            eyebrowIndex="04"
+            eyebrowLabel="SKILLS"
+        >
             <div className="container">
                 <ScrollReveal>
                     <div className="section-header">
@@ -293,6 +277,6 @@ export default function Skills() {
                     </div>
                 </ScrollReveal>
             </div>
-        </section>
+        </EditorialSection>
     );
 }

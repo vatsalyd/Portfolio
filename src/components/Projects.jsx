@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiGithub, FiExternalLink, FiStar, FiLayers, FiArrowLeft, FiCheckCircle } from 'react-icons/fi';
 import ScrollReveal from './ScrollReveal';
+import EditorialSection from './EditorialSection';
 import { projects } from '../data/portfolioData';
 
 const categories = ['All', 'AI', 'ML', 'Dev'];
@@ -14,86 +15,27 @@ function ProjectCard({ project, index, onClick }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ delay: index * 0.06, duration: 0.4 }}
-            className="glass-card"
+            className="article-card"
             onClick={onClick}
-            style={{
-                padding: 0,
-                overflow: 'hidden',
-                cursor: 'pointer',
-                display: 'flex',
-                flexDirection: 'column',
-                height: '100%',
-                position: 'relative',
-            }}
+            style={{ cursor: 'pointer', height: '100%' }}
         >
-            <div style={{
-                height: 3,
-                background: project.featured ? 'var(--gradient-aurora-wide)' : 'var(--gradient-subtle)',
-                transition: 'all 0.3s ease',
-            }} />
-
-            <div style={{ padding: 28, display: 'flex', flexDirection: 'column', flex: 1 }}>
-                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 12 }}>
-                    <h3 style={{
-                        fontSize: '1.2rem',
-                        color: 'var(--text-heading)',
-                        fontWeight: 700,
-                        lineHeight: 1.3,
-                    }}>
-                        {project.title}
-                    </h3>
-                    {project.featured && (
-                        <span style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: 4,
-                            padding: '3px 9px',
-                            fontSize: '0.65rem',
-                            fontFamily: 'var(--font-mono)',
-                            color: 'var(--accent-amber)',
-                            background: 'rgba(245, 158, 11, 0.1)',
-                            border: '1px solid rgba(245, 158, 11, 0.25)',
-                            borderRadius: 'var(--border-radius-pill)',
-                            textTransform: 'uppercase',
-                            letterSpacing: 0.5,
-                            flexShrink: 0,
-                        }}>
-                            <FiStar style={{ fontSize: '0.7rem' }} /> Featured
-                        </span>
-                    )}
-                </div>
-
-                <p style={{
-                    fontSize: '0.9rem',
-                    color: 'var(--text-secondary)',
-                    lineHeight: 1.7,
-                    marginBottom: 20,
-                    flex: 1,
-                    display: '-webkit-box',
-                    WebkitLineClamp: 4,
-                    WebkitBoxOrient: 'vertical',
-                    overflow: 'hidden',
-                }}>
-                    {project.description}
-                </p>
-
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 24 }}>
-                    {project.tags.map(tag => (
-                        <span key={tag} className="tag">{tag}</span>
-                    ))}
-                </div>
-
-                <div style={{ display: 'flex', gap: 14, marginTop: 'auto', paddingTop: 12, borderTop: '1px solid rgba(255,255,255,0.04)' }}>
-                    <div style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        gap: 6,
-                        fontSize: '0.82rem',
-                        color: 'var(--accent-violet)',
-                        fontFamily: 'var(--font-mono)',
-                    }}>
-                        <FiLayers /> View details
-                    </div>
+            <div className="article-cover">
+                <span className="article-cover-glyph">{project.featured ? '★' : '#'}</span>
+            </div>
+            <div className="article-body">
+                <span className="article-tag">{project.category}</span>
+                <h3 className="article-title">{project.title}</h3>
+                <p className="article-excerpt">{project.description}</p>
+                <div className="article-meta">
+                    <span>
+                        <FiLayers style={{ marginRight: 6 }} />
+                        {project.tags.slice(0, 3).join(', ')}{project.tags.length > 3 ? ' …' : ''}
+                    </span>
+                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>
+                        {project.featured && (
+                            <FiStar style={{ fontSize: '0.7rem', color: 'var(--accent-amber)' }} />
+                        )}
+                    </span>
                 </div>
             </div>
         </motion.div>
@@ -101,9 +43,7 @@ function ProjectCard({ project, index, onClick }) {
 }
 
 function ProjectDetail({ project, onBack }) {
-    // Build a simple text-based "architecture diagram"
     const arch = buildArchDiagram(project);
-
     const bullets = buildProjectBullets(project);
 
     return (
@@ -136,7 +76,7 @@ function ProjectDetail({ project, onBack }) {
                     <FiLayers /> {project.category} Project
                 </div>
 
-                <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', marginBottom: 16, color: '#fff' }}>
+                <h2 style={{ fontSize: 'clamp(1.5rem, 3vw, 2rem)', marginBottom: 16, color: 'var(--text-heading)' }}>
                     {project.title}
                 </h2>
 
@@ -144,7 +84,6 @@ function ProjectDetail({ project, onBack }) {
                     {project.description}
                 </p>
 
-                {/* Bullet highlights */}
                 {bullets.length > 0 && (
                     <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 28px', display: 'flex', flexDirection: 'column', gap: 10 }}>
                         {bullets.map((b, i) => (
@@ -156,7 +95,6 @@ function ProjectDetail({ project, onBack }) {
                     </ul>
                 )}
 
-                {/* Tech stack breakdown */}
                 <div style={{ marginBottom: 28 }}>
                     <div style={{
                         fontFamily: 'var(--font-mono)',
@@ -175,7 +113,6 @@ function ProjectDetail({ project, onBack }) {
                     </div>
                 </div>
 
-                {/* Architecture diagram (text-based, ASCII-ish) */}
                 {arch && (
                     <div style={{ marginBottom: 28 }}>
                         <div style={{
@@ -192,7 +129,6 @@ function ProjectDetail({ project, onBack }) {
                     </div>
                 )}
 
-                {/* Action links */}
                 <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
                     {project.github && (
                         <a href={project.github} target="_blank" rel="noopener noreferrer" className="glow-btn-outline" style={{ padding: '11px 22px' }}>
@@ -211,7 +147,6 @@ function ProjectDetail({ project, onBack }) {
 }
 
 function buildProjectBullets(project) {
-    // Derive bullets from description tags + known projects
     const tagBullets = {
         'LangGraph': 'State machines across multiple agents with explicit handoffs',
         'Llama-3.3-70b': 'LLM served via Groq for low-latency inference',
@@ -236,15 +171,15 @@ function buildProjectBullets(project) {
 
 function buildArchDiagram(project) {
     const lines = [];
-    lines.push('┌────────────┐    ┌────────────────────┐    ┌──────────────┐');
+    lines.push('��────────────��    ��────────────────────��    ��──────────────��');
     lines.push('│   Input    │ →  │   Processing Core  │ →  │   Response   │');
     lines.push('│  (client)  │    │   (agent pipeline) │    │  (streaming) │');
-    lines.push('└────────────┘    └────────────────────┘    └──────────────┘');
+    lines.push('��────────────��    └────────────────────��    └──────────────��');
     if (project.tags.includes('ChromaDB')) {
         lines.push('                          ↑');
-        lines.push('                  ┌───────────────┐');
+        lines.push('                  ��───────────────��');
         lines.push('                  │   ChromaDB    │  ← semantic recall');
-        lines.push('                  └───────────────┘');
+        lines.push('                  └───────────────��');
     }
     if (project.tags.includes('Docker') || project.tags.includes('AWS EC2')) {
         lines.push('                     [ Docker container → AWS EC2 ]');
@@ -259,7 +194,12 @@ export default function Projects() {
     const filtered = filter === 'All' ? projects : projects.filter(p => p.category === filter);
 
     return (
-        <section id="projects" className="section">
+        <EditorialSection
+            id="projects"
+            ghost="WORK"
+            eyebrowIndex="05"
+            eyebrowLabel="WORK"
+        >
             <div className="container">
                 {selectedProject ? (
                     <ProjectDetail project={selectedProject} onBack={() => setSelectedProject(null)} />
@@ -278,7 +218,7 @@ export default function Projects() {
                         <ScrollReveal delay={0.1}>
                             <div style={{
                                 display: 'flex',
-                                justifyContent: 'center',
+                                justifyContent: 'flex-start',
                                 gap: 10,
                                 marginBottom: 44,
                                 flexWrap: 'wrap',
@@ -292,12 +232,14 @@ export default function Projects() {
                                         style={{
                                             padding: '8px 22px',
                                             borderRadius: 'var(--border-radius-pill)',
-                                            border: filter === cat ? '1px solid rgba(139, 92, 246, 0.4)' : '1px solid rgba(255, 255, 255, 0.06)',
-                                            fontFamily: 'var(--font-display)',
-                                            fontWeight: filter === cat ? 600 : 500,
-                                            fontSize: '0.86rem',
+                                            border: filter === cat ? '1px solid var(--accent-violet)' : '1px solid rgba(26,26,26,0.1)',
+                                            fontFamily: 'var(--font-primary)',
+                                            fontWeight: filter === cat ? 700 : 400,
+                                            fontSize: '0.74rem',
+                                            letterSpacing: '1.5px',
+                                            textTransform: 'uppercase',
                                             cursor: 'pointer',
-                                            background: filter === cat ? 'var(--gradient-subtle)' : 'rgba(22, 22, 34, 0.4)',
+                                            background: filter === cat ? 'var(--accent-violet)' : 'transparent',
                                             color: filter === cat ? '#fff' : 'var(--text-secondary)',
                                             transition: 'all 0.3s ease',
                                         }}
@@ -312,7 +254,7 @@ export default function Projects() {
                             layout
                             style={{
                                 display: 'grid',
-                                gridTemplateColumns: 'repeat(auto-fill, minmax(330px, 1fr))',
+                                gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
                                 gap: 24,
                             }}
                         >
@@ -333,6 +275,6 @@ export default function Projects() {
                     </>
                 )}
             </div>
-        </section>
+        </EditorialSection>
     );
 }

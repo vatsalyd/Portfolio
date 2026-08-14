@@ -5,11 +5,11 @@ import VYLogo from './VYLogo';
 export default function Footer() {
     return (
         <footer style={{
-            padding: '48px 24px 32px',
-            borderTop: '1px solid rgba(139, 92, 246, 0.12)',
-            background: '#07070B',
+            padding: '64px 32px 40px',
+            borderTop: '1px solid rgba(26, 26, 26, 0.08)',
             position: 'relative',
             zIndex: 1,
+            background: 'var(--bg-secondary)',
         }}>
             <div className="container" style={{
                 display: 'flex',
@@ -18,14 +18,31 @@ export default function Footer() {
                 flexWrap: 'wrap',
                 gap: 20,
             }}>
-                {/* Logo & Name */}
+                {/* Boxed VY Logo — Noah style */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                    <VYLogo size={28} />
+                    <span style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        width: 42,
+                        height: 42,
+                        background: 'var(--text-heading)',
+                        color: 'var(--bg-primary)',
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '0.9rem',
+                        fontWeight: 700,
+                        letterSpacing: '0.02em',
+                        borderRadius: 'var(--border-radius)',
+                        border: '1px solid var(--text-heading)',
+                    }}>
+                        VY
+                    </span>
                     <span style={{
                         fontFamily: 'var(--font-display)',
                         fontWeight: 700,
                         fontSize: '0.95rem',
                         color: 'var(--text-heading)',
+                        letterSpacing: '-0.02em',
                     }}>
                         Vatsal Yadav
                     </span>
@@ -47,11 +64,11 @@ export default function Footer() {
                     whileTap={{ scale: 0.9 }}
                     onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                     style={{
-                        background: 'rgba(22, 22, 34, 0.6)',
-                        border: '1px solid rgba(139, 92, 246, 0.25)',
+                        background: 'var(--bg-card)',
+                        border: '1px solid rgba(26, 26, 26, 0.1)',
                         borderRadius: 'var(--border-radius-sm)',
-                        width: 38,
-                        height: 38,
+                        width: 40,
+                        height: 40,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',

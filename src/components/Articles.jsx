@@ -1,10 +1,16 @@
 import { FiExternalLink, FiClock, FiFileText } from 'react-icons/fi';
 import ScrollReveal from './ScrollReveal';
+import EditorialSection from './EditorialSection';
 import { articles } from '../data/portfolioData';
 
 export default function Articles() {
     return (
-        <section id="articles" className="section">
+        <EditorialSection
+            id="articles"
+            ghost="NOTES"
+            eyebrowIndex="07"
+            eyebrowLabel="NOTES"
+        >
             <div className="container">
                 <ScrollReveal>
                     <div className="section-header">
@@ -32,40 +38,20 @@ export default function Articles() {
                                 className="article-card"
                                 style={{ display: 'flex', flexDirection: 'column' }}
                             >
-                                <div style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'space-between',
-                                    marginBottom: 14,
-                                }}>
-                                    <div style={{
-                                        width: 42,
-                                        height: 42,
-                                        borderRadius: 'var(--border-radius-sm)',
-                                        background: 'rgba(139, 92, 246, 0.08)',
-                                        border: '1px solid rgba(139, 92, 246, 0.2)',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        color: 'var(--accent-violet)',
-                                        fontSize: '1.1rem',
-                                    }}>
-                                        <FiFileText />
-                                    </div>
-                                    {article.url !== '#' && (
-                                        <FiExternalLink style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }} />
-                                    )}
+                                <div className="article-cover">
+                                    <span className="article-cover-glyph">�</span>
                                 </div>
+                                <div className="article-body">
+                                    <span className="article-tag">{article.tag}</span>
+                                    <h3 className="article-title">{article.title}</h3>
+                                    <p className="article-excerpt">{article.excerpt}</p>
 
-                                <span className="article-tag">{article.tag}</span>
-                                <h3 className="article-title">{article.title}</h3>
-                                <p className="article-excerpt">{article.excerpt}</p>
-
-                                <div className="article-meta">
-                                    <span>{article.date}</span>
-                                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>
-                                        <FiClock style={{ fontSize: '0.74rem' }} /> {article.readTime}
-                                    </span>
+                                    <div className="article-meta">
+                                        <span>{article.date}</span>
+                                        <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>
+                                            <FiClock style={{ fontSize: '0.74rem' }} /> {article.readTime}
+                                        </span>
+                                    </div>
                                 </div>
                             </a>
                         </ScrollReveal>
@@ -84,6 +70,6 @@ export default function Articles() {
                     </p>
                 )}
             </div>
-        </section>
+        </EditorialSection>
     );
 }

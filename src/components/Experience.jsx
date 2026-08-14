@@ -1,11 +1,17 @@
 import { motion } from 'framer-motion';
 import { FiBriefcase, FiBook, FiMapPin, FiCalendar, FiCheckCircle } from 'react-icons/fi';
 import ScrollReveal from './ScrollReveal';
+import EditorialSection from './EditorialSection';
 import { experience } from '../data/portfolioData';
 
 export default function Experience() {
     return (
-        <section id="experience" className="section">
+        <EditorialSection
+            id="experience"
+            ghost="EXPERIENCE"
+            eyebrowIndex="06"
+            eyebrowLabel="EXPERIENCE"
+        >
             <div className="container">
                 <ScrollReveal>
                     <div className="section-header">
@@ -25,7 +31,7 @@ export default function Experience() {
                         top: 24,
                         bottom: 24,
                         width: 2,
-                        background: 'linear-gradient(180deg, var(--accent-violet), var(--accent-cyan), rgba(255,255,255,0.05))',
+                        background: 'linear-gradient(180deg, var(--accent-violet), var(--accent-cyan), rgba(26,26,26,0.05))',
                         borderRadius: 1,
                     }} className="timeline-spine" />
 
@@ -33,7 +39,7 @@ export default function Experience() {
                         {experience.map((item, index) => {
                             const isExp = item.type === 'experience';
                             const iconColor = isExp ? 'var(--accent-violet)' : 'var(--accent-cyan)';
-                            const badgeBg = isExp ? 'rgba(139, 92, 246, 0.1)' : 'rgba(6, 182, 212, 0.1)';
+                            const badgeBg = isExp ? 'rgba(202, 130, 248, 0.12)' : 'rgba(42, 140, 140, 0.12)';
 
                             return (
                                 <ScrollReveal key={index} delay={index * 0.1}>
@@ -48,7 +54,7 @@ export default function Experience() {
                                             width: 56,
                                             height: 56,
                                             borderRadius: '50%',
-                                            background: '#0A0A0F',
+                                            background: 'var(--bg-card)',
                                             border: `2px solid ${iconColor}`,
                                             display: 'flex',
                                             alignItems: 'center',
@@ -166,6 +172,6 @@ export default function Experience() {
           }
         }
       `}</style>
-        </section>
+        </EditorialSection>
     );
 }

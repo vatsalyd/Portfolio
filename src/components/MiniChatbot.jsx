@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { FiSend, FiCpu } from 'react-icons/fi';
 import ScrollReveal from './ScrollReveal';
+import EditorialSection from './EditorialSection';
 import {
     chatbotResponses,
     chatbotFallback,
@@ -52,8 +53,8 @@ export default function MiniChatbot() {
     const [messages, setMessages] = useState([
         {
             from: 'bot',
-            text: "Heyy! 👋 I'm Vatsal's mini-bot — ask me about his stack, internship, projects, or what he's looking for. Or type your own thing.",
-            typed: true, // already fully shown
+            text: "Heyy! ��� I'm Vatsal's mini-bot — ask me about his stack, internship, projects, or what he's looking for. Or type your own thing.",
+            typed: true,
         },
     ]);
     const [input, setInput] = useState('');
@@ -96,7 +97,13 @@ export default function MiniChatbot() {
     };
 
     return (
-        <section id="chatbot" className="section">
+        <EditorialSection
+            id="chatbot"
+            ghost="CHAT"
+            eyebrowIndex="02"
+            eyebrowLabel="CHAT"
+            contentClassName="chatbot-content"
+        >
             <div className="container">
                 <ScrollReveal>
                     <div className="section-header">
@@ -115,7 +122,6 @@ export default function MiniChatbot() {
                             maxWidth: 720,
                             margin: '0 auto',
                             padding: 24,
-                            border: '1px solid rgba(139, 92, 246, 0.18)',
                         }}
                     >
                         {/* Header row */}
@@ -123,14 +129,14 @@ export default function MiniChatbot() {
                             <div style={{
                                 width: 40,
                                 height: 40,
-                                borderRadius: '50%',
+                                borderRadius: 'var(--border-radius)',
                                 background: 'var(--gradient-aurora)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 color: '#fff',
                                 fontSize: '1.1rem',
-                                boxShadow: '0 0 16px rgba(139, 92, 246, 0.4)',
+                                boxShadow: '0 0 16px rgba(202, 130, 248, 0.4)',
                             }}>
                                 <FiCpu />
                             </div>
@@ -149,11 +155,11 @@ export default function MiniChatbot() {
                                     gap: 5,
                                     fontFamily: 'var(--font-mono)',
                                     fontSize: '0.7rem',
-                                    color: '#10B981',
+                                    color: 'var(--accent-emerald)',
                                 }}>
                                     <span style={{
                                         width: 6, height: 6, borderRadius: '50%',
-                                        background: '#10B981', boxShadow: '0 0 6px #10B981',
+                                        background: 'var(--accent-emerald)', boxShadow: '0 0 6px var(--accent-emerald)',
                                     }} />
                                     online · pattern-matched
                                 </div>
@@ -216,6 +222,6 @@ export default function MiniChatbot() {
                     </div>
                 </ScrollReveal>
             </div>
-        </section>
+        </EditorialSection>
     );
 }

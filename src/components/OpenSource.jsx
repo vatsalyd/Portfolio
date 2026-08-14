@@ -1,19 +1,20 @@
 import { useState, useEffect, useRef } from 'react';
 import { FiGitPullRequest, FiStar, FiActivity, FiGithub, FiAlertTriangle } from 'react-icons/fi';
 import ScrollReveal from './ScrollReveal';
+import EditorialSection from './EditorialSection';
 import {
     githubUser,
     staticGithubFallback,
 } from '../data/portfolioData';
 
 const CACHE_KEY = 'vy-github-events-v1';
-const CACHE_TTL = 1000 * 60 * 20; // 20 min
+const CACHE_TTL = 1000 * 60 * 20;
 
 function mapEventToPr(event) {
     if (event.type !== 'PullRequestEvent') return null;
     const pr = event.payload?.pull_request;
     if (!pr) return null;
-    const state = pr.merged ? 'merged' : pr.state; // 'open' | 'closed' | merged
+    const state = pr.merged ? 'merged' : pr.state;
     const isMerged = pr.merged || (pr.state === 'closed' && pr.merged_at);
     return {
         repo: event.repo?.name,
@@ -25,7 +26,6 @@ function mapEventToPr(event) {
 }
 
 function buildHeatmap(events) {
-    // 7 rows x ~26 weeks; bucket last ~6 months
     const cells = new Array(7 * 26).fill(0);
     const today = Date.now();
     const halfYearMs = 1000 * 60 * 60 * 24 * 180;
@@ -38,7 +38,6 @@ function buildHeatmap(events) {
         if (idx < 0 || idx >= cells.length) return;
         cells[idx] += 1;
     });
-    // Normalize to 0..4
     const max = Math.max(1, ...cells);
     return cells.map((c) => (c === 0 ? 0 : Math.ceil((c / max) * 4)));
 }
@@ -79,7 +78,6 @@ export default function OpenSource() {
         let cancelled = false;
 
         if (initial) {
-            // Already populated from cache via state initializers — nothing to fetch.
             return () => { cancelled = true; };
         }
 
@@ -106,7 +104,6 @@ export default function OpenSource() {
                     .filter(Boolean)
                     .slice(0, 6);
                 const heat = buildHeatmap(events);
-                // If no PRs found in events (still valid), seed PRs from static for display
                 const displayPrs = mapped.length > 0 ? mapped : staticGithubFallback.prs.slice(0, 4);
                 setPrs(displayPrs);
                 setHeatmap(heat.length ? heat : staticGithubFallback.heatmap);
@@ -130,7 +127,12 @@ export default function OpenSource() {
     }, []);
 
     return (
-        <section id="opensource" className="section">
+        <EditorialSection
+            id="opensource"
+            ghost="OPEN SOURCE"
+            eyebrowIndex="03"
+            eyebrowLabel="OPEN SOURCE"
+        >
             <div className="container">
                 <ScrollReveal>
                     <div className="section-header">
@@ -142,7 +144,6 @@ export default function OpenSource() {
                     </div>
                 </ScrollReveal>
 
-                {/* Status / fallback notice */}
                 {(rateLimited || err) && (
                     <div style={{
                         display: 'flex',
@@ -152,8 +153,8 @@ export default function OpenSource() {
                         margin: '0 auto 28px',
                         padding: '12px 16px',
                         borderRadius: 'var(--border-radius-sm)',
-                        background: 'rgba(245, 158, 11, 0.08)',
-                        border: '1px solid rgba(245, 158, 11, 0.25)',
+                        background: 'rgba(232, 146, 43, 0.1)',
+                        border: '1px solid rgba(232, 146, 43, 0.3)',
                         color: 'var(--accent-amber)',
                         fontFamily: 'var(--font-mono)',
                         fontSize: '0.8rem',
@@ -213,17 +214,17 @@ export default function OpenSource() {
                                                     gap: 6,
                                                     padding: '14px 16px',
                                                     borderRadius: 'var(--border-radius-sm)',
-                                                    background: 'rgba(10, 10, 15, 0.5)',
-                                                    border: '1px solid rgba(255,255,255,0.06)',
+                                                    background: 'var(--bg-secondary)',
+                                                    border: '1px solid rgba(26,26,26,0.08)',
                                                     textDecoration: 'none',
                                                     transition: 'all 0.25s ease',
                                                 }}
                                                 onMouseEnter={(e) => {
-                                                    e.currentTarget.style.borderColor = 'rgba(139,92,246,0.3)';
+                                                    e.currentTarget.style.borderColor = 'rgba(202,130,248,0.4)';
                                                     e.currentTarget.style.transform = 'translateY(-2px)';
                                                 }}
                                                 onMouseLeave={(e) => {
-                                                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
+                                                    e.currentTarget.style.borderColor = 'rgba(26,26,26,0.08)';
                                                     e.currentTarget.style.transform = 'none';
                                                 }}
                                             >
@@ -294,8 +295,8 @@ export default function OpenSource() {
                                 <div style={{
                                     padding: 14,
                                     borderRadius: 'var(--border-radius-sm)',
-                                    background: 'rgba(10,10,15,0.5)',
-                                    border: '1px solid rgba(255,255,255,0.06)',
+                                    background: 'var(--bg-secondary)',
+                                    border: '1px solid rgba(26,26,26,0.08)',
                                 }}>
                                     <div style={{
                                         fontFamily: 'var(--font-mono)',
@@ -317,8 +318,8 @@ export default function OpenSource() {
                                 <div style={{
                                     padding: 14,
                                     borderRadius: 'var(--border-radius-sm)',
-                                    background: 'rgba(10,10,15,0.5)',
-                                    border: '1px solid rgba(255,255,255,0.06)',
+                                    background: 'var(--bg-secondary)',
+                                    border: '1px solid rgba(26,26,26,0.08)',
                                 }}>
                                     <div style={{
                                         fontFamily: 'var(--font-mono)',
@@ -343,7 +344,7 @@ export default function OpenSource() {
                             </div>
 
                             {/* Heatmap */}
-                            <div className="heatmap-grid" style={{ background: 'rgba(10,10,15,0.4)', borderRadius: 'var(--border-radius-sm)' }}>
+                            <div className="heatmap-grid" style={{ background: 'var(--bg-secondary)', borderRadius: 'var(--border-radius-sm)' }}>
                                 {(loading ? staticGithubFallback.heatmap : heatmap).map((level, i) => (
                                     <div
                                         key={i}
@@ -380,6 +381,6 @@ export default function OpenSource() {
                     }
                 `}</style>
             </div>
-        </section>
+        </EditorialSection>
     );
 }
