@@ -2,21 +2,22 @@ import { motion } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { FiArrowRight, FiTerminal, FiZap } from 'react-icons/fi';
 import { personalInfo, socialLinks } from '../data/portfolioData';
+import EditorialSection from './EditorialSection';
 
 export default function Hero() {
     const typeSequence = personalInfo.roles.flatMap(role => [role, 2400]);
 
     return (
-        <section id="hero" style={{
-            minHeight: '100vh',
-            display: 'flex',
-            alignItems: 'center',
-            position: 'relative',
-            paddingTop: 100,
-            paddingBottom: 60,
-        }}>
+        <EditorialSection
+            id="hero"
+            ghost="INTRO"
+            eyebrowIndex="01"
+            eyebrowLabel="INTRO"
+            contentClassName="hero-content"
+            style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', paddingTop: 100, paddingBottom: 80 }}
+        >
             <div className="container" style={{ width: '100%' }}>
-                {/* Status Badge */}
+                {/* Status Badge — blush chip */}
                 <motion.div
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -27,8 +28,8 @@ export default function Hero() {
                         gap: 8,
                         padding: '6px 14px',
                         borderRadius: 'var(--border-radius-pill)',
-                        background: 'rgba(139, 92, 246, 0.08)',
-                        border: '1px solid rgba(139, 92, 246, 0.2)',
+                        background: 'var(--blush)',
+                        border: '1px solid rgba(26, 26, 26, 0.1)',
                         marginBottom: 28,
                     }}
                 >
@@ -53,28 +54,37 @@ export default function Hero() {
                     </span>
                 </motion.div>
 
-                {/* Big Name Headline */}
-                <motion.h1
+                {/* Big Name Headline — Playfair giant split, stacked */}
+                <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-                    style={{
-                        marginBottom: 12,
-                        lineHeight: 1.02,
-                        fontSize: 'clamp(2.8rem, 9vw, 6rem)',
-                        letterSpacing: '-0.04em',
-                    }}
+                    style={{ marginBottom: 16, lineHeight: 1.05 }}
                 >
-                    {personalInfo.name.split(' ')[0]}{' '}
-                    <span style={{
-                        background: 'var(--gradient-aurora-wide)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
-                    }}>
-                        {personalInfo.name.split(' ')[1]}
-                    </span>
-                </motion.h1>
+                    <motion.h1
+                        style={{
+                            marginBottom: 4,
+                            lineHeight: 1.0,
+                            fontSize: 'clamp(3rem, 10vw, 7rem)',
+                            letterSpacing: '-0.04em',
+                            fontStyle: 'italic',
+                            fontWeight: 400,
+                        }}
+                    >
+                        {personalInfo.name.split(' ')[0]}
+                    </motion.h1>
+                    <motion.h1
+                        style={{
+                            lineHeight: 1.0,
+                            fontSize: 'clamp(3rem, 10vw, 7rem)',
+                            letterSpacing: '-0.04em',
+                            fontStyle: 'italic',
+                            fontWeight: 700,
+                        }}
+                    >
+                        {personalInfo.name.split(' ')[1]}<span style={{ fontStyle: 'normal', fontWeight: 400, color: 'var(--accent-violet)' }}>.</span>
+                    </motion.h1>
+                </motion.div>
 
                 {/* One-liner Tagline */}
                 <motion.p
@@ -85,12 +95,12 @@ export default function Hero() {
                         fontSize: 'clamp(1.05rem, 2.2vw, 1.3rem)',
                         color: 'var(--text-secondary)',
                         maxWidth: 580,
-                        marginBottom: 22,
-                        lineHeight: 1.55,
+                        marginBottom: 28,
+                        lineHeight: 1.6,
                         fontFamily: 'var(--font-primary)',
                     }}
                 >
-                    <FiZap style={{ color: 'var(--accent-amber)', marginRight: 6, verticalAlign: '-2px' }} />
+                    <FiZap style={{ color: 'var(--accent-amber)', marginRight: 8, verticalAlign: '-2px' }} />
                     {personalInfo.bio}
                 </motion.p>
 
@@ -101,7 +111,7 @@ export default function Hero() {
                     transition={{ duration: 0.6, delay: 0.35 }}
                     style={{
                         fontSize: 'clamp(1rem, 2.2vw, 1.3rem)',
-                        marginBottom: 36,
+                        marginBottom: 40,
                         minHeight: 38,
                         fontFamily: 'var(--font-mono)',
                         display: 'flex',
@@ -124,7 +134,7 @@ export default function Hero() {
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.45 }}
-                    style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 40 }}
+                    style={{ display: 'flex', gap: 16, flexWrap: 'wrap', marginBottom: 48 }}
                 >
                     <motion.a
                         href="#projects"
@@ -146,7 +156,7 @@ export default function Hero() {
                     </motion.a>
                 </motion.div>
 
-                {/* Social Links */}
+                {/* Social Links — editorial white icons */}
                 <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -171,25 +181,27 @@ export default function Hero() {
                             rel="noopener noreferrer"
                             whileHover={{ y: -3, scale: 1.1 }}
                             style={{
-                                width: 38,
-                                height: 38,
-                                borderRadius: 'var(--border-radius-sm)',
+                                width: 40,
+                                height: 40,
+                                borderRadius: 'var(--border-radius)',
                                 display: 'flex',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                background: 'rgba(22, 22, 34, 0.6)',
-                                border: '1px solid rgba(255,255,255,0.06)',
+                                background: 'var(--bg-card)',
+                                border: '1px solid rgba(26,26,26,0.08)',
                                 color: 'var(--text-secondary)',
-                                fontSize: '1.1rem',
+                                fontSize: '1.15rem',
                                 transition: 'all 0.25s',
                             }}
                             onMouseEnter={(e) => {
                                 e.currentTarget.style.color = 'var(--accent-violet)';
-                                e.currentTarget.style.borderColor = 'rgba(139,92,246,0.3)';
+                                e.currentTarget.style.borderColor = 'var(--accent-violet)';
+                                e.currentTarget.style.background = 'var(--blush)';
                             }}
                             onMouseLeave={(e) => {
                                 e.currentTarget.style.color = 'var(--text-secondary)';
-                                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
+                                e.currentTarget.style.borderColor = 'rgba(26,26,26,0.08)';
+                                e.currentTarget.style.background = 'var(--bg-card)';
                             }}
                             aria-label={link.name}
                         >
@@ -198,6 +210,6 @@ export default function Hero() {
                     ))}
                 </motion.div>
             </div>
-        </section>
+        </EditorialSection>
     );
 }
