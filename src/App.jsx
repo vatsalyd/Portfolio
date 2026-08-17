@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import ParticleBackground from './components/ParticleBackground';
 import Preloader from './components/Preloader';
 import Navbar from './components/Navbar';
 import SectionMap from './components/SectionMap';
@@ -23,15 +22,12 @@ export default function App() {
 
       {!loading && (
         <>
-          {/* Fixed background layer — subtle aurora particles, z-index 0 */}
-          <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
-            <ParticleBackground />
-          </div>
-
+          {/* Cream-paper background: subtle grain + faint warm radial come
+              from body::before / body::after in index.css — no aurora blobs,
+              they clash with the editorial light palette. */}
           <Navbar />
           <SectionMap />
 
-          {/* Main content layer */}
           <main style={{ position: 'relative', zIndex: 1 }}>
             <Hero />
             <MiniChatbot />
