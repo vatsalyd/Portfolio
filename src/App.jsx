@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Preloader from './components/Preloader';
-import Navbar from './components/Navbar';
-import SectionMap from './components/SectionMap';
+import AncientMap from './components/AncientMap';
 import Hero from './components/Hero';
 import MiniChatbot from './components/MiniChatbot';
 import OpenSource from './components/OpenSource';
@@ -25,8 +24,12 @@ export default function App() {
           {/* Cream-paper background: subtle grain + faint warm radial come
               from body::before / body::after in index.css — no aurora blobs,
               they clash with the editorial light palette. */}
-          <Navbar />
-          <SectionMap />
+
+          {/* Parchment-map navigation replaces the conventional header. A
+              single corner glyph (compass) opens a full-screen aged-paper
+              map of every section. A scroll progress hairline at the very
+              top of the viewport keeps a sense of position on the page. */}
+          <AncientMap />
 
           <main style={{ position: 'relative', zIndex: 1 }}>
             <Hero />
