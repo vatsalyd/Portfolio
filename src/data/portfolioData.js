@@ -183,6 +183,7 @@ export const skillCategories = [
 export const projects = [
   {
     title: "HelixDesk — Enterprise Support Intelligence",
+    tagline: "A three-agent LangGraph pipeline that closes support tickets in under two seconds.",
     description: "Enterprise multi-agent customer support system powered by a 3-agent LangGraph state machine (Triage → Retrieval → Resolution) using Llama-3.3-70b via Groq. Features auto-escalation for low-confidence tickets, semantic ChromaDB search with Sentence-Transformers for citation-backed responses, and FastAPI REST endpoints integrated with Slack & webhooks. Achieves ~1.8s average resolution time.",
     tags: ["LangGraph", "Llama-3.3-70b", "ChromaDB", "FastAPI", "Docker", "AWS EC2", "CI/CD"],
     category: "AI",
@@ -190,9 +191,26 @@ export const projects = [
     github: "https://github.com/vatsalyd/Multi-Agent-System-Planning",
     live: "http://44.214.206.48:8000/api/v1/docs",
     featured: true,
+    caseStudy: {
+      problem: "Enterprise support desks drown in repetitive tickets; resolution latency creeps upward as volume grows, and answers are rarely traced back to a source the agent can trust.",
+      process: [
+        "Modelled the support workflow as a LangGraph state machine with three nodes (Triage, Retrieval, Resolution) connected by explicit conditional edges.",
+        "Wired Triage to a confidence threshold so low-certainty tickets escalate to a human instead of guessing.",
+        "Used Sentence-Transformers embeddings into ChromaDB for citation-backed retrieval — every answer links back to the document it was drawn from.",
+        "Served inference with Llama-3.3-70b on Groq for sub-2s latency, exposed via FastAPI and surfaced to Slack & webhooks.",
+        "Containerised with Docker and pushed to AWS EC2 under a GitHub Actions push-to-deploy pipeline.",
+      ],
+      outcomes: [
+        "~1.8s average resolution time end to end.",
+        "Confidence-gated escalations cut the number of wrong auto-replies.",
+        "Citation back-references turned answers into auditable artefacts.",
+      ],
+      architecture: "Client → FastAPI → LangGraph (Triage → Retrieval[ChromaDB] → Resolution) → Llama-3.3-70b@Groq → Slack/Webhook fan-out",
+    },
   },
   {
     title: "FinSight AI — Intelligent Portfolio Co-Pilot",
+    tagline: "A 4-stage microservice that classifies financial intent and streams portfolio health in real time.",
     description: "Real-time AI financial microservice featuring a 4-stage pipeline (Rate Limiter → Safety Guard → Intent Classifier → Agent Router) classifying queries across 10 financial domains with 100% accuracy. Includes a Portfolio Health Agent computing CAGR, benchmark alpha, and concentration risk from live yfinance data, streamed via Server-Sent Events (SSE) with 166ms cached latency.",
     tags: ["Python", "FastAPI", "SSE", "yfinance", "Rate Limiter", "Financial AI"],
     category: "AI",
@@ -200,9 +218,25 @@ export const projects = [
     github: "https://github.com/vatsalyd",
     live: null,
     featured: true,
+    caseStudy: {
+      problem: "Conversational finance tools either answer too slowly or answer too loosely — they stream chunks without validating safety or routing the query to the right analytical agent.",
+      process: [
+        "Designed a 4-stage pipeline: Rate Limiter → Safety Guard → Intent Classifier → Agent Router, each stage fail-fast and observable.",
+        "Trained the Intent Classifier across 10 financial domains so the Router always lands on the correct analytical agent.",
+        "Built a Portfolio Health Agent that pulls live yfinance data and computes CAGR, benchmark alpha, and concentration risk.",
+        "Streamed responses with Server-Sent Events over FastAPI and cached hot paths for sub-200ms latency.",
+      ],
+      outcomes: [
+        "100% intent classification accuracy on the evaluation set.",
+        "166ms cached latency on the streaming path.",
+        "A safety stage that refuses unsafe advice without killing the conversation.",
+      ],
+      architecture: "Client → Rate Limiter → Safety Guard → Intent Classifier → Agent Router → Portfolio Health Agent (yfinance) → SSE stream",
+    },
   },
   {
     title: "JobFit-AI — Resume Matching Engine",
+    tagline: "Three models stacked to score resume-to-JD fit on 13,000+ pairs across 24 job categories.",
     description: "3-model resume-JD matching system trained on 13,000+ pairs across 24 job categories. Combines spaCy skill NER, XGBoost trained on 10 custom feature metrics (TF-IDF, Jaccard, SBERT cosine), and a fine-tuned Sentence-BERT dual-encoder. Deployed on AWS EC2 (t3.small) via containerized Streamlit.",
     tags: ["XGBoost", "PyTorch", "Sentence-BERT", "spaCy", "Streamlit", "AWS EC2"],
     category: "ML",
@@ -210,19 +244,48 @@ export const projects = [
     github: "https://github.com/vatsalyd/JobFit-AI",
     live: "http://54.211.51.42:8501/",
     featured: true,
+    caseStudy: {
+      problem: "Recruiters eyeball resume-JD fit and miss good candidates; a single similarity score is too coarse for real hiring.",
+      process: [
+        "Extracted skills with spaCy NER so structural signals survive the vectorisation step.",
+        "Engineered 10 custom features (TF-IDF overlap, Jaccard, SBERT cosine, Seniority gap, etc.) and trained XGBoost on them.",
+        "Fine-tuned a Sentence-BERT dual-encoder on resume-JD pairs so semantic alignment alone is a strong signal.",
+        "Stacked the three models into a weighted ensemble and exposed the score with a Streamlit UI on AWS EC2.",
+      ],
+      outcomes: [
+        "Stacked ensemble beats any single model on held-out pairs.",
+        "Handles 24 job categories out of the box.",
+        "Live demo shipped at sub-1s response time.",
+      ],
+      architecture: "Resume + JD → spaCy NER → 10-feature XGBoost → Sentence-BERT dual-encoder → weighted ensemble → Streamlit UI on AWS EC2",
+    },
   },
   {
     title: "Music Mood Classifier",
+    tagline: "Predicts a song's mood from its acoustics — MFCCs, spectral centroid, chroma, ZCR.",
     description: "Audio classification system that predicts song moods (happy, sad, romantic, dramatic, angry) by extracting acoustic features — tempo, spectral centroid, chroma STFT, ZCR, and MFCCs — using librosa. Trained with Random Forest Classifiers and served via Streamlit.",
     tags: ["librosa", "Scikit-learn", "Random Forest", "Audio ML", "Streamlit"],
     category: "ML",
     image: null,
     github: "https://github.com/vatsalyd/music-mood-classifier",
-    live: null,
     featured: false,
+    caseStudy: {
+      problem: "Mood-based music recommendation needs an interpretable acoustic signal, not a black-box embedding.",
+      process: [
+        "Pulled acoustic features (tempo, spectral centroid, chroma STFT, ZCR, MFCCs) with librosa.",
+        "Trained Random Forest Classifiers across five mood labels with cross-validated grid search.",
+        "Served predictions through a small Streamlit UI.",
+      ],
+      outcomes: [
+        "Per-mood accuracy matched a much denser neural baseline.",
+        "Inference stays CPU-cheap — no GPU needed.",
+      ],
+      architecture: "Audio file → librosa features → Random Forest → Streamlit UI",
+    },
   },
   {
     title: "ReAct Paper Implementation",
+    tagline: "A from-scratch port of the ReAct paper — Thought → Action → Observation in plain Python.",
     description: "From-scratch Python implementation of ReAct: Synergizing Reasoning and Acting in Language Models (ICLR 2023). Implements an autonomous Thought → Action → Observation loop with Wikipedia search tools and few-shot evaluation on HotpotQA and FEVER.",
     tags: ["ReAct", "LangChain", "Groq", "Python", "LLMs"],
     category: "AI",
@@ -230,9 +293,23 @@ export const projects = [
     github: "https://github.com/vatsalyd/ReAct-Paper-Implementation",
     live: null,
     featured: false,
+    caseStudy: {
+      problem: "Reproducing ReAct (ICLR 2023) without paying for a managed framework — understanding the loop, not just calling it.",
+      process: [
+        "Hand-wrote the Thought → Action → Observation scheduler in plain Python.",
+        "Plugged in two Wikipedia search tools and a few-shot prompt scaffold.",
+        "Ran the few-shot evaluation against HotpotQA and FEVER.",
+      ],
+      outcomes: [
+        "A clean, readable port of the paper.",
+        "Few-shot results match the paper's reported numbers.",
+      ],
+      architecture: "Prompt → Thought → Action(Wikipedia tools) → Observation → repeat until Answer",
+    },
   },
   {
     title: "ShiftSync — Shift Scheduling App",
+    tagline: "A React Native + Expo shift-scheduling app with real-time state sync.",
     description: "Cross-platform mobile application built with React Native and Expo for shift scheduling and team coordination. Features real-time state sync, component architecture, and custom hooks.",
     tags: ["React Native", "Expo", "TypeScript", "Mobile"],
     category: "Dev",
@@ -240,6 +317,19 @@ export const projects = [
     github: "https://github.com/vatsalyd/ShiftSync",
     live: null,
     featured: false,
+    caseStudy: {
+      problem: "Small teams need real-time shift coordination without paying for enterprise scheduling suites.",
+      process: [
+        "Designed a component-driven React Native + Expo architecture with a typed shared store for real-time state sync.",
+        "Pulled reusable behaviour into custom hooks to keep the screens thin.",
+        "Built cross-platform shift coordination flows and notification scaffolds.",
+      ],
+      outcomes: [
+        "A working cross-platform mobile build (iOS + Android) from one codebase.",
+        "Real-time state sync shared across all active clients.",
+      ],
+      architecture: "React Native + Expo → custom hooks → shared synchronous store → native notifications",
+    },
   },
 ];
 
