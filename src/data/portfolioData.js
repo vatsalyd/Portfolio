@@ -401,39 +401,13 @@ export const experience = [
   },
 ];
 
-export const navLinks = [
-  { name: "Intro", href: "#hero" },
-  { name: "Chat", href: "#chatbot" },
-  { name: "Open Source", href: "#opensource" },
-  { name: "Skills", href: "#skills" },
-  { name: "Projects", href: "#projects" },
-  { name: "Experience", href: "#experience" },
-  { name: "Articles", href: "#articles" },
-  { name: "Movies", href: "#movies" },
-  { name: "Reach Out", href: "#contact" },
-];
-
-// Ordered list of sections for the Mentos Life guided tour.
-// meta.title shows in the tour progress indicator; meta.hint shows as the spotlight caption.
-export const tourSections = [
-  { id: "hero", name: "Intro", title: "Intro", hint: "That's me — Vatsal. AI/ML engineer, IIT Bhilai student." },
-  { id: "chatbot", name: "Chat", title: "Chat", hint: "Ask me anything — this little bot answers for me." },
-  { id: "opensource", name: "Open Source", title: "Open Source", hint: "Live GitHub activity, straight from the API." },
-  { id: "skills", name: "Skills", title: "Skills", hint: "Move your cursor — the boxes react. Physics, baby." },
-  { id: "projects", name: "Projects", title: "Projects", hint: "Click any card to open the full detail page." },
-  { id: "experience", name: "Experience", title: "Experience", hint: "Internship, leadership, and education timeline." },
-  { id: "articles", name: "Articles", title: "Articles", hint: "Things I've written. (Placeholders for now.)" },
-  { id: "movies", name: "Movies", title: "Movies", hint: "What I watch when I'm not training models." },
-  { id: "contact", name: "Reach Out", title: "Reach Out", hint: "Last stop. Drop a message and let's talk." },
-];
-
 // ── Ancient Map regions ──
 // The parchment navigation map. Each region is a clickable territory that
 // smooth-scrolls to its section. `x/y` are normalized 0–100 coordinates on
 // the parchment viewBox (100 x 70); `w/h` are region-blob sizes in the same
 // units. `kind` switches the ink illustration shown beside the label.
 export const mapRegions = [
-  { id: "hero",       name: "Intro",        subtitle: "Who I am",                       x: 12, y: 18, w: 22, h: 14, kind: "compass" },
+  { id: "hero",       name: "Intro",        subtitle: "Who I am · Mini Vatsal agent",   x: 12, y: 18, w: 22, h: 14, kind: "compass" },
   { id: "opensource", name: "Open Source",  subtitle: "Pull requests & issues",         x: 40, y: 10, w: 24, h: 12, kind: "anchor"   },
   { id: "skills",     name: "Skills",       subtitle: "The toolkit",                     x: 70, y: 20, w: 22, h: 14, kind: "gear"     },
   { id: "projects",   name: "Projects",     subtitle: "Things I've built",               x: 16, y: 38, w: 24, h: 14, kind: "tower"    },
@@ -453,7 +427,7 @@ export const regionIndex = (region) =>
 export const chatbotResponses = [
   {
     keywords: ["hi", "hello", "hey", "yo", "sup", "namaste"],
-    answer: "Heyy! 👋 I'm Vatsal's mini-bot. Ask me about his stack, his internship, his projects, or what he's looking for. Or just type whatever — I'll do my best.",
+    answer: "Heyy! I'm Vatsal's mini-bot. Ask me about his stack, his internship, his projects, or what he's looking for. Or just type whatever — I'll do my best.",
   },
   {
     keywords: ["tech stack", "stack", "technologies", "tools", "what do you use", "frameworks"],
@@ -493,7 +467,7 @@ export const chatbotResponses = [
   },
   {
     keywords: ["movies", "film", "favorite movie", "favourite", "cinema", "watch"],
-    answer: "Oh you noticed the Movies section 👀 — that's his vibe check. Sci-fi and mind-bendy stuff mostly. Scroll down to see the picks with his notes on why.",
+    answer: "Oh you noticed the Movies section — that's his vibe check. Sci-fi and mind-bendy stuff mostly. Scroll down to see the picks with his notes on why.",
   },
   {
     keywords: ["where", "location", "based", "city", "live"],

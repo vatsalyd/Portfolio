@@ -705,9 +705,9 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
   opacity: 0.85;
 }
 
-/* When the section enters view, the ghost warms toward mentos-violet —
-   tying Noah's ghost-letter device to the Mentos Life narrative:
-   each section literally gets "lit" by the scroll/tour. */
+/* When the section enters view, the ghost warms toward pale mentos-violet
+   — each section literally "lights up" as it scrolls into view, mirroring
+   the parchment map's active-region glow. */
 .editorial-section.is-lit .section-ghost {
   color: #EAE0FA;   /* very pale lavender — visible but content-safe */
   opacity: 1;

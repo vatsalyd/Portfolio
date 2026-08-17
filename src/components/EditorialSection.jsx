@@ -7,14 +7,14 @@ import { useInView } from 'framer-motion';
  * Renders three editorial devices:
  *   1. A giant Playfair "ghost" word sat behind the content (Noah's .bold).
  *   2. A rotated vertical eyebrow on the left edge: "{index} ── {label}".
- *   3. A scroll/tour "lit" effect — when the section enters view the ghost
+ *   3. A scroll "lit" effect — when the section enters view the ghost
  *      word warms from warm-sand toward pale mentos-violet, tying Noah's
- *      ghost-letter device to the Mentos Life narrative (each section gets
- *      "lit" as the guided tour passes through it).
+ *      ghost-letter device to the parchment-map navigation's active
+ *      region (each section "lights up" as it scrolls past).
  *
- * The <section> keeps the caller-supplied id so the Mentos Life tour and the
- * SectionMap minimap can still locate and scroll to it. Content is the only
- * child callers pass; the editorial scaffolding is invisible to them.
+ * The <section> keeps the caller-supplied id so the Ancient Map overlay's
+ * click-to-scroll handler can still locate it. Content is the only value
+ * callers pass; the editorial scaffolding is invisible to them.
  */
 export default function EditorialSection({
     id,
