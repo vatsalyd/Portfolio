@@ -1,9 +1,17 @@
 import { useRef } from 'react';
-import { FiFilm } from 'react-icons/fi';
 import ScrollReveal from './ScrollReveal';
 import EditorialSection from './EditorialSection';
 import { favMovies } from '../data/portfolioData';
 
+/**
+ * FavMovies — off-duty picks with a 3D tilt on hover.
+ *
+ * Each card surfaces the title, year, and a one-line note. When `poster`
+ * is set the poster image is shown; until the files arrive a typographic
+ * monogram derived from the title is rendered instead. There are no
+ * emoji glyphs here — the design language stays editorial across every
+ * section of the portfolio.
+ */
 function MovieCard({ movie, index }) {
     const ref = useRef(null);
 
@@ -17,7 +25,8 @@ function MovieCard({ movie, index }) {
         const cy = rect.height / 2;
         const rx = ((y - cy) / cy) * -8;
         const ry = ((x - cx) / cx) * 8;
-        el.style.transform = `perspective(700px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateZ(0)`;
+        el.style.transform =
+            `perspective(700px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateZ(0)`;
     };
 
     const handleLeave = () => {
@@ -25,6 +34,15 @@ function MovieCard({ movie, index }) {
         if (!el) return;
         el.style.transform = 'perspective(700px) rotateX(0deg) rotateY(0deg) translateZ(0)';
     };
+
+    // Two-letter monogram from the title for the no-poster cover.
+    const monogram = movie.title
+        .split(/\s+/)
+        .filter(Boolean)
+        .slice(0, 2)
+        .map((w) => w[0])
+        .join('')
+        .toUpperCase();
 
     return (
         <ScrollReveal delay={index < 3 ? index * 0.05 : 0}>
@@ -36,7 +54,11 @@ function MovieCard({ movie, index }) {
                 style={{ transition: 'transform 0.18s ease, box-shadow 0.3s ease, border-color 0.3s ease, background 0.3s ease' }}
             >
                 <div className="movie-poster">
-                    <span className="movie-emoji">{movie.emoji}</span>
+                    {movie.poster ? (
+                        <img src={movie.poster} alt="" />
+                    ) : (
+                        <span className="movie-monogram">{monogram}</span>
+                    )}
                 </div>
                 <div className="movie-body">
                     <div className="movie-title">{movie.title}</div>
@@ -53,46 +75,24 @@ export default function FavMovies() {
         <EditorialSection
             id="movies"
             ghost="REELS"
-            eyebrowIndex="08"
+            eyebrowIndex="07"
             eyebrowLabel="REELS"
         >
-            <div className="container">
+            <div className="container movies-container">
                 <ScrollReveal>
                     <div className="section-header">
                         <span className="section-label">// Off-Duty</span>
                         <h2 className="section-title">Favourite Films</h2>
                         <p className="section-subtitle">
-                            A little honesty before the contact form — when models aren't training, this is what I'm watching. Hover the cards to tilt them.
+                            A little honesty before the contact form — when models aren't training, this is what I'm watching. Hover a card to tilt it.
                         </p>
                     </div>
                 </ScrollReveal>
 
-                <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))',
-                    gap: 18,
-                    maxWidth: 900,
-                    margin: '0 auto',
-                }}>
+                <div className="movies-grid">
                     {favMovies.map((movie, i) => (
                         <MovieCard key={movie.title} movie={movie} index={i} />
                     ))}
-                </div>
-
-                <div style={{
-                    textAlign: 'center',
-                    marginTop: 28,
-                    display: 'inline-flex',
-                    gap: 8,
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: '100%',
-                    fontFamily: 'var(--font-mono)',
-                    fontSize: '0.74rem',
-                    color: 'var(--text-muted)',
-                }}>
-                    <FiFilm style={{ color: 'var(--accent-violet)' }} />
-                    Placeholder picks — swap me out for real favourites later.
                 </div>
             </div>
         </EditorialSection>

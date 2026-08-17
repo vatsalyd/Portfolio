@@ -575,49 +575,53 @@ export const articles = [
   },
 ];
 
-// ── Favourite Movies (placeholder — swap with real picks later) ──
+// ── Favourite Films ──
+// `poster` is an optional image URL — drop in a poster path here when the
+// files arrive. While null the card renders a typographic monogram cover
+// derived from the title so it still matches the rest of the design
+// system instead of an emoji glyph.
 export const favMovies = [
   {
     title: "Interstellar",
     year: 2014,
-    note: "The time-dilation scene broke my brain. Gargantua physics + Hans Zimmer organs = perfect.",
+    note: "The time-dilation scene broke my brain. Gargantua physics plus Hans Zimmer's organs — perfect.",
     accent: "violet",
-    emoji: "🪐",
+    poster: null,
   },
   {
     title: "Inception",
     year: 2010,
-    note: "Nested dreams as nested loop architectures.Christopher Nolan engineers stories like systems.",
+    note: "Nested dreams as nested loop architectures. Nolan engineers stories like systems.",
     accent: "cyan",
-    emoji: "🌀",
+    poster: null,
   },
   {
     title: "The Matrix",
     year: 1999,
-    note: "The OG. Every AI conversation leads back here eventually. Red pill, always.",
+    note: "The original. Every AI conversation leads back here eventually. Red pill, always.",
     accent: "emerald",
-    emoji: "💊",
+    poster: null,
   },
   {
     title: "Blade Runner 2049",
     year: 2017,
     note: "Visual mood-board for any agentic-system future. 'Tears in rain' energy throughout.",
     accent: "amber",
-    emoji: "🌆",
+    poster: null,
   },
   {
     title: "Arrival",
     year: 2016,
     note: "Linguistics as the real alien tech. Made me rethink how agents 'understand' each other.",
     accent: "rose",
-    emoji: "🛸",
+    poster: null,
   },
   {
     title: "Ex Machina",
     year: 2014,
     note: "Cautionary tale for anyone dating their own chatbot. Small cast, huge ideas.",
     accent: "violet",
-    emoji: "🤖",
+    poster: null,
   },
 ];
 
