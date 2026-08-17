@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { FiSend, FiMail, FiPhone, FiMapPin, FiCheck, FiAlertCircle } from 'react-icons/fi';
+import { FiSend, FiMail, FiPhone, FiMapPin, FiCheck, FiAlertCircle, FiLoader } from 'react-icons/fi';
 import ScrollReveal from './ScrollReveal';
 import EditorialSection from './EditorialSection';
 import { personalInfo, socialLinks } from '../data/portfolioData';
@@ -98,7 +98,7 @@ export default function Contact() {
 
     const buttonContent = {
         idle: <><FiSend /> Send Message</>,
-        sending: <><motion.span animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }} style={{ display: 'inline-block' }}>���</motion.span> Sending...</>,
+        sending: <><motion.span animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }} style={{ display: 'inline-block' }}><FiLoader /></motion.span> Sending...</>,
         sent: <><FiCheck /> Message Sent!</>,
         error: <><FiAlertCircle /> Try Again</>,
     };
@@ -107,7 +107,7 @@ export default function Contact() {
         <EditorialSection
             id="contact"
             ghost="REACH"
-            eyebrowIndex="09"
+            eyebrowIndex="08"
             eyebrowLabel="REACH"
         >
             <div className="container">
