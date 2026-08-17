@@ -510,56 +510,68 @@ export const chatbotSuggestions = [
   "What are you looking for?",
 ];
 
-// ── Articles (placeholder) ──
-// Replace `url`, `excerpt`, `date`, `readTime` with real values later.
+// ── Articles ──
+// `url` should point to a real Medium article. Leave url as null / '#' when
+// there is no canonical link yet and the card will render as "draft" (no
+// outgoing link). `coverImage` is optional — falls back to a typographic
+// cover glyph driven by the tag. `mediumUser` is your @handle on Medium so
+// the section can also surface a "Read more on Medium" CTA.
+export const mediumUser = "vatsalyd"; // @handle on Medium (update if different)
+
 export const articles = [
   {
     title: "Building a 3-Agent Support System with LangGraph",
     excerpt: "How I architected HelixDesk — a Triage → Retrieval → Resolution state machine using Llama-3.3-70b on Groq, semantic ChromaDB search, and auto-escalation for low-confidence tickets.",
     date: "Jun 2026",
     readTime: "8 min read",
-    url: "#",
+    url: null,
     tag: "Multi-Agent",
+    coverImage: null,
   },
   {
     title: "ReAct from Scratch: Thought → Action → Observation",
     excerpt: "A from-scratch Python implementation of the ReAct paper (ICLR 2023). Walking through the autonomous loop, Wikipedia tools, and few-shot evaluation on HotpotQA and FEVER.",
     date: "May 2026",
     readTime: "11 min read",
-    url: "#",
+    url: null,
     tag: "LLMs",
+    coverImage: null,
   },
   {
     title: "Resume-JD Matching: 3 Models Beat 1",
     excerpt: "Why a stacked spaCy NER + XGBoost + fine-tuned Sentence-BERT ensemble outperformed any single model on 13,000+ resume-JD pairs across 24 job categories.",
     date: "Apr 2026",
     readTime: "9 min read",
-    url: "#",
+    url: null,
     tag: "ML",
+    coverImage: null,
   },
   {
     title: "Audio Mood Classification with librosa",
     excerpt: "Extracting MFCCs, spectral centroid, chroma STFT, and ZCR — then predicting song mood with Random Forest. A small but fun audio ML walkthrough.",
     date: "Mar 2026",
     readTime: "6 min read",
-    url: "#",
+    url: null,
     tag: "Audio ML",
+    coverImage: null,
   },
   {
     title: "SSE Over FastAPI for Real-Time AI Responses",
-    excerpt: "Streaming LLM tokens andpipeline progress to the client with Server-Sent Events — patterns, gotchas, and a 166ms cached-latency benchmark.",
+    excerpt: "Streaming LLM tokens and pipeline progress to the client with Server-Sent Events — patterns, gotchas, and a 166ms cached-latency benchmark.",
     date: "Feb 2026",
     readTime: "7 min read",
-    url: "#",
+    url: null,
     tag: "Backend",
+    coverImage: null,
   },
   {
     title: "From IIT Bhilai to Multi-Agent Internship",
     excerpt: "How my DSAI coursework, DSAI Club leadership, and side projects lined up to land the Incrivelsoft internship — and what I learned in the first months.",
     date: "Jan 2026",
     readTime: "5 min read",
-    url: "#",
+    url: null,
     tag: "Journey",
+    coverImage: null,
   },
 ];
 
