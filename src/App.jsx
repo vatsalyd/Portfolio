@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import Preloader from './components/Preloader';
 import AncientMap from './components/AncientMap';
-import Hero from './components/Hero';
-import MiniChatbot from './components/MiniChatbot';
+import HeroChat from './components/HeroChat';
 import OpenSource from './components/OpenSource';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
@@ -32,8 +31,7 @@ export default function App() {
           <AncientMap />
 
           <main style={{ position: 'relative', zIndex: 1 }}>
-            <Hero />
-            <MiniChatbot />
+            <HeroChat />
             <OpenSource />
             <Skills />
             <Projects />
