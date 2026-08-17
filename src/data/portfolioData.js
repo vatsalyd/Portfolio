@@ -500,7 +500,7 @@ export const favMovies = [
 ];
 
 // ── GitHub Open Source / static fallback data ──
-// Used if the live API rate-limits. Keep the `events` shape matching GitHub's events API.
+// Used if the live API rate-limits. Shapes match the GitHub events API.
 export const githubUser = "vatsalyd";
 export const staticGithubFallback = {
   repos: 17,
@@ -510,5 +510,9 @@ export const staticGithubFallback = {
     { repo: "vatsalyd/JobFit-AI", title: "Stacked spaCy + XGBoost + SBERT matcher", state: "merged", createdAt: "2026-04-21" },
     { repo: "vatsalyd/music-mood-classifier", title: "Audio feature extraction + Random Forest", state: "open", createdAt: "2026-03-15" },
   ],
-  heatmap: Array.from({ length: 7 * 26 }, () => (Math.random() > 0.6 ? (Math.floor(Math.random() * 4) + 1) : 0)),
+  issues: [
+    { repo: "vatsalyd/Multi-Agent-System-Planning", title: "Reduce Triage agent latency under heavy load", state: "open", createdAt: "2026-06-18" },
+    { repo: "vatsalyd/JobFit-AI", title: "Add bilingual resume support (English / Hindi)", state: "open", createdAt: "2026-05-02" },
+    { repo: "vatsalyd/Multi-Agent-System-Planning", title: "Add citation back-references for retrieval agent", state: "closed", createdAt: "2026-06-04" },
+  ],
 };
