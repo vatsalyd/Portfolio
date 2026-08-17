@@ -342,6 +342,12 @@ export const experience = [
     location: "Remote",
     description: "Owning end-to-end development of the Nutrition Agent within the NUMAA.ai multi-agent platform. Regulating core agent functionality, diagnosing production bugs, and shipping feature enhancements for response quality. Designing inter-agent communication flows and state-handoff protocols with domain agents.",
     skills: ["Multi-Agent Systems", "NUMAA.ai", "State Handoffs", "Agent Orchestration", "Python"],
+    workDone: [
+      { label: "Nutrition Agent", body: "Owned end-to-end build of the Nutrition Agent inside NUMAA.ai — covering prompt design, tool surface, and the response-quality regression suite." },
+      { label: "Production bug triage", body: "Diagnosed and patched production failures in agent hand-offs, latency regressions, and unsafe tool calls across the multi-agent runtime." },
+      { label: "Inter-agent protocol", body: "Designed the state-handoff schema between Nutrition and the domain agents (symptom, diet, lifestyle) so context survives each hop." },
+      { label: "Response-quality loop", body: "Added targeted prompt + retrieval changes that lifted domain-answer quality between weekly evaluations." },
+    ],
   },
   {
     type: "experience",
@@ -351,6 +357,11 @@ export const experience = [
     location: "Bhilai, Chhattisgarh",
     description: "Promoted to Coordinator overseeing the club's AI/ML initiatives. Organized a high-impact hackathon at Meraz (IIT Bhilai's annual fest) for 100+ participants, delivered machine learning workshops, and mentored junior members in deep learning and data science.",
     skills: ["Leadership", "Hackathon Management", "ML Workshops", "Mentorship"],
+    workDone: [
+      { label: "Meraz Hackathon", body: "Orchestrated the AI/ML track at Meraz (IIT Bhilai's annual fest) for 100+ participants — owned problem statements, judging, and on-floor mentorship." },
+      { label: "Workshop catalogue", body: "Designed and delivered hands-on workshops in deep learning and data science for junior members, with reusable notebooks and demo code." },
+      { label: "Mentorship", body: "Run weekly office hours for first- and second-year students on ML projects, paper reading, and recruiting pipelines." },
+    ],
   },
   {
     type: "experience",
@@ -360,6 +371,11 @@ export const experience = [
     location: "Bhilai, Chhattisgarh",
     description: "Leading outreach to 100+ companies for campus placement drives. Maintaining recruiter relational databases and coordinating official placement communications and logistics.",
     skills: ["Corporate Outreach", "Database Management", "Event Coordination"],
+    workDone: [
+      { label: "Recruiter outreach", body: "Reached out to 100+ companies to source campus placement and internship opportunities; converted a meaningful share into scheduled drives." },
+      { label: "Recruiter CRM", body: "Maintained the recruiter relational database so contact history and event logistics stay queryable across handover cohorts." },
+      { label: "Drive logistics", body: "Coordinated on-campus placement communications and logistics end-to-end with CCPS staff and visiting recruiters." },
+    ],
   },
   {
     type: "education",
@@ -369,6 +385,10 @@ export const experience = [
     location: "Bhilai, Chhattisgarh",
     description: "Current CGPA: 7.61 / 10.0. Core coursework includes Machine Learning, Deep Learning, Natural Language Processing, Computer Vision, Multi-Agent Systems, Data Structures & Algorithms, and Linear Algebra.",
     skills: ["Data Science", "Artificial Intelligence", "IIT Bhilai", "CGPA 7.61"],
+    workDone: [
+      { label: "Core coursework", body: "Machine Learning, Deep Learning, Natural Language Processing, Computer Vision, Multi-Agent Systems, Data Structures & Algorithms, Linear Algebra." },
+      { label: "Standing", body: "Current CGPA 7.61 / 10.0 across the first two years." },
+    ],
   },
   {
     type: "education",

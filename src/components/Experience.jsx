@@ -1,177 +1,194 @@
-import { motion } from 'framer-motion';
-import { FiBriefcase, FiBook, FiMapPin, FiCalendar, FiCheckCircle } from 'react-icons/fi';
+import { useState, useCallback, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+    FiBriefcase,
+    FiBook,
+    FiMapPin,
+    FiCalendar,
+    FiX,
+    FiArrowUpRight,
+} from 'react-icons/fi';
 import ScrollReveal from './ScrollReveal';
 import EditorialSection from './EditorialSection';
 import { experience } from '../data/portfolioData';
 
+/**
+ * Experience — vertical timeline of professional and academic entries, each
+ * with an optional "Work Done" tab that opens a popup listing the tangible
+ * deliverables for that role.
+ *
+ * The timeline is preserved from the original design: a vertical spine with
+ * accent-coloured nodes (violet for experience, cyan for education). On
+ * any entry that exposes a `workDone` array, a "Work Done · N items" tab
+ * sits at the bottom of the card; clicking it opens a centered popup
+ * listing every deliverable under a hairline index header.
+ */
 export default function Experience() {
+    const [activeItem, setActiveItem] = useState(null);
+
+    const openItem = useCallback((item) => setActiveItem(item), []);
+    const closeItem = useCallback(() => setActiveItem(null), []);
+
     return (
         <EditorialSection
             id="experience"
             ghost="EXPERIENCE"
-            eyebrowIndex="06"
+            eyebrowIndex="05"
             eyebrowLabel="EXPERIENCE"
         >
-            <div className="container">
+            <div className="container experience-container">
                 <ScrollReveal>
                     <div className="section-header">
-                        <span className="section-label">// Experience & Education</span>
+                        <span className="section-label">// Experience · Education</span>
                         <h2 className="section-title">Industry & Academic Track</h2>
                         <p className="section-subtitle">
-                            Professional AI engineering internship, campus leadership, and academic milestones. Education entries are tinted cyan to tell them apart from work experience.
+                            Professional AI engineering work, campus leadership, and academic milestones. Entries with a Work Done tab open a popup listing what was actually shipped.
                         </p>
                     </div>
                 </ScrollReveal>
 
-                <div style={{ maxWidth: 840, margin: '0 auto', position: 'relative' }}>
-                    {/* Vertical Timeline Line */}
-                    <div style={{
-                        position: 'absolute',
-                        left: 28,
-                        top: 24,
-                        bottom: 24,
-                        width: 2,
-                        background: 'linear-gradient(180deg, var(--accent-violet), var(--accent-cyan), rgba(26,26,26,0.05))',
-                        borderRadius: 1,
-                    }} className="timeline-spine" />
+                <div className="timeline">
+                    {/* Spine */}
+                    <div className="timeline-spine" aria-hidden="true" />
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
-                        {experience.map((item, index) => {
-                            const isExp = item.type === 'experience';
-                            const iconColor = isExp ? 'var(--accent-violet)' : 'var(--accent-cyan)';
-                            const badgeBg = isExp ? 'rgba(202, 130, 248, 0.12)' : 'rgba(42, 140, 140, 0.12)';
-
-                            return (
-                                <ScrollReveal key={index} delay={index * 0.1}>
-                                    <div style={{
-                                        display: 'grid',
-                                        gridTemplateColumns: '56px 1fr',
-                                        gap: 20,
-                                        alignItems: 'flex-start',
-                                    }}>
-                                        {/* Timeline Node */}
-                                        <div style={{
-                                            width: 56,
-                                            height: 56,
-                                            borderRadius: '50%',
-                                            background: 'var(--bg-card)',
-                                            border: `2px solid ${iconColor}`,
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            color: iconColor,
-                                            fontSize: '1.25rem',
-                                            zIndex: 2,
-                                            boxShadow: `0 0 20px ${badgeBg}`,
-                                            flexShrink: 0,
-                                        }}>
-                                            {isExp ? <FiBriefcase /> : <FiBook />}
-                                        </div>
-
-                                        {/* Experience Card */}
-                                        <div className="glass-card" style={{ padding: 28 }}>
-                                            <div style={{
-                                                display: 'flex',
-                                                flexWrap: 'wrap',
-                                                justifyContent: 'space-between',
-                                                alignItems: 'center',
-                                                gap: 8,
-                                                marginBottom: 10,
-                                            }}>
-                                                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
-                                                    <span style={{
-                                                        display: 'inline-flex',
-                                                        alignItems: 'center',
-                                                        gap: 6,
-                                                        fontFamily: 'var(--font-mono)',
-                                                        fontSize: '0.75rem',
-                                                        color: iconColor,
-                                                        background: badgeBg,
-                                                        padding: '4px 12px',
-                                                        borderRadius: 'var(--border-radius-pill)',
-                                                        border: `1px solid ${iconColor}30`,
-                                                    }}>
-                                                        <FiCalendar /> {item.period}
-                                                    </span>
-                                                    <span style={{
-                                                        fontFamily: 'var(--font-mono)',
-                                                        fontSize: '0.66rem',
-                                                        textTransform: 'uppercase',
-                                                        letterSpacing: 1,
-                                                        color: iconColor,
-                                                        opacity: 0.85,
-                                                        border: `1px solid ${iconColor}25`,
-                                                        padding: '2px 8px',
-                                                        borderRadius: 'var(--border-radius-pill)',
-                                                        background: 'transparent',
-                                                    }}>
-                                                        {isExp ? 'Work' : 'Education'}
-                                                    </span>
-                                                </div>
-                                                {item.location && (
-                                                    <span style={{
-                                                        fontFamily: 'var(--font-mono)',
-                                                        fontSize: '0.75rem',
-                                                        color: 'var(--text-muted)',
-                                                        display: 'inline-flex',
-                                                        alignItems: 'center',
-                                                        gap: 4,
-                                                    }}>
-                                                        <FiMapPin /> {item.location}
-                                                    </span>
-                                                )}
-                                            </div>
-
-                                            <h3 style={{ fontSize: '1.25rem', color: 'var(--text-heading)', marginBottom: 4 }}>
-                                                {item.title}
-                                            </h3>
-
-                                            <div style={{
-                                                fontSize: '0.95rem',
-                                                color: 'var(--accent-cyan)',
-                                                fontWeight: 600,
-                                                marginBottom: 14,
-                                                fontFamily: 'var(--font-display)',
-                                            }}>
-                                                {item.organization}
-                                            </div>
-
-                                            <p style={{
-                                                fontSize: '0.92rem',
-                                                color: 'var(--text-secondary)',
-                                                lineHeight: 1.75,
-                                                marginBottom: 18,
-                                            }}>
-                                                {item.description}
-                                            </p>
-
-                                            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
-                                                {item.skills.map(s => (
-                                                    <span key={s} className="tag" style={{
-                                                        borderColor: `${iconColor}25`,
-                                                        color: iconColor,
-                                                        background: `${iconColor}10`,
-                                                    }}>
-                                                        {s}
-                                                    </span>
-                                                ))}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </ScrollReveal>
-                            );
-                        })}
+                    <div className="timeline-rows">
+                        {experience.map((item, i) => (
+                            <ScrollReveal key={i} delay={i * 0.08}>
+                                <TimelineRow item={item} onOpen={() => openItem(item)} />
+                            </ScrollReveal>
+                        ))}
                     </div>
                 </div>
             </div>
 
-            <style>{`
-        @media (max-width: 640px) {
-          .timeline-spine {
-            left: 20px !important;
-          }
-        }
-      `}</style>
+            <WorkDonePopup item={activeItem} onClose={closeItem} />
         </EditorialSection>
+    );
+}
+
+/* ── One timeline row ── */
+function TimelineRow({ item, onOpen }) {
+    const isExp = item.type === 'experience';
+    const work = item.workDone || [];
+
+    return (
+        <article className={`timeline-row ${isExp ? 'is-work' : 'is-edu'} ${work.length ? 'has-work' : ''}`}>
+            <span className="timeline-node" aria-hidden="true">
+                {isExp ? <FiBriefcase /> : <FiBook />}
+            </span>
+
+            <div className="timeline-card glass-card">
+                <header className="timeline-card-head">
+                    <div className="timeline-card-eyebrow">
+                        <span className="timeline-period"><FiCalendar /> {item.period}</span>
+                        <span className="timeline-type">{isExp ? 'Work' : 'Education'}</span>
+                    </div>
+                    {item.location && (
+                        <span className="timeline-location"><FiMapPin /> {item.location}</span>
+                    )}
+                </header>
+
+                <h3 className="timeline-card-title">{item.title}</h3>
+                <div className="timeline-card-org">{item.organization}</div>
+
+                <p className="timeline-card-desc">{item.description}</p>
+
+                <div className="timeline-card-skills">
+                    {item.skills.map((s) => (
+                        <span key={s} className="tag">{s}</span>
+                    ))}
+                </div>
+
+                {work.length > 0 && (
+                    <button
+                        type="button"
+                        className="timeline-work-tab"
+                        onClick={onOpen}
+                        aria-haspopup="dialog"
+                    >
+                        <span className="timeline-work-tab-label">Work Done</span>
+                        <span className="timeline-work-tab-count">{work.length}</span>
+                        <FiArrowUpRight className="timeline-work-tab-icon" />
+                    </button>
+                )}
+            </div>
+        </article>
+    );
+}
+
+/* ── Work-done popup ── */
+function WorkDonePopup({ item, onClose }) {
+    useEffect(() => {
+        if (!item) return;
+        const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+        window.addEventListener('keydown', onKey);
+        document.body.style.overflow = 'hidden';
+        return () => {
+            window.removeEventListener('keydown', onKey);
+            document.body.style.overflow = '';
+        };
+    }, [item, onClose]);
+
+    return (
+        <AnimatePresence>
+            {item && (
+                <motion.div
+                    className="work-done-overlay"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label={`Work done at ${item.organization}`}
+                    onClick={onClose}
+                >
+                    <motion.div
+                        className="work-done-panel"
+                        initial={{ scale: 0.85, opacity: 0, y: 18 }}
+                        animate={{ scale: 1, opacity: 1, y: 0 }}
+                        exit={{ scale: 0.9, opacity: 0, y: 12 }}
+                        transition={{ type: 'spring', stiffness: 240, damping: 26 }}
+                        onClick={(e) => e.stopPropagation()}
+                    >
+                        <header className="work-done-head">
+                            <div>
+                                <span className="work-done-kicker">{item.type === 'experience' ? 'Work' : 'Academic'} · {item.period}</span>
+                                <h3 className="work-done-title">{item.title}</h3>
+                                <p className="work-done-org">{item.organization}</p>
+                            </div>
+                            <button
+                                type="button"
+                                className="work-done-close"
+                                onClick={onClose}
+                                aria-label="Close work done"
+                            >
+                                <FiX />
+                            </button>
+                        </header>
+
+                        <ol className="work-done-list">
+                            {item.workDone?.map((w, i) => (
+                                <li key={i} className="work-done-item">
+                                    <span className="work-done-item-num">
+                                        {String(i + 1).padStart(2, '0')}
+                                    </span>
+                                    <div className="work-done-item-body">
+                                        <div className="work-done-item-label">{w.label}</div>
+                                        <div className="work-done-item-text">{w.body}</div>
+                                    </div>
+                                </li>
+                            ))}
+                        </ol>
+
+                        <footer className="work-done-foot">
+                            {item.skills.map((s) => (
+                                <span key={s} className="tag">{s}</span>
+                            ))}
+                        </footer>
+                    </motion.div>
+                </motion.div>
+            )}
+        </AnimatePresence>
     );
 }
