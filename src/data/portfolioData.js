@@ -242,6 +242,26 @@ export const tourSections = [
   { id: "contact", name: "Reach Out", title: "Reach Out", hint: "Last stop. Drop a message and let's talk." },
 ];
 
+// ── Ancient Map regions ──
+// The parchment navigation map. Each region is a clickable territory that
+// smooth-scrolls to its section. `x/y` are normalized 0–100 coordinates on
+// the parchment viewBox (100 x 70); `w/h` are region-blob sizes in the same
+// units. `kind` switches the ink illustration shown beside the label.
+export const mapRegions = [
+  { id: "hero",       name: "Intro",        subtitle: "Who I am",                       x: 12, y: 18, w: 22, h: 14, kind: "compass" },
+  { id: "opensource", name: "Open Source",  subtitle: "Pull requests & issues",         x: 40, y: 10, w: 24, h: 12, kind: "anchor"   },
+  { id: "skills",     name: "Skills",       subtitle: "The toolkit",                     x: 70, y: 20, w: 22, h: 14, kind: "gear"     },
+  { id: "projects",   name: "Projects",     subtitle: "Things I've built",               x: 16, y: 38, w: 24, h: 14, kind: "tower"    },
+  { id: "experience", name: "Experience",   subtitle: "The path so far",                 x: 48, y: 40, w: 24, h: 14, kind: "scroll"   },
+  { id: "articles",   name: "Articles",      subtitle: "Writing & notes",                x: 74, y: 44, w: 20, h: 12, kind: "quill"    },
+  { id: "movies",     name: "Reels",        subtitle: "Off-hours picks",                 x: 26, y: 58, w: 22, h: 10, kind: "film"     },
+  { id: "contact",    name: "Reach Out",    subtitle: "Send a message",                  x: 56, y: 60, w: 24, h: 10, kind: "envelope" },
+];
+
+// Tiny index number shown above each region label on the map.
+export const regionIndex = (region) =>
+  String(mapRegions.findIndex((r) => r.id === region.id) + 1).padStart(2, '0');
+
 // ── Chatbot ──
 // Casual & fun tone. Each entry: keywords[] to pattern-match (lowercased), and an `answer`.
 // The first matching entry wins, so order broad → specific.
