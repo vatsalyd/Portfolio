@@ -695,69 +695,124 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
   .os-grid { grid-template-columns: 1fr; }
 }
 
-/* ── Physics Skills Container ── */
-.physics-container {
-  position: relative;
-  width: 100%; height: 480px;
-  border-radius: var(--border-radius);
-  background: var(--bg-secondary);
-  border: 1px solid rgba(26, 26, 26, 0.1);
-  overflow: hidden;
-  cursor: default;
-  touch-action: none;
+/* ── Skills — solid pixel boxes ── */
+.skills-container { max-width: 1080px; margin: 0 auto; }
+
+.skills-group { margin-bottom: 40px; }
+.skills-group:last-child { margin-bottom: 0; }
+.skills-group-head {
+  display: flex; align-items: flex-start; gap: 16px;
+  padding-bottom: 14px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid rgba(26, 26, 26, 0.1);
 }
-.physics-skill {
-  position: absolute;
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 9px 13px;
-  font-family: var(--font-primary);
-  font-size: 0.82rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  border-radius: var(--border-radius-pill);
-  border: 1px solid;
-  pointer-events: none;
-  user-select: none;
-  white-space: nowrap;
-  transition: box-shadow 0.2s ease;
-  background: var(--bg-card);
+.skills-group-index {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  padding-top: 4px;
 }
-.physics-skill .physics-skill-icon {
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.95rem;
+.skills-group-titles { flex: 1; }
+.skills-group-name {
   font-family: var(--font-display);
+  font-size: clamp(1.05rem, 2vw, 1.4rem);
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0 0 4px;
+  letter-spacing: -0.015em;
 }
-.physics-skill.cat-AI {
-  background: rgba(202, 130, 248, 0.08);
-  border-color: rgba(202, 130, 248, 0.45);
-  box-shadow: 0 0 14px rgba(202, 130, 248, 0.18);
-  color: var(--accent-violet-dim);
+.skills-group-sub {
+  font-family: var(--font-primary);
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
 }
-.physics-skill.cat-ML {
-  background: rgba(42, 140, 140, 0.08);
-  border-color: rgba(42, 140, 140, 0.45);
-  box-shadow: 0 0 14px rgba(42, 140, 140, 0.16);
-  color: var(--accent-cyan);
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 12px;
 }
-.physics-skill.cat-Backend {
-  background: rgba(232, 146, 43, 0.08);
-  border-color: rgba(232, 146, 43, 0.45);
-  box-shadow: 0 0 14px rgba(232, 146, 43, 0.16);
-  color: var(--accent-amber);
+
+/* Each "pixel" box — solid accent-tinted fill + stripe + sharp corners */
+.skill-box {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 14px 14px 16px;
+  min-height: 76px;
+  background: var(--bg-card);
+  border: 1px solid rgba(26, 26, 26, 0.1);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.22s ease,
+              border-color 0.22s ease;
 }
-.physics-skill.cat-Data {
-  background: rgba(63, 163, 115, 0.08);
-  border-color: rgba(63, 163, 115, 0.45);
-  box-shadow: 0 0 14px rgba(63, 163, 115, 0.16);
-  color: var(--accent-emerald);
+.skill-box:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-elevated);
 }
-.physics-hint {
-  position: absolute; top: 14px; left: 16px; z-index: 5;
-  font-family: var(--font-mono); font-size: 0.7rem;
-  color: var(--text-muted); letter-spacing: 0.4px;
-  pointer-events: none;
+.skill-box-stripe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: var(--accent-violet);
 }
-@media (max-width: 768px) { .physics-container { height: 380px; } }
+.skill-box.accent-violet  .skill-box-stripe { background: var(--accent-violet); }
+.skill-box.accent-cyan    .skill-box-stripe { background: var(--accent-cyan); }
+.skill-box.accent-amber   .skill-box-stripe { background: var(--accent-amber); }
+.skill-box.accent-emerald .skill-box-stripe { background: var(--accent-emerald); }
+
+.skill-box.accent-violet  { background: color-mix(in srgb, var(--accent-violet)  6%, var(--bg-card)); }
+.skill-box.accent-cyan    { background: color-mix(in srgb, var(--accent-cyan)    6%, var(--bg-card)); }
+.skill-box.accent-amber   { background: color-mix(in srgb, var(--accent-amber)   7%, var(--bg-card)); }
+.skill-box.accent-emerald { background: color-mix(in srgb, var(--accent-emerald) 6%, var(--bg-card)); }
+
+.skill-box.accent-violet:hover  { border-color: rgba(202, 130, 248, 0.6); }
+.skill-box.accent-cyan:hover    { border-color: rgba(42, 140, 140, 0.6); }
+.skill-box.accent-amber:hover   { border-color: rgba(232, 146, 43, 0.55); }
+.skill-box.accent-emerald:hover { border-color: rgba(63, 163, 115, 0.6); }
+
+.skill-box-icon {
+  flex-shrink: 0;
+  width: 34px; height: 34px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.05rem;
+  background: var(--bg-card);
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  border-radius: var(--border-radius-sm);
+  color: var(--text-heading);
+}
+.skill-box-glyph { font-size: 0.7rem; }
+
+.skill-box-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.skill-box-name {
+  font-family: var(--font-primary);
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  line-height: 1.25;
+}
+.skill-box-tag {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  color: var(--text-muted);
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 768px) {
+  .skills-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+  .skill-box { min-height: 66px; padding: 12px; }
+  .skill-box-icon { width: 30px; height: 30px; font-size: 0.95rem; }
+}
 
 /* ── Project Detail Page (in-page) ── */
 .project-detail { animation: reveal-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both; }
