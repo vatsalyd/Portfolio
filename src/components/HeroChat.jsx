@@ -1,5 +1,5 @@
-import { useState, useCallback } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useCallback, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { FiArrowRight } from 'react-icons/fi';
 import EditorialSection from './EditorialSection';
@@ -9,21 +9,31 @@ import { heroGallery, personalInfo, socialLinks } from '../data/portfolioData';
 /**
  * HeroChat — the merged Hero + Chat section.
  *
- * Left column: editorial name headline, typewriter role line, concise bio,
- * primary CTAs, and social links.
+ * Left column (60%): editorial name headline, typewriter role line, concise bio,
+ * primary CTAs, and social links. Generous whitespace for an editorial feel.
  *
- * Right column: a 2x2 gallery of transformational photo cards. Each card
- * reveals a "Mini Vatsal" prompt on hover; clicking a card opens the
- * LLM-powered Mini Vatsal agent modal that springs out from the card.
- *
- * Replaces the previous two-section Hero + MiniChatbot split.
+ * Right column (40%): a single large photo card that cycles through the gallery
+ * photos with an upward-scrolling transition. Clicking opens the Mini Vatsal
+ * agent modal.
  */
 export default function HeroChat() {
     const [agentOpen, setAgentOpen] = useState(false);
+    const [activeIndex, setActiveIndex] = useState(0);
     const openAgent = useCallback(() => setAgentOpen(true), []);
     const closeAgent = useCallback(() => setAgentOpen(false), []);
+    const intervalRef = useRef(null);
 
     const typeSequence = personalInfo.roles.flatMap((r) => [r, 2400]);
+
+    // Cycle through photos every 3.5 seconds
+    useEffect(() => {
+        intervalRef.current = setInterval(() => {
+            setActiveIndex((prev) => (prev + 1) % heroGallery.length);
+        }, 3500);
+        return () => clearInterval(intervalRef.current);
+    }, []);
+
+    const activePhoto = heroGallery[activeIndex];
 
     return (
         <EditorialSection
@@ -34,8 +44,8 @@ export default function HeroChat() {
             contentClassName="hero-chat-content"
             style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', paddingTop: 120, paddingBottom: 80 }}
         >
-            <div className="container hero-chat-grid">
-                {/* ── Left ── */}
+            <div className="hero-chat-container hero-chat-grid">
+                {/* ── Left — editorial name block ── */}
                 <div className="hero-chat-left">
                     {/* Status chip */}
                     <motion.div
@@ -50,7 +60,7 @@ export default function HeroChat() {
                             className="hero-status-dot"
                         />
                         <span className="hero-status-text">
-                            Available for AI / ML Engineering Collaborations
+                            Available for AI Infrastructure & Autonomous Agent Roles
                         </span>
                     </motion.div>
 
@@ -67,21 +77,11 @@ export default function HeroChat() {
                         </h1>
                     </motion.div>
 
-                    {/* One-liner */}
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 0.6, delay: 0.25 }}
-                        className="hero-bio"
-                    >
-                        {personalInfo.bio}
-                    </motion.p>
-
                     {/* Roles */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ duration: 0.6, delay: 0.35 }}
+                        transition={{ duration: 0.6, delay: 0.25 }}
                         className="hero-roles"
                     >
                         <span className="hero-roles-prompt">{'>'}</span>
@@ -93,6 +93,42 @@ export default function HeroChat() {
                             className="hero-roles-text"
                         />
                     </motion.div>
+
+                    {/* Headline */}
+                    <motion.h2
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                        className="hero-headline"
+                        style={{
+                            fontFamily: 'var(--font-display)',
+                            fontSize: 'clamp(1.25rem, 2.2vw, 1.65rem)',
+                            fontWeight: 700,
+                            color: 'var(--text-heading)',
+                            lineHeight: 1.3,
+                            marginTop: 18,
+                            marginBottom: 12,
+                            letterSpacing: '-0.02em',
+                        }}
+                    >
+                        {personalInfo.headline}
+                    </motion.h2>
+
+                    {/* Sub-headline / Bio */}
+                    <motion.p
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6, delay: 0.38 }}
+                        className="hero-bio"
+                        style={{
+                            lineHeight: 1.65,
+                            fontSize: '0.98rem',
+                            color: 'var(--text-secondary)',
+                            marginBottom: 24,
+                        }}
+                    >
+                        {personalInfo.subheadline}
+                    </motion.p>
 
                     {/* CTAs */}
                     <motion.div
@@ -139,15 +175,78 @@ export default function HeroChat() {
                     </motion.div>
                 </div>
 
-                {/* ── Right — transformational gallery ── */}
+                {/* ── Right — single cycling photo card ── */}
                 <div className="hero-chat-right">
-                    <div className="hero-gallery">
-                        {heroGallery.map((photo, i) => (
-                            <PhotoCard key={photo.id} photo={photo} index={i} onOpen={openAgent} />
-                        ))}
-                    </div>
+                    <motion.button
+                        type="button"
+                        className="hero-showcase"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                        onClick={openAgent}
+                        aria-label="Open Mini Vatsal agent"
+                    >
+                        {/* Photo frame with upward scroll transition */}
+                        <div className="hero-showcase-frame">
+                            <AnimatePresence mode="popLayout">
+                                <motion.div
+                                    key={activePhoto.id}
+                                    className="hero-showcase-slide"
+                                    style={{
+                                        '--photo-accent': `var(--accent-${activePhoto.accent})`,
+                                    }}
+                                    initial={{ y: '100%', opacity: 0 }}
+                                    animate={{ y: '0%', opacity: 1 }}
+                                    exit={{ y: '-100%', opacity: 0 }}
+                                    transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                                >
+                                    {activePhoto.src ? (
+                                        <img src={activePhoto.src} alt="" />
+                                    ) : (
+                                        <span className="hero-showcase-monogram">
+                                            {personalInfo.initials}
+                                        </span>
+                                    )}
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
+
+                        {/* Caption row */}
+                        <div className="hero-showcase-caption">
+                            <AnimatePresence mode="wait">
+                                <motion.div
+                                    key={activePhoto.id}
+                                    className="hero-showcase-caption-inner"
+                                    initial={{ opacity: 0, y: 8 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -8 }}
+                                    transition={{ duration: 0.4 }}
+                                >
+                                    <span className="hero-showcase-label">{activePhoto.label}</span>
+                                    <span className="hero-showcase-sub">{activePhoto.caption}</span>
+                                </motion.div>
+                            </AnimatePresence>
+                        </div>
+
+                        {/* Dot indicators */}
+                        <div className="hero-showcase-dots">
+                            {heroGallery.map((_, i) => (
+                                <span
+                                    key={i}
+                                    className={`hero-showcase-dot ${i === activeIndex ? 'active' : ''}`}
+                                />
+                            ))}
+                        </div>
+
+                        {/* Hover overlay */}
+                        <div className="hero-showcase-overlay">
+                            <span className="hero-photo-overlay-kicker">Mini Vatsal</span>
+                            <span className="hero-photo-overlay-cta">Ask anything</span>
+                        </div>
+                    </motion.button>
+
                     <p className="hero-gallery-hint">
-                        Hover a photo. Click to open <em>Mini Vatsal</em> — the agent that talks for me.
+                        Click to open <em>Mini Vatsal</em> — the agent that talks for me.
                     </p>
                 </div>
             </div>
@@ -157,53 +256,3 @@ export default function HeroChat() {
     );
 }
 
-/* ── Transformational photo card ── */
-function PhotoCard({ photo, index, onOpen }) {
-    const [hover, setHover] = useState(false);
-    const accentVar = `--accent-${photo.accent}`;
-
-    return (
-        <motion.button
-            type="button"
-            className={`hero-photo ${hover ? 'is-hover' : ''}`}
-            style={{ '--photo-accent': `var(${accentVar})` }}
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 + index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-            whileHover={{ y: -4 }}
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
-            onClick={onOpen}
-            aria-label={`Open Mini Vatsal agent — ${photo.caption}`}
-        >
-            {/* Photo / placeholder frame */}
-            <div className="hero-photo-frame" aria-hidden="true">
-                {photo.src ? (
-                    <img src={photo.src} alt="" />
-                ) : (
-                    <span className="hero-photo-monogram">
-                        {personalInfo.initials}
-                    </span>
-                )}
-            </div>
-
-            {/* Caption row */}
-            <div className="hero-photo-caption">
-                <span className="hero-photo-label">{photo.label}</span>
-                <span className="hero-photo-sub">{photo.caption}</span>
-            </div>
-
-            {/* Transformational hover overlay — reveals Mini Vatsal prompt */}
-            <motion.div
-                className="hero-photo-overlay"
-                initial={false}
-                animate={{ opacity: hover ? 1 : 0 }}
-                transition={{ duration: 0.3, ease: 'easeOut' }}
-                aria-hidden={!hover}
-            >
-                <span className="hero-photo-overlay-kicker">Mini Vatsal</span>
-                <span className="hero-photo-overlay-cta">Ask anything</span>
-            </motion.div>
-        </motion.button>
-    );
-}
