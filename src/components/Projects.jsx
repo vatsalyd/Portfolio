@@ -79,10 +79,10 @@ export default function Projects() {
             <div className="container projects-index">
                 <ScrollReveal>
                     <div className="section-header">
-                        <span className="section-label">// Portfolio · Case Studies</span>
+                        <span className="section-label">// Systems & Autonomous Agents</span>
                         <h2 className="section-title">Featured Engineering</h2>
                         <p className="section-subtitle">
-                            Six builds across multi-agent orchestration, RAG pipelines, ML classifiers, and real-time microservices. Open any row to read the full case study.
+                            Practical implementations across autonomous agent state machines, low-latency microservices, cloud infrastructure, and predictive ML.
                         </p>
                     </div>
                 </ScrollReveal>

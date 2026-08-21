@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { FiArrowUp } from 'react-icons/fi';
-import VYLogo from './VYLogo';
 
 export default function Footer() {
     return (
@@ -18,25 +17,18 @@ export default function Footer() {
                 flexWrap: 'wrap',
                 gap: 20,
             }}>
-                {/* Boxed VY Logo — Noah style */}
+                {/* VY Signature Logo */}
                 <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                    <span style={{
-                        display: 'inline-flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        width: 42,
-                        height: 42,
-                        background: 'var(--text-heading)',
-                        color: 'var(--bg-primary)',
-                        fontFamily: 'var(--font-display)',
-                        fontSize: '0.9rem',
-                        fontWeight: 700,
-                        letterSpacing: '0.02em',
-                        borderRadius: 'var(--border-radius)',
-                        border: '1px solid var(--text-heading)',
-                    }}>
-                        VY
-                    </span>
+                    <img
+                        src={`${import.meta.env.BASE_URL}vy-logo.jpg`}
+                        alt="Vatsal Yadav Logo"
+                        style={{
+                            width: 42,
+                            height: 42,
+                            objectFit: 'cover',
+                            borderRadius: 'var(--border-radius)',
+                        }}
+                    />
                     <span style={{
                         fontFamily: 'var(--font-display)',
                         fontWeight: 700,

@@ -83,7 +83,7 @@ export default function Articles() {
     );
 }
 
-/* ── One article card ── */
+/* ── One article card with rich hover preview ── */
 function ArticleCard({ article, published }) {
     const Wrapper = published ? 'a' : 'div';
     const wrapperProps = published
@@ -93,35 +93,72 @@ function ArticleCard({ article, published }) {
     return (
         <Wrapper
             {...wrapperProps}
-            className="article-card"
-            style={{ display: 'flex', flexDirection: 'column' }}
+            className={`article-card ${published ? 'is-published' : 'is-draft'}`}
         >
+            {/* Title Image Cover Container */}
             <div className="article-cover">
                 {article.coverImage ? (
-                    <img src={article.coverImage} alt="" />
+                    <img src={`${import.meta.env.BASE_URL}${article.coverImage}`} alt={article.title} className="article-cover-img" />
                 ) : (
-                    <span className="article-cover-glyph" aria-hidden="true">
-                        <FiFileText />
-                    </span>
+                    <div className="article-cover-placeholder">
+                        <span className="article-cover-glyph" aria-hidden="true">
+                            <FiFileText />
+                        </span>
+                        <span className="article-cover-tag">{article.tag}</span>
+                    </div>
                 )}
-                {!published && <span className="article-draft-pill">Draft</span>}
+
+                {published ? (
+                    <span className="article-medium-badge">
+                        Medium ↗
+                    </span>
+                ) : (
+                    <span className="article-draft-pill">Upcoming</span>
+                )}
             </div>
 
+            {/* Main Card Body */}
             <div className="article-body">
-                <span className="article-tag">{article.tag}</span>
+                <div className="article-tag-row">
+                    <span className="article-tag">{article.tag}</span>
+                    <span className="article-readtime"><FiClock style={{ fontSize: '0.72rem' }} /> {article.readTime}</span>
+                </div>
+
                 <h3 className="article-title">{article.title}</h3>
                 <p className="article-excerpt">{article.excerpt}</p>
 
                 <div className="article-meta">
                     <span>{article.date}</span>
-                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 5 }}>
-                        {published ? (
-                            <FiExternalLink style={{ fontSize: '0.78rem' }} />
-                        ) : null}
-                        <FiClock style={{ fontSize: '0.74rem' }} /> {article.readTime}
-                    </span>
+                    {published && (
+                        <span className="article-read-link">
+                            Read on Medium <FiExternalLink style={{ fontSize: '0.78rem' }} />
+                        </span>
+                    )}
                 </div>
             </div>
+
+            {/* Interactive Hover Preview Drawer */}
+            {published && (
+                <div className="article-hover-preview">
+                    <div className="article-preview-header">
+                        <span className="article-preview-kicker">// ARTICLE PREVIEW</span>
+                        <span className="article-preview-badge">Medium</span>
+                    </div>
+                    <h4 className="article-preview-title">{article.title}</h4>
+                    <p className="article-preview-excerpt">{article.excerpt}</p>
+                    {article.highlights && article.highlights.length > 0 && (
+                        <ul className="article-preview-highlights">
+                            {article.highlights.map((h, idx) => (
+                                <li key={idx}>⚡ {h}</li>
+                            ))}
+                        </ul>
+                    )}
+                    <div className="article-preview-action">
+                        <span>Click to read on Medium</span>
+                        <FiExternalLink />
+                    </div>
+                </div>
+            )}
         </Wrapper>
     );
 }
