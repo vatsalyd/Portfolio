@@ -25,9 +25,9 @@ export default function Articles() {
     return (
         <EditorialSection
             id="articles"
-            ghost="NOTES"
-            eyebrowIndex="06"
-            eyebrowLabel="NOTES"
+            ghost="ARTICLES"
+            eyebrowIndex="07"
+            eyebrowLabel="ARTICLES"
         >
             <div className="container articles-container">
                 <ScrollReveal>

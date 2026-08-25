@@ -107,7 +107,7 @@ export default function Contact() {
         <EditorialSection
             id="contact"
             ghost="REACH"
-            eyebrowIndex="09"
+            eyebrowIndex="10"
             eyebrowLabel="REACH"
         >
             <div className="container">

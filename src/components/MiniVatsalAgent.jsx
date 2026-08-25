@@ -29,7 +29,7 @@ import {
 const SYSTEM_PROMPT = buildMiniVatsalSystemPrompt();
 const HAS_API = Boolean(miniVatsalConfig.apiKey);
 
-export default function MiniVatsalAgent({ open, onClose }) {
+export default function MiniVatsalAgent({ open, onClose, initialPrompt = '' }) {
     const [messages, setMessages] = useState([
         {
             from: 'bot',
@@ -41,6 +41,7 @@ export default function MiniVatsalAgent({ open, onClose }) {
     const [busy, setBusy] = useState(false);
     const threadRef = useRef(null);
     const abortRef = useRef(null);
+    const sentInitialRef = useRef(false);
 
     // Keep the latest tail pinned to view.
     const scrollToBottom = useCallback(() => {
@@ -48,6 +49,19 @@ export default function MiniVatsalAgent({ open, onClose }) {
         if (el) el.scrollTop = el.scrollHeight;
     }, []);
     useEffect(scrollToBottom, [messages, busy, scrollToBottom]);
+
+    // Send initial prompt if opened from a quick chip
+    useEffect(() => {
+        if (open && initialPrompt && !sentInitialRef.current) {
+            sentInitialRef.current = true;
+            setTimeout(() => {
+                send(initialPrompt);
+            }, 300);
+        }
+        if (!open) {
+            sentInitialRef.current = false;
+        }
+    }, [open, initialPrompt]);
 
     // ESC + scroll-lock while open.
     useEffect(() => {

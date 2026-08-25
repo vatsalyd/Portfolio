@@ -175,7 +175,7 @@ export default function OpenSource() {
         <EditorialSection
             id="opensource"
             ghost="OPEN SOURCE"
-            eyebrowIndex="02"
+            eyebrowIndex="03"
             eyebrowLabel="OPEN SOURCE"
         >
             <div className="container">

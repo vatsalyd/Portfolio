@@ -32,8 +32,8 @@ export default function Experience() {
     return (
         <EditorialSection
             id="experience"
-            ghost="EXPERIENCE"
-            eyebrowIndex="05"
+            ghost="CAREER"
+            eyebrowIndex="06"
             eyebrowLabel="EXPERIENCE"
         >
             <div className="container experience-container">

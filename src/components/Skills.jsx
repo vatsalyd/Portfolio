@@ -290,8 +290,8 @@ export default function Skills() {
     return (
         <EditorialSection
             id="skills"
-            ghost="SKILLS"
-            eyebrowIndex="03"
+            ghost="TOOLKIT"
+            eyebrowIndex="04"
             eyebrowLabel="SKILLS"
         >
             <div className="container skills-container">

@@ -52,7 +52,7 @@ export default function Projects() {
             <EditorialSection
                 id="projects"
                 ghost="WORK"
-                eyebrowIndex="04"
+                eyebrowIndex="05"
                 eyebrowLabel="WORK"
             >
                 <ProjectCaseStudy
@@ -73,7 +73,7 @@ export default function Projects() {
         <EditorialSection
             id="projects"
             ghost="WORK"
-            eyebrowIndex="04"
+            eyebrowIndex="05"
             eyebrowLabel="WORK"
         >
             <div className="container projects-index">

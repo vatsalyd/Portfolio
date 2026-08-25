@@ -1,7 +1,8 @@
 // ── Portfolio Data — Single Source of Truth ──
 // Updated to reflect latest resume details (IIT Bhilai B.Tech DSAI, CGPA 7.61, Incrivelsoft Internship, FinSight AI)
 
-import { FaPython, FaDocker, FaGitAlt, FaAws, FaGithub, FaLinkedin, FaKaggle } from 'react-icons/fa';
+import { FaPython, FaDocker, FaGitAlt, FaAws, FaGithub, FaLinkedin, FaKaggle, FaMedium } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 import { SiPytorch, SiScikitlearn, SiPandas, SiNumpy, SiMongodb, SiStreamlit, SiLangchain, SiFastapi, SiOpenai, SiLeetcode } from 'react-icons/si';
 import { TbBrandVscode, TbRobot, TbApi, TbBrain, TbDatabase, TbServer } from 'react-icons/tb';
 import { BiLogoJavascript, BiLogoTypescript } from 'react-icons/bi';
@@ -60,23 +61,42 @@ export const personalInfo = {
 export const socialLinks = [
   { name: "GitHub", url: "https://github.com/vatsalyd", icon: FaGithub },
   { name: "LinkedIn", url: "https://www.linkedin.com/in/vatsal-yadav", icon: FaLinkedin },
+  { name: "X (Twitter)", url: "https://x.com/fixedbyvatsal", icon: FaXTwitter },
+  { name: "LeetCode", url: "https://leetcode.com/u/vatsalyd/", icon: SiLeetcode },
+  { name: "Medium", url: "https://medium.com/@vatsal.y.official", icon: FaMedium },
   { name: "Kaggle", url: "https://www.kaggle.com/vatsalydd", icon: FaKaggle },
-  { name: "LeetCode", url: "https://leetcode.com/u/vatsal_yd/", icon: SiLeetcode },
 ];
 
 export const stats = [
-  { label: "CGPA (IIT Bhilai)", value: 7.61 },
-  { label: "Systems & Agents Shipped", value: 6, suffix: "+" },
-  { label: "Cloud & Pipeline Deployments", value: 5, suffix: "+" },
-  { label: "Engineers & Hackers Mentored", value: 100, suffix: "+" },
+  { label: "Education", value: "IIT Bhilai", sub: "B.Tech DSAI (7.61 GPA)" },
+  { label: "Core Focus", value: "AI Infra & Agents", sub: "Low-Latency & Autonomy" },
+  { label: "Agent Speed", value: "~1.8s", sub: "Sub-Second Resolution" },
+  { label: "Deployments", value: "Cloud & Docker", sub: "Reliable & Scalable" },
 ];
 
 // ── Hero gallery + Mini Vatsal agent ──
 export const heroGallery = [
-  { id: 'studio',   label: 'At the desk',     caption: 'Where the infrastructure & agents are built',  accent: 'violet',  src: null },
-  { id: 'campus',   label: 'IIT Bhilai',       caption: 'B.Tech DSAI · 2nd year',     accent: 'cyan',    src: null },
-  { id: 'stage',    label: 'On stage',         caption: 'Systems workshops · Meraz hackathon', accent: 'amber', src: null },
-  { id: 'ship',     label: 'Shipping',         caption: 'From repo to reliable production',     accent: 'emerald', src: null },
+  {
+    id: 'portrait-suit',
+    label: 'Vatsal Yadav',
+    caption: 'AI Infrastructure & Autonomous Agents Engineer',
+    accent: 'violet',
+    src: 'hero/vatsal-suit.jpg',
+  },
+  {
+    id: 'monogram-brand',
+    label: 'Signature Brand',
+    caption: 'The Engine Room of Modern AI Systems',
+    accent: 'amber',
+    src: 'hero/vatsal-monogram.jpg',
+  },
+  {
+    id: 'portrait-beach',
+    label: 'Beyond The Code',
+    caption: 'Focus, Discipline & Relentless Will',
+    accent: 'cyan',
+    src: 'hero/vatsal-beach.jpg',
+  },
 ];
 
 // ── Mini Vatsal — LLM-powered agent ──
@@ -406,15 +426,16 @@ export const experience = [
 // the parchment viewBox (100 x 70); `w/h` are region-blob sizes in the same
 // units. `kind` switches the ink illustration shown beside the label.
 export const mapRegions = [
-  { id: "hero",       name: "Intro",        subtitle: "Who I am · Mini Vatsal agent",   x: 12, y: 18, w: 22, h: 14, kind: "compass" },
-  { id: "opensource", name: "Open Source",  subtitle: "Pull requests & issues",         x: 40, y: 10, w: 24, h: 12, kind: "anchor"   },
-  { id: "skills",     name: "Skills",       subtitle: "The toolkit",                     x: 70, y: 20, w: 22, h: 14, kind: "gear"     },
-  { id: "projects",   name: "Projects",     subtitle: "Things I've built",               x: 16, y: 38, w: 24, h: 14, kind: "tower"    },
-  { id: "experience", name: "Experience",   subtitle: "The path so far",                 x: 48, y: 40, w: 24, h: 14, kind: "scroll"   },
-  { id: "articles",   name: "Articles",      subtitle: "Writing & notes",                x: 74, y: 44, w: 20, h: 12, kind: "quill"    },
-  { id: "taste",      name: "The Taste",    subtitle: "Cinema & culture picks",          x: 20, y: 58, w: 20, h: 10, kind: "film"     },
-  { id: "characters", name: "Characters",   subtitle: "Iconic figures & archetypes",     x: 46, y: 58, w: 22, h: 10, kind: "mask"     },
-  { id: "contact",    name: "Reach Out",    subtitle: "Send a message",                  x: 72, y: 60, w: 20, h: 10, kind: "envelope" },
+  { id: "hero",       name: "Intro",        subtitle: "Who I am · Photo Archive",       x: 12, y: 18, w: 22, h: 14, kind: "compass" },
+  { id: "agent",      name: "Mini Vatsal",  subtitle: "Live agent & terminal CLI",      x: 38, y: 14, w: 22, h: 12, kind: "gear"    },
+  { id: "opensource", name: "Open Source",  subtitle: "Pull requests & issues",         x: 68, y: 12, w: 24, h: 12, kind: "anchor"  },
+  { id: "skills",     name: "Skills",       subtitle: "The technical toolkit",          x: 16, y: 38, w: 22, h: 14, kind: "gear"    },
+  { id: "projects",   name: "Projects",     subtitle: "Things I've built",               x: 46, y: 38, w: 24, h: 14, kind: "tower"   },
+  { id: "experience", name: "Experience",   subtitle: "The path so far",                 x: 74, y: 38, w: 22, h: 14, kind: "scroll"  },
+  { id: "articles",   name: "Articles",      subtitle: "Writing & notes",                x: 16, y: 58, w: 20, h: 10, kind: "quill"   },
+  { id: "taste",      name: "The Taste",    subtitle: "Cinema & culture picks",          x: 42, y: 58, w: 20, h: 10, kind: "film"    },
+  { id: "characters", name: "Characters",   subtitle: "Iconic figures & archetypes",     x: 66, y: 58, w: 20, h: 10, kind: "mask"    },
+  { id: "contact",    name: "Reach Out",    subtitle: "Send a message",                  x: 84, y: 58, w: 16, h: 10, kind: "envelope"},
 ];
 
 // Tiny index number shown above each region label on the map.
