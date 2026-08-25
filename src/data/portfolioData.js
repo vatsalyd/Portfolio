@@ -515,6 +515,20 @@ export const mediumUser = "vatsal.y.official"; // @handle on Medium
 
 export const articles = [
   {
+    title: "Your AI Agent Is Reading the Whole Book. You're Paying for Every Word",
+    excerpt: "The silent token tax of full-document agent architectures — and how Context Pager brings virtual memory, semantic page indexing, and compressed recall to cut overhead by 4–10x.",
+    date: "Aug 2026",
+    readTime: "6 min read",
+    url: "https://medium.com/@vatsal.y.official/your-ai-agent-is-reading-the-whole-book-youre-paying-for-every-word-1193f3dec6df?sharedUserId=vatsal.y.official",
+    tag: "MCP & Memory",
+    coverImage: "article-context-pager.png",
+    highlights: [
+      "Built Context Pager MCP to act as virtual memory for agent document retrieval",
+      "Eliminated massive full-doc token dumps with 4-stage Index → Search → Compress → Recall",
+      "Slashed query token costs by 4–10x with persistent insight caching",
+    ],
+  },
+  {
     title: "I Refactored My AI Agent System and Deleted Half the Complexity — Here's What I Changed and Why",
     excerpt: "Lessons learned from stripping out unnecessary abstractions, flattening state transitions, and optimizing multi-agent routing for real-world reliability and sub-second latency.",
     date: "Aug 2026",
