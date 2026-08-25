@@ -40,14 +40,14 @@ export default function Footer() {
                     </span>
                 </div>
 
-                {/* Copyright */}
+                {/* Tagline */}
                 <p style={{
                     fontFamily: 'var(--font-mono)',
                     fontSize: '0.75rem',
                     color: 'var(--text-muted)',
                     letterSpacing: 0.3,
                 }}>
-                    © {new Date().getFullYear()} Vatsal Yadav · Built with React, Vite & Framer Motion
+                    Let's build together!
                 </p>
 
                 {/* Back to top */}
