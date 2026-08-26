@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@fontsource/cinzel": "^5.2.8",
+    "@splidejs/react-splide": "^0.7.12",
+    "@splidejs/splide": "^4.1.4",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.9.1",
     "framer-motion": "^12.34.3",

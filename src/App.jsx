@@ -1,4 +1,5 @@
 import AncientMap from './components/AncientMap';
+import CustomCursor from './components/CustomCursor';
 import HeroChat from './components/HeroChat';
 import MiniVatsalTerminal from './components/MiniVatsalTerminal';
 import OpenSource from './components/OpenSource';
@@ -14,6 +15,9 @@ import Footer from './components/Footer';
 export default function App() {
   return (
     <>
+      {/* Interactive adaptive custom cursor */}
+      <CustomCursor />
+
       {/* Parchment-map navigation */}
       <AncientMap />
 
