@@ -120,9 +120,11 @@ export const getStoredBaseUrl = () => {
 
 export const getStoredModel = () => {
   const key = getStoredApiKey();
-  if (key.startsWith('gsk_')) return 'llama-3.3-70b-versatile';
+  if (key.startsWith('gsk_')) {
+    return import.meta.env?.VITE_LLM_MODEL || localStorage.getItem('minivatsal_model') || 'groq/compound-mini';
+  }
   try {
-    return localStorage.getItem('minivatsal_model') || import.meta.env?.VITE_LLM_MODEL || (key.startsWith('gsk_') ? 'llama-3.3-70b-versatile' : 'gpt-4o-mini');
+    return localStorage.getItem('minivatsal_model') || import.meta.env?.VITE_LLM_MODEL || 'gpt-4o-mini';
   } catch {
     return import.meta.env?.VITE_LLM_MODEL || 'gpt-4o-mini';
   }
