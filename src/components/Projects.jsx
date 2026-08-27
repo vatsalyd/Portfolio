@@ -348,6 +348,27 @@ export default function Projects() {
                         </div>
                     </div>
 
+                    {/* Center Carousel Pagination Pins */}
+                    <div className="projects-carousel-pins" aria-label="Project slide navigation">
+                        {filtered.map((p, idx) => {
+                            const isActive = (activeSlideIndex % filtered.length) === idx;
+                            return (
+                                <button
+                                    key={p.title}
+                                    type="button"
+                                    className={`project-carousel-pin ${isActive ? 'is-active' : ''}`}
+                                    onClick={() => {
+                                        if (splideInstance.current) {
+                                            splideInstance.current.go(idx);
+                                        }
+                                    }}
+                                    aria-label={`Go to slide ${idx + 1}: ${p.title}`}
+                                    title={p.title}
+                                />
+                            );
+                        })}
+                    </div>
+
                     {/* Navigation Hint */}
                     <div className="projects-slider-hint">
                         <span>← Drag or use arrow keys to navigate projects →</span>

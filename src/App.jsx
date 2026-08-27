@@ -1,5 +1,6 @@
 import AncientMap from './components/AncientMap';
 import CustomCursor from './components/CustomCursor';
+import TopNavActions from './components/TopNavActions';
 import HeroChat from './components/HeroChat';
 import MiniVatsalTerminal from './components/MiniVatsalTerminal';
 import OpenSource from './components/OpenSource';
@@ -20,6 +21,9 @@ export default function App() {
 
       {/* Parchment-map navigation */}
       <AncientMap />
+
+      {/* Top Right Floating Actions: Resume & Spoonfeeding (Recruiter Mode) */}
+      <TopNavActions />
 
       <main style={{ position: 'relative', zIndex: 1 }}>
         <HeroChat />

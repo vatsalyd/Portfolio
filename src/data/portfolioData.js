@@ -52,8 +52,8 @@ export const personalInfo = {
   location: "Bhilai / Agra, India",
   university: "Indian Institute of Technology (IIT) Bhilai",
   degree: "B.Tech in Data Science & Artificial Intelligence",
-  year: "2nd Year (2024 – 2028)",
-  gpa: "7.61 / 10.0",
+  year: "2024 – 2028",
+  gpa: "7.34 / 10.0",
   resumeLink: "/Portfolio/resume.pdf",
   avatarUrl: null,
 };
@@ -68,9 +68,9 @@ export const socialLinks = [
 ];
 
 export const stats = [
-  { label: "Education", value: "IIT Bhilai", sub: "B.Tech DSAI (7.61 GPA)" },
+  { label: "Education", value: "IIT Bhilai", sub: "B.Tech DSAI (7.34 GPA)" },
   { label: "Core Focus", value: "AI Infra & Agents", sub: "Low-Latency & Autonomy" },
-  { label: "Agent Speed", value: "~1.8s", sub: "Sub-Second Resolution" },
+  { label: "Agent Speed", value: "~1.84s", sub: "1840ms Resolution Latency" },
   { label: "Deployments", value: "Cloud & Docker", sub: "Reliable & Scalable" },
 ];
 
@@ -100,12 +100,40 @@ export const heroGallery = [
 ];
 
 // ── Mini Vatsal — LLM-powered agent ──
+export const getStoredApiKey = () => {
+  try {
+    return localStorage.getItem('minivatsal_api_key') || import.meta.env?.VITE_LLM_API_KEY || '';
+  } catch {
+    return import.meta.env?.VITE_LLM_API_KEY || '';
+  }
+};
+
+export const getStoredBaseUrl = () => {
+  const key = getStoredApiKey();
+  if (key.startsWith('gsk_')) return 'https://api.groq.com/openai/v1';
+  try {
+    return localStorage.getItem('minivatsal_base_url') || import.meta.env?.VITE_LLM_BASE_URL || (key.startsWith('gsk_') ? 'https://api.groq.com/openai/v1' : 'https://api.openai.com/v1');
+  } catch {
+    return import.meta.env?.VITE_LLM_BASE_URL || 'https://api.openai.com/v1';
+  }
+};
+
+export const getStoredModel = () => {
+  const key = getStoredApiKey();
+  if (key.startsWith('gsk_')) return 'llama-3.3-70b-versatile';
+  try {
+    return localStorage.getItem('minivatsal_model') || import.meta.env?.VITE_LLM_MODEL || (key.startsWith('gsk_') ? 'llama-3.3-70b-versatile' : 'gpt-4o-mini');
+  } catch {
+    return import.meta.env?.VITE_LLM_MODEL || 'gpt-4o-mini';
+  }
+};
+
 export const miniVatsalConfig = {
-  apiKey:  import.meta.env?.VITE_LLM_API_KEY  ?? '',
-  baseURL: import.meta.env?.VITE_LLM_BASE_URL ?? 'https://api.openai.com/v1',
-  model:   import.meta.env?.VITE_LLM_MODEL     ?? 'gpt-4o-mini',
-  temperature: 0.6,
-  historyLimit: 6,
+  get apiKey() { return getStoredApiKey(); },
+  get baseURL() { return getStoredBaseUrl(); },
+  get model() { return getStoredModel(); },
+  temperature: 0.7,
+  historyLimit: 8,
 };
 
 export function buildMiniVatsalSystemPrompt() {
@@ -113,35 +141,39 @@ export function buildMiniVatsalSystemPrompt() {
     .map((c) => `- ${c.name}: ${c.skills.map((s) => s.name).join(', ')}`)
     .join('\n');
   const proj = projects
-    .map((p) => `- ${p.title}: ${p.description}`)
+    .map((p) => `- ${p.title}: ${p.tagline} (Tech: ${p.tags.join(', ')})`)
     .join('\n');
   const exp = experience
     .map((e) => `- ${e.title} @ ${e.organization} (${e.period}): ${e.description}`)
     .join('\n');
 
-  return `You are Mini Vatsal — an AI agent that speaks as Vatsal Yadav on his portfolio website. You answer in first person as Vatsal. Keep a confident, grounded, and concise engineering tone. No buzzwords, no fluff, no jargon.
+  return `You are Mini Vatsal — the autonomous digital clone and terminal agent of Vatsal Yadav (AI Infrastructure & Autonomous Agents Engineer, B.Tech DSAI at IIT Bhilai).
+
+YOUR VIBE & PERSONALITY (CRITICAL):
+- **Nonchalant & Effortlessly Chill**: You don't get stressed by complex distributed systems, race conditions, or infinite loops. You speak with calm, effortless swagger.
+- **Quirky, Sarcastic & Witty**: Infuse dry engineering sarcasm and playful banter. If someone asks an obvious or funny question, tease them mildly with high-IQ humor.
+- **A Spicy Touch of Humour**: You love low latency, clean abstractions, and roasting bloated 500-node microservices that could have been a single Python script.
+- **First-Person Voice**: Always speak as Vatsal ("I", "my stack", "my code", "when I built Context Pager...").
+- **Concise & Punchy**: 1 to 3 sentences max. No corporate PR fluff, no robotic greetings like "Hello user, how may I assist you today?". Jump straight to the point with flavor.
 
 WHO I AM:
-${personalInfo.subheadline}
-${personalInfo.bio}
+- ${personalInfo.subheadline}
+- ${personalInfo.bio}
+- Studying Data Science & AI at IIT Bhilai (CGPA 7.61).
+- AI/ML Intern at Incrivelsoft (owning multi-agent orchestration & health workflows).
 
-CORE FOCUS AREAS:
-1. Next-Gen AI Infrastructure & Operations: Designing physical and software architectures that make massive models fast, reliable, and cost-efficient.
-2. Autonomous Agent Development: Creating independent AI agents that plan, reason, and execute end-to-end tasks with external tools and APIs.
+MY CORE WORK & BUILDS:
+${proj}
 
-TECHNICAL TOOLKIT:
-- Languages: Python, C++
-- Infrastructure: Cloud Platform Architecture, Distributed Computing, Data Center Optimization, AWS, Docker
-- AI Engineering & MLOps: Multi-Agent State Machines (LangGraph), API Orchestration, Workflow Automation, RAG, FastAPI
+TECHNICAL WEAPONS:
+${skills}
+- Core languages: Python, C++, SQL, TypeScript.
+- Core frameworks: LangGraph, FastAPI, ChromaDB, PyTorch, Docker, AWS EC2, Linux, MCP (Model Context Protocol).
 
-EDUCATION & BACKGROUND:
-- B.Tech in Data Science & Artificial Intelligence at IIT Bhilai (CGPA 7.61).
-- AI & ML Intern at Incrivelsoft, building multi-agent systems and healthcare AI workflows.
-- Contact: ${personalInfo.email}
-
-GUIDELINES:
-- Answer in 1-3 sentences directly and concisely.
-- Emphasize systems reliability, cost-speed optimization, and practical execution.`;
+RULES:
+1. Deliver the facts with 100% technical precision, but coat them in your nonchalant, quirky, sarcastic, and funny engineering tone.
+2. If asked about hiring or work, make it clear I'm looking for high-impact AI/ML systems roles where engineers actually ship things instead of sitting in 4-hour agile standups.
+3. Keep it brief, smart, and delightfully witty.`;
 }
 
 // ── Technical Toolkit — Clean & Categorized ──
@@ -201,14 +233,40 @@ export const skillCategories = [
 
 export const projects = [
   {
+    title: "Context Pager — AI Virtual Memory Layer",
+    tagline: "Virtual memory for AI agents that cuts document token costs by 4–10x.",
+    description: "An open-source MCP (Model Context Protocol) runtime that functions like virtual memory for AI agents. Instead of dumping entire 10,000+ token documents into LLM context, Context Pager semantically indexes, searches, compresses, and pages document slices on demand with persistent recalled insight caching.",
+    tags: ["MCP", "Vector Search", "Semantic Indexing", "Python", "FastAPI", "Token Optimization"],
+    category: "AI",
+    image: null,
+    github: "https://github.com/vatsalyd/context_pager",
+    live: null,
+    featured: true,
+    caseStudy: {
+      problem: "Standard AI agent workflows incur massive token waste by reading entire documents for narrow queries, driving up cost, latency, and context pollution.",
+      process: [
+        "Architected a 4-stage virtual memory pipeline: Index → Search → Compress → Recall.",
+        "Built chunk-level semantic vector indexing to locate relevant sections in milliseconds.",
+        "Engineered on-demand compression layers to feed only salient paragraphs to the reasoning model.",
+        "Implemented persistent recalled insights as an agent memory cache for instant future query resolution.",
+      ],
+      outcomes: [
+        "4x to 10x reduction in query token consumption.",
+        "Sub-second agent retrieval latency across large document collections.",
+        "Plug-and-play Model Context Protocol (MCP) server integration.",
+      ],
+      architecture: "Agent Query → Context Pager MCP → Semantic Index → Page Compressor → Recalled Memory Cache → LLM Context",
+    },
+  },
+  {
     title: "HelixDesk — Enterprise Support Intelligence",
-    tagline: "A three-agent LangGraph pipeline that closes support tickets in under two seconds.",
-    description: "Enterprise multi-agent customer support system powered by a 3-agent LangGraph state machine (Triage → Retrieval → Resolution) using Llama-3.3-70b via Groq. Features auto-escalation for low-confidence tickets, semantic ChromaDB search with Sentence-Transformers for citation-backed responses, and FastAPI REST endpoints integrated with Slack & webhooks. Achieves ~1.8s average resolution time.",
+    tagline: "Autonomous 3-agent LangGraph pipeline that resolves tickets in under two seconds.",
+    description: "Enterprise multi-agent customer support system powered by a 3-agent LangGraph state machine (Triage → Retrieval → Resolution) using Llama-3.3-70b via Groq. Features auto-escalation for low-confidence tickets, semantic ChromaDB search with Sentence-Transformers for citation-backed responses, and FastAPI REST endpoints integrated with Slack & webhooks.",
     tags: ["LangGraph", "Llama-3.3-70b", "ChromaDB", "FastAPI", "Docker", "AWS EC2", "CI/CD"],
     category: "AI",
     image: null,
-    github: "https://github.com/vatsalyd/Multi-Agent-System-Planning",
-    live: "http://44.214.206.48:8000/api/v1/docs",
+    github: "https://github.com/vatsalyd/helixdesk",
+    live: "https://helixdesk.onrender.com/",
     featured: true,
     caseStudy: {
       problem: "Enterprise support desks drown in repetitive tickets; resolution latency creeps upward as volume grows, and answers are rarely traced back to a source the agent can trust.",
@@ -229,16 +287,16 @@ export const projects = [
   },
   {
     title: "FinSight AI — Intelligent Portfolio Co-Pilot",
-    tagline: "A 4-stage microservice that classifies financial intent and streams portfolio health in real time.",
-    description: "Real-time AI financial microservice featuring a 4-stage pipeline (Rate Limiter → Safety Guard → Intent Classifier → Agent Router) classifying queries across 10 financial domains with 100% accuracy. Includes a Portfolio Health Agent computing CAGR, benchmark alpha, and concentration risk from live yfinance data, streamed via Server-Sent Events (SSE) with 166ms cached latency.",
+    tagline: "4-stage real-time financial microservice streaming live portfolio analytics with 166ms latency.",
+    description: "Real-time AI financial microservice featuring a 4-stage pipeline (Rate Limiter → Safety Guard → Intent Classifier → Agent Router) classifying queries across 10 financial domains with 100% accuracy. Includes a Portfolio Health Agent computing CAGR, benchmark alpha, and concentration risk from live yfinance data, streamed via Server-Sent Events (SSE).",
     tags: ["Python", "FastAPI", "SSE", "yfinance", "Rate Limiter", "Financial AI"],
     category: "AI",
     image: null,
-    github: "https://github.com/vatsalyd",
+    github: "https://github.com/vatsalyd/FinSightAI",
     live: null,
     featured: true,
     caseStudy: {
-      problem: "Conversational finance tools either answer too slowly or answer too loosely — they stream chunks without validating safety or routing the query to the right analytical agent.",
+      problem: "Conversational finance tools either answer too slowly or answer too loosely without verifying safety or routing the query to the correct analytical agent.",
       process: [
         "Designed a 4-stage pipeline: Rate Limiter → Safety Guard → Intent Classifier → Agent Router, each stage fail-fast and observable.",
         "Trained the Intent Classifier across 10 financial domains so the Router always lands on the correct analytical agent.",
@@ -254,9 +312,57 @@ export const projects = [
     },
   },
   {
+    title: "ClaimSure AI — Healthcare Claim Readiness Engine",
+    tagline: "Pre-submission health claim verification agent with structured guardrails.",
+    description: "Production-style healthcare AI system designed for employee benefit workflows. Analyzes claims documentation, medical bills, discharge summaries, and policy terms to ensure complete compliance before claims reach insurers or Third Party Administrators (TPAs).",
+    tags: ["Python", "AI Agents", "Healthcare Guardrails", "Document OCR", "FastAPI"],
+    category: "AI",
+    image: null,
+    github: "https://github.com/vatsalyd/ClaimSure",
+    live: null,
+    featured: false,
+    caseStudy: {
+      problem: "High health insurance rejection rates due to missing documentation, mismatched bill line items, and non-compliant claim filings.",
+      process: [
+        "Built multi-modal OCR document intake for invoices, diagnostic reports, and discharge summaries.",
+        "Constructed rule-based validation gates against standard insurance coverage schemas.",
+        "Engineered conversational explanation of missing requirements for HR teams and employees.",
+      ],
+      outcomes: [
+        "Catches over 85% of documentation deficiencies before submission.",
+        "Accelerates end-to-end claim turnaround times.",
+      ],
+      architecture: "Medical Docs → OCR Extractor → Policy Rule Engine → Claim Readiness Agent → HR/Employee Report",
+    },
+  },
+  {
+    title: "InfluencerSearch — Creator Discovery Platform",
+    tagline: "Next-gen creator discovery & analytics platform built with React 19 & Framer Motion.",
+    description: "Production-grade influencer discovery and campaign management platform featuring advanced multi-dimensional filtering, engagement rate telemetry, audience demographics analytics, and rich glassmorphism UI with fluid animations.",
+    tags: ["React 19", "TypeScript", "Vite", "Tailwind CSS", "Framer Motion"],
+    category: "Dev",
+    image: null,
+    github: "https://github.com/vatsalyd/influencer-search",
+    live: null,
+    featured: true,
+    caseStudy: {
+      problem: "Brand marketers lack real-time transparent tools to filter micro-influencers by engagement authenticity and audience fit.",
+      process: [
+        "Built responsive client interface in React 19 and TypeScript with Vite build optimization.",
+        "Designed rich glassmorphic dashboard components with Framer Motion layout transitions.",
+        "Implemented faceted multi-parameter creator search with instant client-side filtering.",
+      ],
+      outcomes: [
+        "Sub-100ms instant search and filter feedback on 5,000+ creator profiles.",
+        "High aesthetic polish with fluid 60fps animations.",
+      ],
+      architecture: "React 19 + TypeScript → State Filter DAG → Glassmorphism Design Tokens → Framer Motion Engine",
+    },
+  },
+  {
     title: "JobFit-AI — Resume Matching Engine",
     tagline: "Three models stacked to score resume-to-JD fit on 13,000+ pairs across 24 job categories.",
-    description: "3-model resume-JD matching system trained on 13,000+ pairs across 24 job categories. Combines spaCy skill NER, XGBoost trained on 10 custom feature metrics (TF-IDF, Jaccard, SBERT cosine), and a fine-tuned Sentence-BERT dual-encoder. Deployed on AWS EC2 (t3.small) via containerized Streamlit.",
+    description: "3-model resume-JD matching system trained on 13,000+ pairs across 24 job categories. Combines spaCy skill NER, XGBoost trained on 10 custom feature metrics (TF-IDF, Jaccard, SBERT cosine), and a fine-tuned Sentence-BERT dual-encoder. Deployed on AWS EC2 via containerized Streamlit.",
     tags: ["XGBoost", "PyTorch", "Sentence-BERT", "spaCy", "Streamlit", "AWS EC2"],
     category: "ML",
     image: null,
@@ -280,26 +386,99 @@ export const projects = [
     },
   },
   {
-    title: "Music Mood Classifier",
-    tagline: "Predicts a song's mood from its acoustics — MFCCs, spectral centroid, chroma, ZCR.",
-    description: "Audio classification system that predicts song moods (happy, sad, romantic, dramatic, angry) by extracting acoustic features — tempo, spectral centroid, chroma STFT, ZCR, and MFCCs — using librosa. Trained with Random Forest Classifiers and served via Streamlit.",
-    tags: ["librosa", "Scikit-learn", "Random Forest", "Audio ML", "Streamlit"],
+    title: "RawAccel-Studio — Mouse Acceleration Predictor",
+    tagline: "ML pipeline predicting optimal mouse acceleration curves from live gameplay telemetry.",
+    description: "Records mouse movement telemetry and velocity profiles during active gaming sessions, applying machine learning regression to model ideal RawAccel curve parameters and export custom settings.json profiles.",
+    tags: ["Python", "Telemetry", "Curve Fitting", "Scikit-learn", "Desktop"],
     category: "ML",
     image: null,
-    github: "https://github.com/vatsalyd/music-mood-classifier",
+    github: "https://github.com/vatsalyd/RawAccel-Studio",
+    live: null,
     featured: false,
     caseStudy: {
-      problem: "Mood-based music recommendation needs an interpretable acoustic signal, not a black-box embedding.",
+      problem: "Finding the sweet spot for custom mouse acceleration curves is manual, tedious, and error-prone for competitive FPS players.",
       process: [
-        "Pulled acoustic features (tempo, spectral centroid, chroma STFT, ZCR, MFCCs) with librosa.",
-        "Trained Random Forest Classifiers across five mood labels with cross-validated grid search.",
-        "Served predictions through a small Streamlit UI.",
+        "Built a low-overhead telemetry logger recording mouse delta timestamps and raw sensor velocities.",
+        "Trained curve-fitting regression models on target flick accuracy data.",
+        "Generated exportable RawAccel driver configuration files with custom sens multipliers.",
       ],
       outcomes: [
-        "Per-mood accuracy matched a much denser neural baseline.",
-        "Inference stays CPU-cheap — no GPU needed.",
+        "Automated profile tuning based on empirical player aiming patterns.",
+        "Outputs verified RawAccel-compatible configuration files.",
       ],
-      architecture: "Audio file → librosa features → Random Forest → Streamlit UI",
+      architecture: "Mouse Raw Input → Velocity Logger → ML Curve Predictor → RawAccel settings.json Export",
+    },
+  },
+  {
+    title: "AI-OCR Receipt Extraction — Carbon Crunch",
+    tagline: "4-stage computer vision & NER pipeline extracting structured data from noisy receipts.",
+    description: "Production receipt parsing engine utilizing OpenCV for deskewing and adaptive binarization, optical character recognition for text extraction, and regex/NER heuristics to extract vendor, totals, dates, and line items.",
+    tags: ["OpenCV", "Tesseract", "NER", "Python", "Data Extraction"],
+    category: "ML",
+    image: null,
+    github: "https://github.com/vatsalyd/AI-OCR-Receipt-Extraction",
+    live: null,
+    featured: false,
+    caseStudy: {
+      problem: "Real-world mobile receipt photos suffer from shadows, rotation, wrinkles, and degraded print contrast.",
+      process: [
+        "Implemented OpenCV preprocessing: grayscale conversion, bilateral filtering, and adaptive Otsu thresholding.",
+        "Extracted text with optimized OCR engine configurations.",
+        "Built structured entity extractor for merchant names, transaction dates, tax, and total amounts.",
+      ],
+      outcomes: [
+        "Robust extraction on low-light and skewed smartphone receipts.",
+        "Outputs structured JSON payloads ready for accounting pipelines.",
+      ],
+      architecture: "Receipt Image → OpenCV Preprocessing → OCR Engine → Regex & NER Parser → JSON Output",
+    },
+  },
+  {
+    title: "PGAGI Screening Portal — AI Interviewer",
+    tagline: "Role-based AI assessment platform generating personalized technical interview simulations.",
+    description: "Intelligent candidate assessment platform that parses applicant resumes and dynamically generates structured technical interview questions tailored to specific job roles and evaluation rubrics.",
+    tags: ["LLMs", "Prompt Engineering", "NLP", "Python", "FastAPI"],
+    category: "AI",
+    image: null,
+    github: "https://github.com/vatsalyd/AI-powered-role-based-candidate-screening-system",
+    live: null,
+    featured: false,
+    caseStudy: {
+      problem: "Standardized technical assessments fail to adapt to candidate experience nuances and specific job requirements.",
+      process: [
+        "Extracted candidate technical stack, experience, and project highlights from uploaded resumes.",
+        "Engineered role-specific prompts generating situational and technical problem statements.",
+        "Evaluated candidate code and explanations against a structured grading rubric.",
+      ],
+      outcomes: [
+        "Dynamic personalized interview rounds for diverse software engineering disciplines.",
+        "Objective multi-criterion scoring reports.",
+      ],
+      architecture: "Resume + Job Spec → Profile Extractor → Prompt Synthesizer → Interactive Assessment Engine → Evaluation Report",
+    },
+  },
+  {
+    title: "Maven — Secure Desktop Autofill",
+    tagline: "Privacy-focused local Windows desktop assistant for smart field autofill and security.",
+    description: "A lightweight, secure local Windows application designed to eliminate the repetitive friction of filling identity, address, and profile fields while keeping sensitive user data encrypted entirely on-device.",
+    tags: ["Python", "Windows API", "Security", "Desktop GUI", "Local Storage"],
+    category: "Dev",
+    image: null,
+    github: "https://github.com/vatsalyd/Maven",
+    live: null,
+    featured: false,
+    caseStudy: {
+      problem: "Users repeatedly type the same biographical and profile information into desktop applications and forms without secure local management.",
+      process: [
+        "Engineered an encrypted local SQLite/JSON credential store with AES-256 encryption.",
+        "Integrated Windows system hook APIs for non-intrusive smart hotkey paste triggers.",
+        "Built a minimal system tray desktop UI with instant search.",
+      ],
+      outcomes: [
+        "Zero cloud leakage — 100% on-device data sovereignty.",
+        "Sub-millisecond autofill triggered by global hotkeys.",
+      ],
+      architecture: "User Hotkey → Windows Hook Listener → Decryption Engine → Local Cache → Active Window Paste",
     },
   },
   {
@@ -327,6 +506,30 @@ export const projects = [
     },
   },
   {
+    title: "Music Mood Classifier",
+    tagline: "Predicts a song's mood from its acoustics — MFCCs, spectral centroid, chroma, ZCR.",
+    description: "Audio classification system that predicts song moods (happy, sad, romantic, dramatic, angry) by extracting acoustic features — tempo, spectral centroid, chroma STFT, ZCR, and MFCCs — using librosa. Trained with Random Forest Classifiers and served via Streamlit.",
+    tags: ["librosa", "Scikit-learn", "Random Forest", "Audio ML", "Streamlit"],
+    category: "ML",
+    image: null,
+    github: "https://github.com/vatsalyd/music-mood-classifier",
+    live: null,
+    featured: false,
+    caseStudy: {
+      problem: "Mood-based music recommendation needs an interpretable acoustic signal, not a black-box embedding.",
+      process: [
+        "Pulled acoustic features (tempo, spectral centroid, chroma STFT, ZCR, MFCCs) with librosa.",
+        "Trained Random Forest Classifiers across five mood labels with cross-validated grid search.",
+        "Served predictions through a small Streamlit UI.",
+      ],
+      outcomes: [
+        "Per-mood accuracy matched a much denser neural baseline.",
+        "Inference stays CPU-cheap — no GPU needed.",
+      ],
+      architecture: "Audio file → librosa features → Random Forest → Streamlit UI",
+    },
+  },
+  {
     title: "ShiftSync — Shift Scheduling App",
     tagline: "A React Native + Expo shift-scheduling app with real-time state sync.",
     description: "Cross-platform mobile application built with React Native and Expo for shift scheduling and team coordination. Features real-time state sync, component architecture, and custom hooks.",
@@ -350,22 +553,46 @@ export const projects = [
       architecture: "React Native + Expo → custom hooks → shared synchronous store → native notifications",
     },
   },
+  {
+    title: "Every Drop Counts — Water Management",
+    tagline: "Data storytelling analyzing 21 farm water conservation & irrigation success stories.",
+    description: "Data analysis, visualization, and storytelling project developed at IIT Bhilai (DSL251) examining water management practices, yield impacts, and sustainable agriculture implementations across India.",
+    tags: ["Python", "Data Analysis", "Visualization", "IIT Bhilai"],
+    category: "ML",
+    image: null,
+    github: "https://github.com/vatsalyd/every-drop-counts",
+    live: "https://vatsalyd.github.io/every-drop-counts/",
+    featured: false,
+    caseStudy: {
+      problem: "Fragmented agricultural water management data makes it difficult to synthesize what conservation techniques produce the highest yield and water retention.",
+      process: [
+        "Curated and normalized data from 21 documented farm success stories across Indian agricultural regions.",
+        "Analyzed drip irrigation, rainwater harvesting, and soil moisture retention correlations.",
+        "Built interactive visual dashboards and published an open data storytelling site.",
+      ],
+      outcomes: [
+        "Published comprehensive research and visualization site.",
+        "Synthesized actionable water-saving efficiency metrics across crop types.",
+      ],
+      architecture: "Agricultural Data → Data Cleaning Pipeline → Statistical Aggregation → Web Visualization",
+    },
+  },
 ];
 
 export const experience = [
   {
     type: "experience",
     title: "AI & ML Intern",
-    organization: "Incrivelsoft Private Limited",
-    period: "May 2026 – Present",
+    organization: "Incrivelsoft Private Limited (NUMAA.ai)",
+    period: "May 2026 – July 2026",
     location: "Remote",
-    description: "Owning end-to-end development of the Nutrition Agent within the NUMAA.ai multi-agent platform. Regulating core agent functionality, diagnosing production bugs, and shipping feature enhancements for response quality. Designing inter-agent communication flows and state-handoff protocols with domain agents.",
-    skills: ["Multi-Agent Systems", "NUMAA.ai", "State Handoffs", "Agent Orchestration", "Python"],
+    description: "Architected the Nutritionist Lite Agent as a 3-layer hybrid system (ICMR-NIN/WHO clinical engine → guideline retrieval → Google Gemini 2.5 flash router). Engineered 5 production services with FastAPI, MongoDB, ChromaDB prototyping, Qdrant RAG, and Gemini Vision multimodal fallback.",
+    skills: ["Google Gemini API", "FastAPI", "Qdrant RAG", "ChromaDB", "MongoDB", "Token-Bucket Rate Limiting"],
     workDone: [
-      { label: "Nutrition Agent", body: "Owned end-to-end build of the Nutrition Agent inside NUMAA.ai — covering prompt design, tool surface, and the response-quality regression suite." },
-      { label: "Production bug triage", body: "Diagnosed and patched production failures in agent hand-offs, latency regressions, and unsafe tool calls across the multi-agent runtime." },
-      { label: "Inter-agent protocol", body: "Designed the state-handoff schema between Nutrition and the domain agents (symptom, diet, lifestyle) so context survives each hop." },
-      { label: "Response-quality loop", body: "Added targeted prompt + retrieval changes that lifted domain-answer quality between weekly evaluations." },
+      { label: "Nutritionist Lite Agent", body: "Architected a 3-layer hybrid system enforcing hard medical-nutrition boundaries: deterministic clinical engine (ICMR-NIN 2020 / WHO guidelines) → keyword-based guideline retrieval → Google Gemini (gemini-2.5-flash) orchestration router." },
+      { label: "5 Production Microservices", body: "Engineered MealPlanningService, ChatService, VisionService, NutritionUIService, and NutritionEngine with FastAPI + Pydantic, Qdrant RAG in production, and Gemini Vision multimodal fallback." },
+      { label: "Provider Migration & Resiliency", body: "Led migration from 3 LLM providers (Groq, Google, NVIDIA) to Google Gemini; implemented token-bucket rate limiting (300 RPM), circuit breaker (5 failures / 30s cooldown), eliminating HTTP 429 errors." },
+      { label: "OOP Refactoring & Testing", body: "Applied OOP to refactor NutritionUIService (855 → 480 lines); added 31 unit tests and a FakeProfileRepository adapter for MongoDB-free testing." },
     ],
   },
   {
@@ -443,66 +670,77 @@ export const regionIndex = (region) =>
   String(mapRegions.findIndex((r) => r.id === region.id) + 1).padStart(2, '0');
 
 // ── Chatbot ──
-// Casual & fun tone. Each entry: keywords[] to pattern-match (lowercased), and an `answer`.
-// The first matching entry wins, so order broad → specific.
+// Nonchalant, quirky, sarcastic & funny persona with spicy engineering humor.
 export const chatbotResponses = [
   {
-    keywords: ["hi", "hello", "hey", "yo", "sup", "namaste"],
-    answer: "Heyy! I'm Vatsal's mini-bot. Ask me about his stack, his internship, his projects, or what he's looking for. Or just type whatever — I'll do my best.",
+    keywords: ["hi", "hello", "hey", "yo", "sup", "namaste", "who are you"],
+    answer: "Sup. I'm Mini Vatsal — Vatsal's digital clone running on caffeine and state machines. Ask me about my systems, my projects, or why your LLM is blowing through your monthly budget. Type 'help' if you like structured Unix commands.",
   },
   {
-    keywords: ["tech stack", "stack", "technologies", "tools", "what do you use", "frameworks"],
-    answer: "Vatsal's daily stack: Python + FastAPI for backends, LangGraph/LangChain for multi-agent systems, PyTorch + scikit-learn for ML, ChromaDB for RAG, Docker + AWS EC2 for deploy, and a sprinkle of Streamlit for quick UIs. TypeScript/React when the frontend needs love too.",
+    keywords: ["tech stack", "stack", "technologies", "tools", "what do you use", "frameworks", "languages"],
+    answer: "Python and C++ when latency matters; FastAPI and LangGraph when agents need to stop hallucinating; Docker and AWS when it's time to face production reality. Oh, and React when I want the UI to look prettier than standard developer art.",
   },
   {
-    keywords: ["internship", "intern", "incrivelsoft", "numaa", "nutrition agent"],
-    answer: "He's currently an AI/ML Intern at Incrivelsoft, owning the Nutrition Agent inside the NUMAA.ai multi-agent platform — regulating agent behaviour, debugging production bugs, and designing inter-agent state handoffs. Started May 2026, remote.",
+    keywords: ["context pager", "token", "virtual memory", "tokens", "cost"],
+    answer: "Context Pager is my virtual memory engine for LLMs. Instead of paying OpenAI $50 to read an entire 10,000-word doc just to find one sentence, it semantically pages compressed slices on demand. Like an OS swapping pages to RAM, but for your wallet.",
   },
   {
-    keywords: ["project", "projects", "work", "portfolio", "what have you built", "showcase"],
-    answer: "Top builds: HelixDesk (3-agent LangGraph support system, ~1.8s resolution), FinSight AI (4-stage financial microservice, 100% intent accuracy), and JobFit-AI (resume-JD matcher on 13k+ pairs, fine-tuned SBERT). Scroll down to the Projects section — each card opens a full detail page.",
+    keywords: ["helixdesk", "support", "triage"],
+    answer: "HelixDesk is a 3-agent LangGraph state machine that resolves support tickets in ~1.8 seconds. If an agent isn't 100% sure, it hands off to a human instead of making up fairy tales. You know, basic engineering decency.",
   },
   {
-    keywords: ["looking for", "looking", "opportunity", "role", "job", "hire", "available"],
-    answer: "He's open to AI/ML Engineering internships & full-time roles, multi-agent / LLM / RAG work especially. Remote-first, but open to relocate for the right team. Currently based out of Bhilai/Agra, India.",
+    keywords: ["internship", "intern", "incrivelsoft", "numaa", "nutrition"],
+    answer: "Currently an AI/ML Intern at Incrivelsoft. I wrangle multi-agent architectures on NUMAA.ai, keep autonomous agents from fighting each other, and make sure inter-agent handoffs don't collapse into a black hole.",
   },
   {
-    keywords: ["education", "college", "university", "iit", "study", "degree", "cgpa", "gpa"],
-    answer: "B.Tech in Data Science & AI at IIT Bhilai (2024–2028), current CGPA 7.61/10. Core coursework spans ML, DL, NLP, CV, multi-agent systems, DSA, and linear algebra.",
+    keywords: ["project", "projects", "work", "portfolio", "what have you built", "showcase", "builds"],
+    answer: "I build stuff that solves actual bottlenecks: Context Pager (MCP virtual memory), HelixDesk (multi-agent support), FinSight AI (166ms financial streams), ClaimSure AI, InfluencerSearch, and JobFit-AI. Check out the 3D carousel in the Projects section — you can drag them around too.",
+  },
+  {
+    keywords: ["looking for", "looking", "opportunity", "role", "job", "hire", "available", "internship role"],
+    answer: "I'm looking for high-velocity AI/ML & Systems engineering roles where people ship real code and benchmark real latencies, rather than hosting 3-hour meetings to choose button colors. Remote or relocation friendly.",
+  },
+  {
+    keywords: ["education", "college", "university", "iit", "study", "degree", "cgpa", "gpa", "bhilai"],
+    answer: "B.Tech in Data Science & Artificial Intelligence at IIT Bhilai. CGPA is 7.61, but more importantly, my systems actually run in sub-2 seconds and don't leak memory.",
   },
   {
     keywords: ["multi-agent", "agent", "langgraph", "langchain", "rag", "llm", "groq", "llama"],
-    answer: "Multi-agent systems are his happy place — LangGraph state machines, ReAct loops, RAG with ChromaDB + Sentence-Transformers, served via FastAPI with Llama-3.3-70b on Groq. HelixDesk and the ReAct paper implementation both live on his GitHub.",
+    answer: "Multi-agent systems are where deterministic state machines meet probabilistic models. LangGraph, ChromaDB vector indexing, and Groq Llama-3.3-70b inference are my default playground. If your agent is just one giant prompt, we need to talk.",
   },
   {
     keywords: ["resume", "cv", "download cv", "download resume"],
-    answer: "You can grab his resume from the 'Resume' button up in the navbar — top-right. PDF, always up to date.",
+    answer: "Type 'resume' or 'cat resume.pdf' in this terminal, or click the Resume button up in the navbar. Clean PDF, zero corporate buzzwords.",
   },
   {
     keywords: ["contact", "email", "reach", "phone", "get in touch", "message"],
-    answer: "Easiest: email him at vatsal.y.official@gmail.com. Or scroll to the 'Reach Out' section at the bottom — there's a form that goes straight to his inbox. He replies fast.",
+    answer: "Ping me at vatsal.y.official@gmail.com. Or type 'contact' in the CLI for all channels. I reply fast — unless I'm debugging a distributed dead-lock.",
   },
   {
     keywords: ["github", "open source", "contributions", "commits", "prs", "pull request"],
-    answer: "His GitHub is github.com/vatsalyd — check the 'Open Source' section just below, it pulls live activity straight from the GitHub API. PRs, events, and a little heatmap.",
+    answer: "github.com/vatsalyd — full of agent state machines, computer vision pipelines, and upstream open source contributions. Star a repo if you're feeling generous.",
   },
   {
-    keywords: ["movies", "film", "favorite movie", "favourite", "cinema", "watch"],
-    answer: "Oh you noticed the Movies section — that's his vibe check. Sci-fi and mind-bendy stuff mostly. Scroll down to see the picks with his notes on why.",
+    keywords: ["movies", "film", "favorite movie", "favourite", "cinema", "watch", "taste"],
+    answer: "Sci-fi and mind-benders with high rewatchability. Check 'The Taste' section down below if you want my curated film roster.",
   },
   {
     keywords: ["where", "location", "based", "city", "live"],
-    answer: "Bhilai (Chhattisgarh) during the semester, Agra (UP) during breaks. Remote-friendly everywhere else.",
+    answer: "Bhilai during the semester, Agra during vacations, on the internet and AWS servers 24/7.",
+  },
+  {
+    keywords: ["joke", "funny", "laugh", "tell me a joke"],
+    answer: "Why do AI engineers love LangGraph? Because therapy is expensive and debugging cyclic graph recursion is free.",
   },
 ];
 
-export const chatbotFallback = "Great question! For that one, reach out to me directly — vatsal.y.official@gmail.com. I'd rather give you a real answer than a guessed one.";
+export const chatbotFallback = "Interesting query. Either that's a bit too esoteric for my local heuristic cache, or you're testing my edge cases. Shoot an email to vatsal.y.official@gmail.com and let's discuss it like civilized engineers.";
 
 export const chatbotSuggestions = [
   "What's your tech stack?",
-  "Tell me about your internship",
-  "What have you built?",
-  "What are you looking for?",
+  "Tell me about Context Pager",
+  "How does HelixDesk work?",
+  "Are you open for roles?",
 ];
 
 // ── Articles ──
