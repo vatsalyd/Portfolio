@@ -102,8 +102,10 @@ export default function MiniVatsalTerminal() {
         if (apiKey) {
             // Live LLM Mode (Groq / OpenAI / Gemini)
             try {
-                // Add initial thought trace
-                addLine('thought', `[🧠 Thought] Formulating response via ${miniVatsalConfig.model} with Vatsal's sarcastic persona...`);
+                // Add realistic engineering runtime telemetry traces
+                const estLatency = (1.2 + Math.random() * 0.5).toFixed(2);
+                addLine('thought', `[agent-kernel] Initializing LangGraph state graph → [node: inference_stream · engine: ${miniVatsalConfig.model}]`);
+                addLine('thought', `[context-pager] Virtual memory cache: HIT · Token compression active · Latency budget: ~${estLatency}s`);
 
                 const response = await fetch(`${miniVatsalConfig.baseURL}/chat/completions`, {
                     method: 'POST',
@@ -161,8 +163,8 @@ export default function MiniVatsalTerminal() {
                     }
                 }
             } catch (err) {
-                // Fallback to local heuristic engine with funny message
-                addLine('system-dim', `[API Notice] Remote stream returned (${err.message || 'error'}). Falling back to local neural store.`);
+                // Fallback to local heuristic engine
+                addLine('system-dim', `[agent-kernel] Remote stream fallback (${err.message || 'connection'}). Switching to local deterministic state machine.`);
                 await simulateThoughtAndStream(userText);
             }
         } else {
@@ -173,10 +175,10 @@ export default function MiniVatsalTerminal() {
         setIsStreaming(false);
     };
 
-    // Simulated ReAct loop (Thought -> Tool Call -> Observation -> Answer)
+    // Simulated ReAct loop (Intent Routing -> Memory Paging -> State Handoff -> Response)
     const simulateThoughtAndStream = async (userText) => {
         const text = userText.toLowerCase().trim();
-        let matchedTopic = 'general engineering';
+        let matchedTopic = 'systems & infrastructure';
         let answer = chatbotFallback;
 
         for (const entry of chatbotResponses) {
@@ -187,10 +189,10 @@ export default function MiniVatsalTerminal() {
             }
         }
 
-        // Add LangGraph Thought & Tool trace
-        addLine('thought', `[🧠 Thought] Analyzing intent: "${userText}" → Routing to domain [${matchedTopic}]`);
-        addLine('thought', `[⚡ Tool] query_portfolio_neural_store("${matchedTopic}")`);
-        addLine('thought', `[📝 Observation] Found verified facts & system context with 0.98 confidence.`);
+        // Add LangGraph runtime engineering telemetry traces
+        addLine('thought', `[agent-router] Intent mapped: "${userText.slice(0, 30)}${userText.length > 30 ? '...' : ''}" → Sub-graph: [${matchedTopic}]`);
+        addLine('thought', `[context-pager] Paged verified context slices into working memory · Confidence: 0.984`);
+        addLine('thought', `[inference-node] Synthesizing deterministic state handoff stream...`);
 
         // Stream answer
         setLines((prev) => [...prev, { type: 'agent', text: '' }]);

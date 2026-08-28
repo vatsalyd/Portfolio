@@ -3452,13 +3452,14 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
 /* Thought & Reasoning Trace */
 .term-thought-line {
   font-family: var(--font-mono);
-  font-size: 0.76rem;
-  color: #8b949e;
-  font-style: italic;
+  font-size: 0.74rem;
+  color: #79c0ff;
+  font-style: normal;
   padding: 3px 8px;
-  background: rgba(255, 255, 255, 0.02);
-  border-left: 2px solid rgba(202, 130, 248, 0.45);
-  margin: 2px 0;
+  background: rgba(56, 139, 253, 0.06);
+  border-left: 2px solid #58a6ff;
+  margin: 3px 0;
+  letter-spacing: 0.2px;
 }
 
 .term-table {
