@@ -2717,7 +2717,41 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
 .map-topbar-actions {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.map-category-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 3px 4px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.map-cat-chip {
+  background: transparent;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: #a4adb5;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.map-cat-chip:hover {
+  color: #f4efe6;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.map-cat-chip.is-active {
+  background: #e64a38;
+  color: #ffffff;
 }
 
 .map-legend-capsule {
@@ -2783,11 +2817,93 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
   user-select: none;
 }
 
+/* Floating Card / Interactive Tooltip */
+.map-floating-card {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  z-index: 30;
+  width: 290px;
+  background: #2d3135;
+  color: #f4efe6;
+  border: 2px solid #e64a38;
+  border-radius: 10px;
+  padding: 14px 16px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  backdrop-filter: blur(8px);
+}
+
+.card-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-district-badge {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  font-weight: 800;
+  color: #e64a38;
+  letter-spacing: 1px;
+}
+
+.card-road-tag {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  color: #a4adb5;
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+}
+
+.card-desc {
+  font-family: var(--font-primary);
+  font-size: 0.72rem;
+  color: #d1d8de;
+  margin: 0;
+  line-height: 1.45;
+}
+
+.card-sail-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 12px;
+  background: #e64a38;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 4px;
+}
+
+.card-sail-btn:hover {
+  background: #ff5544;
+  transform: translateY(-1px);
+}
+
 /* Landmark Group Interactions */
 .map-landmark-group {
   cursor: pointer;
   outline: none;
-  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+}
+
+.map-landmark-group.is-dimmed-district {
+  opacity: 0.25;
+  pointer-events: auto;
 }
 
 .landmark-hitbox {
@@ -2798,13 +2914,14 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
 
 .map-landmark-group:hover,
 .map-landmark-group.is-hovered-district {
-  transform: scale(1.06);
+  transform: scale(1.08);
 }
 
 .map-landmark-group:hover .landmark-hitbox,
 .map-landmark-group.is-hovered-district .landmark-hitbox {
-  fill: rgba(230, 74, 56, 0.08);
+  fill: rgba(230, 74, 56, 0.1);
   stroke: #e64a38;
+  stroke-width: 1.5;
   stroke-dasharray: 4 4;
 }
 
@@ -2828,6 +2945,16 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
 @keyframes beacon-bounce {
   0%, 100% { transform: translate(0, -52px); }
   50% { transform: translate(0, -58px); }
+}
+
+/* Active Trajectory Flight Line */
+.trajectory-dash-flow {
+  animation: trajectory-flow 1.2s linear infinite;
+}
+
+@keyframes trajectory-flow {
+  from { stroke-dashoffset: 28; }
+  to   { stroke-dashoffset: 0; }
 }
 
 /* ── Micro-Animations on City Elements ── */

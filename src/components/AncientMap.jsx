@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
     FiX,
@@ -8,26 +8,25 @@ import {
     FiNavigation,
     FiLayers,
     FiArrowRight,
+    FiFilter,
+    FiCheck,
+    FiCornerDownRight,
 } from 'react-icons/fi';
 import { mapRegions, regionIndex } from '../data/portfolioData';
 
-/**
- * IllustratedMap / AncientMap — Editorial Illustrated City & Territory Cartography
- *
- * Inspired by retro-editorial illustrated city maps (vintage cream parchment,
- * terracotta/coral architectural accents, charcoal street grids, animated vehicles,
- * bobbing sailboats, and interactive landmark territories).
- *
- * Features:
- * - Peeking drawer emerging on the right edge of the screen that smoothly expands on hover.
- * - Full-screen interactive illustrated map with micro-animations on all landmarks and routes.
- * - Direct smooth navigation to all 10 portfolio sections with real-time active position tracking.
- */
+const CATEGORIES = [
+    { id: 'all', label: 'All Districts', count: 10 },
+    { id: 'systems', label: 'Systems & Agents', count: 4, ids: ['hero', 'agent', 'opensource', 'skills'] },
+    { id: 'builds', label: 'Builds & Industry', count: 2, ids: ['projects', 'experience'] },
+    { id: 'culture', label: 'Culture & Outreach', count: 4, ids: ['articles', 'characters', 'taste', 'contact'] },
+];
+
 export default function AncientMap() {
     const [open, setOpen] = useState(false);
     const [active, setActive] = useState(mapRegions[0]?.id || 'hero');
     const [hoveredRegion, setHoveredRegion] = useState(null);
     const [isPeekingHovered, setIsPeekingHovered] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState('all');
 
     // Track active section in viewport
     useEffect(() => {
@@ -56,11 +55,24 @@ export default function AncientMap() {
         };
     }, []);
 
-    // ESC closes; lock scroll while open
+    // ESC closes; Keyboard navigation through districts
     useEffect(() => {
         if (!open) return;
         const onKey = (e) => {
             if (e.key === 'Escape') setOpen(false);
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+                const curIdx = mapRegions.findIndex((r) => r.id === (hoveredRegion?.id || active));
+                const nextIdx = (curIdx + 1) % mapRegions.length;
+                setHoveredRegion(mapRegions[nextIdx]);
+            }
+            if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+                const curIdx = mapRegions.findIndex((r) => r.id === (hoveredRegion?.id || active));
+                const prevIdx = (curIdx - 1 + mapRegions.length) % mapRegions.length;
+                setHoveredRegion(mapRegions[prevIdx]);
+            }
+            if (e.key === 'Enter' && hoveredRegion) {
+                visit(hoveredRegion.id);
+            }
         };
         window.addEventListener('keydown', onKey);
         document.body.style.overflow = 'hidden';
@@ -68,7 +80,7 @@ export default function AncientMap() {
             window.removeEventListener('keydown', onKey);
             document.body.style.overflow = '';
         };
-    }, [open]);
+    }, [open, hoveredRegion, active]);
 
     // Smooth scroll to selected section
     const visit = useCallback((id) => {
@@ -82,7 +94,15 @@ export default function AncientMap() {
         }, 220);
     }, []);
 
-    const activeRegionObj = mapRegions.find((r) => r.id === active) || mapRegions[0];
+    const activeRegionObj = useMemo(() => {
+        return mapRegions.find((r) => r.id === active) || mapRegions[0];
+    }, [active]);
+
+    // Filtered regions based on category
+    const filteredIds = useMemo(() => {
+        const cat = CATEGORIES.find((c) => c.id === selectedCategory);
+        return cat && cat.ids ? cat.ids : mapRegions.map((r) => r.id);
+    }, [selectedCategory]);
 
     return (
         <>
@@ -98,7 +118,7 @@ export default function AncientMap() {
                 role="button"
                 tabIndex={0}
                 aria-label="Open Illustrated Cartography Map"
-                title="Explore Illustrated Portfolio Map"
+                title="Explore Illustrated Portfolio Map (Click or Hover)"
                 onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
@@ -106,7 +126,7 @@ export default function AncientMap() {
                     }
                 }}
             >
-                {/* Edge Glow & Handle */}
+                {/* Edge Handle */}
                 <div className="peeking-map-handle">
                     <span className="peeking-compass-glyph">
                         <FiCompass className="compass-spin-icon" />
@@ -115,10 +135,10 @@ export default function AncientMap() {
                     <span className="peeking-active-indicator" />
                 </div>
 
-                {/* Peeking Content Card (reveals on hover) */}
+                {/* Peeking Content Preview (reveals smoothly on hover) */}
                 <div className="peeking-map-body">
                     <div className="peeking-map-mini-header">
-                        <span className="peeking-kicker">Illustrated Atlas</span>
+                        <span className="peeking-kicker">Cartography Atlas</span>
                         <h4 className="peeking-title">Territories of AI</h4>
                     </div>
 
@@ -131,11 +151,11 @@ export default function AncientMap() {
                         <div className="peeking-loc-row">
                             <FiMapPin className="peeking-pin-icon" />
                             <span className="peeking-loc-text">
-                                Current: <strong>{activeRegionObj.name}</strong>
+                                Active: <strong>{activeRegionObj.name}</strong>
                             </span>
                         </div>
                         <div className="peeking-cta-row">
-                            <span>Open Full Cartography</span>
+                            <span>Open Full Map</span>
                             <FiMaximize2 />
                         </div>
                     </div>
@@ -150,7 +170,7 @@ export default function AncientMap() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
+                        transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
                         role="dialog"
                         aria-modal="true"
                         aria-label="Illustrated Cartography Map"
@@ -160,7 +180,7 @@ export default function AncientMap() {
                             initial={{ scale: 0.94, opacity: 0, y: 15 }}
                             animate={{ scale: 1, opacity: 1, y: 0 }}
                             exit={{ scale: 0.96, opacity: 0, y: 10 }}
-                            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                            transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
                         >
                             {/* Paper Header Strip */}
                             <div className="illustrated-map-topbar">
@@ -169,12 +189,26 @@ export default function AncientMap() {
                                     <div className="map-title-block">
                                         <h2 className="map-main-title">TERRITORIES OF THE PORTFOLIO</h2>
                                         <span className="map-sub-title">
-                                            Illustrated Cartography & Urban Systems Map · Vatsal Yadav
+                                            Illustrated Urban Cartography · Vatsal Yadav (IIT Bhilai)
                                         </span>
                                     </div>
                                 </div>
 
                                 <div className="map-topbar-actions">
+                                    {/* Category Filter Pills */}
+                                    <div className="map-category-filter">
+                                        {CATEGORIES.map((c) => (
+                                            <button
+                                                key={c.id}
+                                                type="button"
+                                                onClick={() => setSelectedCategory(c.id)}
+                                                className={`map-cat-chip ${selectedCategory === c.id ? 'is-active' : ''}`}
+                                            >
+                                                {c.label}
+                                            </button>
+                                        ))}
+                                    </div>
+
                                     <div className="map-legend-capsule">
                                         <span className="legend-dot active-dot" />
                                         <span>Current: <strong>{activeRegionObj.name}</strong></span>
@@ -199,28 +233,53 @@ export default function AncientMap() {
                                     active={active}
                                     hoveredRegion={hoveredRegion}
                                     setHoveredRegion={setHoveredRegion}
+                                    filteredIds={filteredIds}
                                     onVisit={visit}
                                 />
+
+                                {/* Interactive Hovered Card Floating Tooltip */}
+                                <AnimatePresence>
+                                    {hoveredRegion && (
+                                        <motion.div
+                                            className="map-floating-card"
+                                            initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                                            exit={{ opacity: 0, y: 6, scale: 0.96 }}
+                                            transition={{ duration: 0.18 }}
+                                        >
+                                            <div className="card-header-row">
+                                                <span className="card-district-badge">DISTRICT {hoveredRegion.index}</span>
+                                                <span className="card-road-tag">📍 {hoveredRegion.road}</span>
+                                            </div>
+                                            <h4 className="card-title">{hoveredRegion.title}</h4>
+                                            <p className="card-desc">{hoveredRegion.desc}</p>
+                                            <button
+                                                type="button"
+                                                onClick={() => visit(hoveredRegion.id)}
+                                                className="card-sail-btn"
+                                            >
+                                                <span>Sail to Section</span>
+                                                <FiArrowRight />
+                                            </button>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
                             </div>
 
-                            {/* Bottom Info Bar / Hovered Territory Telemetry */}
+                            {/* Bottom Info Bar / Quick Jump Links */}
                             <div className="illustrated-map-infobar">
                                 <div className="map-district-summary">
-                                    {hoveredRegion ? (
-                                        <>
-                                            <span className="district-tag">{hoveredRegion.index} · {hoveredRegion.road}</span>
-                                            <h3 className="district-title">{hoveredRegion.title}</h3>
-                                            <p className="district-desc">{hoveredRegion.desc}</p>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <span className="district-tag">HOVER OR CLICK ANY LANDMARK</span>
-                                            <h3 className="district-title">Interactive AI Ecosystem</h3>
-                                            <p className="district-desc">
-                                                Navigate through 10 illustrated districts covering neural state machines, 3D project models, open-source repositories, and cinema culture.
-                                            </p>
-                                        </>
-                                    )}
+                                    <span className="district-tag">
+                                        {hoveredRegion ? `DISTRICT ${hoveredRegion.index} · ${hoveredRegion.road}` : 'NAVIGATION TELEMETRY'}
+                                    </span>
+                                    <h3 className="district-title">
+                                        {hoveredRegion ? hoveredRegion.title : 'Explore the Autonomous Systems Matrix'}
+                                    </h3>
+                                    <p className="district-desc">
+                                        {hoveredRegion
+                                            ? hoveredRegion.desc
+                                            : 'Click any illustrated district on the map or use the chips below to smoothly sail straight to that section.'}
+                                    </p>
                                 </div>
 
                                 <div className="map-quick-links-track">
@@ -229,7 +288,7 @@ export default function AncientMap() {
                                             key={r.id}
                                             type="button"
                                             onClick={() => visit(r.id)}
-                                            className={`map-chip-btn ${active === r.id ? 'is-active' : ''}`}
+                                            className={`map-chip-btn ${active === r.id ? 'is-active' : ''} ${hoveredRegion?.id === r.id ? 'is-hovered' : ''}`}
                                             onMouseEnter={() => setHoveredRegion(r)}
                                             onMouseLeave={() => setHoveredRegion(null)}
                                         >
@@ -301,7 +360,21 @@ function MiniMapThumbnail({ activeId }) {
 }
 
 /* ── Full Illustrated City SVG Canvas ── */
-function IllustratedCitySVG({ regions, active, hoveredRegion, setHoveredRegion, onVisit }) {
+function IllustratedCitySVG({ regions, active, hoveredRegion, setHoveredRegion, filteredIds, onVisit }) {
+    const activeRegion = regions.find((r) => r.id === active) || regions[0];
+
+    // Trajectory flight line coordinates from active to hovered
+    const trajectoryPath = useMemo(() => {
+        if (!hoveredRegion || hoveredRegion.id === active) return null;
+        const x1 = (activeRegion.x / 100) * 1000;
+        const y1 = (activeRegion.y / 100) * 680;
+        const x2 = (hoveredRegion.x / 100) * 1000;
+        const y2 = (hoveredRegion.y / 100) * 680;
+        const mx = (x1 + x2) / 2;
+        const my = (y1 + y2) / 2 - 35;
+        return `M ${x1} ${y1} Q ${mx} ${my} ${x2} ${y2}`;
+    }, [activeRegion, hoveredRegion, active]);
+
     return (
         <svg
             viewBox="0 0 1000 680"
@@ -435,19 +508,12 @@ function IllustratedCitySVG({ regions, active, hoveredRegion, setHoveredRegion, 
 
             {/* ── Street Names & Signposts ── */}
             <g className="street-labels" fontFamily="var(--font-mono)" fontSize="9" fontWeight="700" fill="#4d5358" letterSpacing="0.8">
-                {/* Broadway */}
                 <text x="210" y="174" transform="rotate(-3, 210, 174)">BROADWAY AVE</text>
-                {/* Systems Pkwy */}
                 <text x="560" y="174">SYSTEMS PKWY</text>
-                {/* Revere Beach Pkwy */}
                 <text x="570" y="354">REVERE BEACH PKWY</text>
-                {/* Beacham St */}
                 <text x="330" y="514">BEACHAM ST</text>
-                {/* Main St North-South */}
                 <text x="274" y="90" transform="rotate(90, 274, 90)">MAIN ST</text>
-                {/* Hancock St */}
                 <text x="514" y="90" transform="rotate(90, 514, 90)">HANCOCK ST</text>
-                {/* Ferry St */}
                 <text x="754" y="90" transform="rotate(90, 754, 90)">FERRY ST</text>
             </g>
 
@@ -456,6 +522,20 @@ function IllustratedCitySVG({ regions, active, hoveredRegion, setHoveredRegion, 
             <RouteBadge x={470} y={354} num="16" />
             <RouteBadge x={890} y={174} num="93" />
             <RouteBadge x={240} y={514} num="1A" />
+
+            {/* ── Active Navigation Trajectory Line (from Current to Hovered) ── */}
+            {trajectoryPath && (
+                <g className="active-trajectory-group">
+                    <path
+                        d={trajectoryPath}
+                        stroke="#e64a38"
+                        strokeWidth="3.2"
+                        strokeDasharray="8 6"
+                        fill="none"
+                        className="trajectory-dash-flow"
+                    />
+                </g>
+            )}
 
             {/* ── Animated Street Traffic (Cars, Vans, Buses) ── */}
             <g className="animated-traffic">
@@ -507,13 +587,14 @@ function IllustratedCitySVG({ regions, active, hoveredRegion, setHoveredRegion, 
             {regions.map((region) => {
                 const isHovered = hoveredRegion?.id === region.id;
                 const isActive = active === region.id;
+                const isFiltered = filteredIds.includes(region.id);
                 const svgX = (region.x / 100) * 1000;
                 const svgY = (region.y / 100) * 680;
 
                 return (
                     <g
                         key={region.id}
-                        className={`map-landmark-group ${isActive ? 'is-active-district' : ''} ${isHovered ? 'is-hovered-district' : ''}`}
+                        className={`map-landmark-group ${isActive ? 'is-active-district' : ''} ${isHovered ? 'is-hovered-district' : ''} ${!isFiltered ? 'is-dimmed-district' : ''}`}
                         transform={`translate(${svgX}, ${svgY})`}
                         onClick={() => onVisit(region.id)}
                         onMouseEnter={() => setHoveredRegion(region)}
@@ -611,14 +692,11 @@ function DistrictLandmarkGraphic({ icon, isActive, isHovered }) {
         case 'castle': // Citadel / Hero
             return (
                 <g filter="url(#landmarkShadow)">
-                    {/* Tower base */}
                     <rect x="-24" y="-22" width="48" height="38" fill={dark} rx="2" />
-                    {/* Roof & crenellations */}
                     <polygon points="-28,-22 0,-42 28,-22" fill={accent} />
                     <rect x="-18" y="-12" width="10" height="12" fill={light} />
                     <rect x="8" y="-12" width="10" height="12" fill={light} />
                     <rect x="-6" y="2" width="12" height="14" fill={light} rx="6" />
-                    {/* Flag on top */}
                     <line x1="0" y1="-42" x2="0" y2="-52" stroke={dark} strokeWidth="1.8" />
                     <polygon points="0,-52 14,-46 0,-40" fill={accent} className="flag-flutter" />
                 </g>
@@ -627,17 +705,13 @@ function DistrictLandmarkGraphic({ icon, isActive, isHovered }) {
         case 'terminal': // Mini Vatsal Terminal
             return (
                 <g filter="url(#landmarkShadow)">
-                    {/* Terminal Workstation Frame */}
                     <rect x="-26" y="-24" width="52" height="36" rx="4" fill={dark} />
                     <rect x="-22" y="-20" width="44" height="24" rx="2" fill="#14171a" />
-                    {/* Code prompt lines */}
                     <line x1="-18" y1="-14" x2="-4" y2="-14" stroke="#7ee787" strokeWidth="2" strokeLinecap="round" />
                     <line x1="-18" y1="-8" x2="14" y2="-8" stroke="#58a6ff" strokeWidth="1.8" strokeLinecap="round" />
                     <line x1="-18" y1="-2" x2="6" y2="-2" stroke={accent} strokeWidth="1.8" strokeLinecap="round" />
-                    {/* Stand & base */}
                     <rect x="-8" y="12" width="16" height="4" fill={dark} />
                     <rect x="-16" y="15" width="32" height="3" rx="1.5" fill={accent} />
-                    {/* Satellite dish */}
                     <g transform="translate(22, -26)">
                         <path d="M 0 0 A 8 8 0 0 1 12 12" stroke={dark} strokeWidth="2.2" fill="none" />
                         <line x1="6" y1="6" x2="12" y2="0" stroke={accent} strokeWidth="1.8" />
@@ -649,11 +723,9 @@ function DistrictLandmarkGraphic({ icon, isActive, isHovered }) {
             return (
                 <g filter="url(#landmarkShadow)">
                     <rect x="-25" y="-22" width="50" height="34" rx="4" fill={dark} />
-                    {/* Server rack slots */}
                     <rect x="-20" y="-17" width="40" height="7" rx="1.5" fill="#1f2327" />
                     <rect x="-20" y="-7" width="40" height="7" rx="1.5" fill="#1f2327" />
                     <rect x="-20" y="3" width="40" height="7" rx="1.5" fill="#1f2327" />
-                    {/* Blinking LEDs */}
                     <circle cx="-14" cy="-13.5" r="1.8" fill="#7ee787" className="led-blink-1" />
                     <circle cx="-8" cy="-13.5" r="1.8" fill={accent} className="led-blink-2" />
                     <circle cx="-14" cy="-3.5" r="1.8" fill="#58a6ff" className="led-blink-3" />
@@ -665,14 +737,11 @@ function DistrictLandmarkGraphic({ icon, isActive, isHovered }) {
         case 'gear': // Foundry / Skills
             return (
                 <g filter="url(#landmarkShadow)">
-                    {/* Industrial brick shed */}
                     <rect x="-24" y="-14" width="48" height="28" fill={dark} rx="2" />
                     <polygon points="-28,-14 -14,-26 0,-14 14,-26 28,-14" fill={accent} />
-                    {/* Smokestack */}
                     <rect x="12" y="-36" width="8" height="14" fill={dark} />
                     <circle cx="16" cy="-42" r="3.5" fill="#b0bac2" className="smoke-puff-1" />
                     <circle cx="18" cy="-48" r="5" fill="#cbd4dc" className="smoke-puff-2" />
-                    {/* Center Gear */}
                     <g transform="translate(-6, 0)" className="rotating-gear">
                         <circle cx="0" cy="0" r="10" fill={accent} />
                         <circle cx="0" cy="0" r="4" fill={dark} />
@@ -683,16 +752,13 @@ function DistrictLandmarkGraphic({ icon, isActive, isHovered }) {
         case 'city': // Downtown Everett / Projects
             return (
                 <g filter="url(#landmarkShadow)">
-                    {/* Skyscraper 1 */}
                     <rect x="-28" y="-38" width="22" height="52" fill={dark} rx="2" />
-                    {/* Windows */}
                     <rect x="-24" y="-32" width="6" height="6" fill={accent} />
                     <rect x="-14" y="-32" width="6" height="6" fill={light} />
                     <rect x="-24" y="-22" width="6" height="6" fill={light} />
                     <rect x="-14" y="-22" width="6" height="6" fill={accent} />
                     <rect x="-24" y="-12" width="6" height="6" fill={light} />
                     <rect x="-14" y="-12" width="6" height="6" fill={light} />
-                    {/* Skyscraper 2 (terracotta high-rise) */}
                     <rect x="-3" y="-48" width="30" height="62" fill={accent} rx="2" />
                     <polygon points="-3,-48 12,-58 27,-48" fill={dark} />
                     <rect x="3" y="-42" width="7" height="6" fill={light} />
@@ -713,7 +779,6 @@ function DistrictLandmarkGraphic({ icon, isActive, isHovered }) {
                     <polygon points="-26,-18 -10,-30 6,-18 22,-30 26,-18" fill={accent} />
                     <rect x="-18" y="-6" width="10" height="10" fill={light} />
                     <rect x="8" y="-6" width="10" height="10" fill={light} />
-                    {/* Pipeline tube */}
                     <path d="M 26 -2 C 34 -2, 34 10, 40 10" stroke={accent} strokeWidth="3" fill="none" />
                 </g>
             );
@@ -723,7 +788,6 @@ function DistrictLandmarkGraphic({ icon, isActive, isHovered }) {
                 <g filter="url(#landmarkShadow)">
                     <rect x="-24" y="-20" width="48" height="34" fill={dark} rx="2" />
                     <polygon points="-27,-20 0,-34 27,-20" fill={accent} />
-                    {/* Paper stack */}
                     <rect x="-16" y="-10" width="32" height="5" fill={light} />
                     <rect x="-14" y="-3" width="28" height="5" fill={light} />
                     <rect x="-16" y="4" width="32" height="5" fill={light} />
@@ -733,13 +797,10 @@ function DistrictLandmarkGraphic({ icon, isActive, isHovered }) {
         case 'park': // Archetypes / Characters
             return (
                 <g filter="url(#landmarkShadow)">
-                    {/* Monument plinth */}
                     <rect x="-18" y="0" width="36" height="14" fill={dark} rx="2" />
                     <rect x="-12" y="-12" width="24" height="12" fill={accent} />
-                    {/* Classic hero statue silhouette */}
                     <circle cx="0" cy="-22" r="6" fill={dark} />
                     <path d="M -6 -16 L 6 -16 L 9 -6 L -9 -6 Z" fill={dark} />
-                    {/* Laurel / shield */}
                     <path d="M -12 -18 Q -16 -10 -10 -4" stroke={accent} strokeWidth="2" fill="none" />
                     <path d="M 12 -18 Q 16 -10 10 -4" stroke={accent} strokeWidth="2" fill="none" />
                 </g>
@@ -748,14 +809,11 @@ function DistrictLandmarkGraphic({ icon, isActive, isHovered }) {
         case 'ship': // Mystic Brewery / Taste
             return (
                 <g filter="url(#landmarkShadow)">
-                    {/* Brewery silo */}
                     <rect x="-24" y="-32" width="20" height="42" rx="4" fill={accent} />
                     <polygon points="-24,-32 -14,-42 -4,-32" fill={dark} />
-                    {/* Pouring Tap & Draft Glass */}
                     <g transform="translate(10, -12)">
                         <path d="M -6 0 L 8 0 L 8 6" stroke={dark} strokeWidth="2.5" fill="none" />
                         <path d="M 8 6 L 8 18" stroke={accent} strokeWidth="2.5" strokeDasharray="3 2" className="pouring-stream" />
-                        {/* Draft Glass */}
                         <path d="M 2 12 L 14 12 L 12 24 L 4 24 Z" fill={light} stroke={dark} strokeWidth="1.5" />
                         <path d="M 3 15 L 13 15 L 11 23 L 5 23 Z" fill={accent} />
                     </g>
@@ -766,13 +824,10 @@ function DistrictLandmarkGraphic({ icon, isActive, isHovered }) {
         default:
             return (
                 <g filter="url(#landmarkShadow)">
-                    {/* Lighthouse / Tower beacon */}
                     <polygon points="-12,14 12,14 6,-26 -6,-26" fill={dark} />
                     <rect x="-8" y="-34" width="16" height="8" fill={accent} rx="1" />
                     <circle cx="0" cy="-30" r="3" fill={light} className="beacon-lamp" />
-                    {/* Antenna spire */}
                     <line x1="0" y1="-34" x2="0" y2="-46" stroke={dark} strokeWidth="2" />
-                    {/* Expanding Radio Waves */}
                     <circle cx="0" cy="-46" r="6" stroke={accent} strokeWidth="1.5" fill="none" className="radio-wave-1" />
                     <circle cx="0" cy="-46" r="13" stroke={accent} strokeWidth="1.2" fill="none" className="radio-wave-2" />
                 </g>
@@ -809,33 +864,25 @@ function RouteBadge({ x, y, num }) {
 function StarCompassRose({ x, y }) {
     return (
         <g transform={`translate(${x}, ${y})`} className="vintage-star-compass">
-            {/* Outer Ring */}
             <circle cx="0" cy="0" r="32" stroke="#2d3135" strokeWidth="2" fill="#f8f4ec" />
             <circle cx="0" cy="0" r="28" stroke="#e64a38" strokeWidth="1" strokeDasharray="2 2" fill="none" />
 
-            {/* 8-Pointed Star Points */}
             <g className="compass-star-points">
-                {/* North */}
                 <polygon points="0,-28 4,-6 0,0" fill="#e64a38" />
                 <polygon points="0,-28 -4,-6 0,0" fill="#2d3135" />
-                {/* South */}
                 <polygon points="0,28 -4,6 0,0" fill="#e64a38" />
                 <polygon points="0,28 4,6 0,0" fill="#2d3135" />
-                {/* East */}
                 <polygon points="28,0 6,4 0,0" fill="#e64a38" />
                 <polygon points="28,0 6,-4 0,0" fill="#2d3135" />
-                {/* West */}
                 <polygon points="-28,0 -6,-4 0,0" fill="#e64a38" />
                 <polygon points="-28,0 -6,4 0,0" fill="#2d3135" />
 
-                {/* Diagonal Points */}
                 <polygon points="18,-18 3,-3 0,0" fill="#e64a38" opacity="0.8" />
                 <polygon points="-18,-18 -3,-3 0,0" fill="#2d3135" opacity="0.8" />
                 <polygon points="18,18 3,3 0,0" fill="#2d3135" opacity="0.8" />
                 <polygon points="-18,18 -3,3 0,0" fill="#e64a38" opacity="0.8" />
             </g>
 
-            {/* Cardinal Direction Letters */}
             <text x="0" y="-34" textAnchor="middle" fontSize="10" fontWeight="800" fontFamily="var(--font-mono)" fill="#2d3135">N</text>
             <text x="0" y="42" textAnchor="middle" fontSize="9" fontWeight="800" fontFamily="var(--font-mono)" fill="#2d3135">S</text>
             <text x="38" y="3" textAnchor="middle" fontSize="9" fontWeight="800" fontFamily="var(--font-mono)" fill="#2d3135">E</text>
@@ -872,7 +919,6 @@ function ShopperFigure({ x, y }) {
             <polygon points="0,-10 -6,0 6,0" fill="#e64a38" />
             <line x1="-3" y1="0" x2="-3" y2="8" stroke="#2d3135" strokeWidth="1.8" />
             <line x1="3" y1="0" x2="3" y2="8" stroke="#2d3135" strokeWidth="1.8" />
-            {/* Shopping bags */}
             <rect x="-10" y="-2" width="4" height="6" fill="#e64a38" />
             <rect x="6" y="-2" width="4" height="6" fill="#e64a38" />
         </g>
@@ -882,17 +928,14 @@ function ShopperFigure({ x, y }) {
 function TrampolineJumpers({ x, y }) {
     return (
         <g transform={`translate(${x}, ${y})`}>
-            {/* Trampoline bed */}
             <rect x="-16" y="0" width="32" height="4" rx="2" fill="#2d3135" />
             <line x1="-12" y1="4" x2="-12" y2="10" stroke="#2d3135" strokeWidth="1.8" />
             <line x1="12" y1="4" x2="12" y2="10" stroke="#2d3135" strokeWidth="1.8" />
-            {/* Jumper 1 */}
             <g transform="translate(-6, -16)" className="jumper-bounce-1">
                 <circle cx="0" cy="0" r="3" fill="#e64a38" />
                 <line x1="0" y1="3" x2="0" y2="9" stroke="#2d3135" strokeWidth="1.8" />
                 <line x1="-5" y1="5" x2="5" y2="3" stroke="#2d3135" strokeWidth="1.5" />
             </g>
-            {/* Jumper 2 */}
             <g transform="translate(6, -20)" className="jumper-bounce-2">
                 <circle cx="0" cy="0" r="3" fill="#2d3135" />
                 <line x1="0" y1="3" x2="0" y2="9" stroke="#e64a38" strokeWidth="1.8" />
