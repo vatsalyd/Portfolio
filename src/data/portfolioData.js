@@ -649,27 +649,6 @@ export const experience = [
   },
 ];
 
-// ── Ancient Map regions ──
-// The parchment navigation map. Each region is a clickable territory that
-// smooth-scrolls to its section. `x/y` are normalized 0–100 coordinates on
-// the parchment viewBox (100 x 70); `w/h` are region-blob sizes in the same
-// units. `kind` switches the ink illustration shown beside the label.
-export const mapRegions = [
-  { id: "hero",       name: "Intro",        subtitle: "Who I am · Photo Archive",       x: 12, y: 18, w: 22, h: 14, kind: "compass" },
-  { id: "agent",      name: "Mini Vatsal",  subtitle: "Live agent & terminal CLI",      x: 38, y: 14, w: 22, h: 12, kind: "gear"    },
-  { id: "opensource", name: "Open Source",  subtitle: "Pull requests & issues",         x: 68, y: 12, w: 24, h: 12, kind: "anchor"  },
-  { id: "skills",     name: "Skills",       subtitle: "The technical toolkit",          x: 16, y: 38, w: 22, h: 14, kind: "gear"    },
-  { id: "projects",   name: "Projects",     subtitle: "Things I've built",               x: 46, y: 38, w: 24, h: 14, kind: "tower"   },
-  { id: "experience", name: "Experience",   subtitle: "The path so far",                 x: 74, y: 38, w: 22, h: 14, kind: "scroll"  },
-  { id: "articles",   name: "Articles",      subtitle: "Writing & notes",                x: 16, y: 58, w: 20, h: 10, kind: "quill"   },
-  { id: "taste",      name: "The Taste",    subtitle: "Cinema & culture picks",          x: 42, y: 58, w: 20, h: 10, kind: "film"    },
-  { id: "characters", name: "Characters",   subtitle: "Iconic figures & archetypes",     x: 66, y: 58, w: 20, h: 10, kind: "mask"    },
-  { id: "contact",    name: "Reach Out",    subtitle: "Send a message",                  x: 84, y: 58, w: 16, h: 10, kind: "envelope"},
-];
-
-// Tiny index number shown above each region label on the map.
-export const regionIndex = (region) =>
-  String(mapRegions.findIndex((r) => r.id === region.id) + 1).padStart(2, '0');
 
 // ── Chatbot ──
 // Nonchalant, quirky, sarcastic & funny persona with spicy engineering humor.
@@ -1151,3 +1130,149 @@ export const staticGithubFallback = {
     },
   ],
 };
+
+// ── Illustrated Cartography Map Territories ──
+export const mapRegions = [
+  {
+    id: "hero",
+    index: "01",
+    name: "The Citadel",
+    title: "The Citadel of Origin",
+    subtitle: "Identity & Core Philosophy",
+    road: "BROADWAY AVE",
+    x: 18,
+    y: 16,
+    w: 22,
+    h: 18,
+    icon: "castle",
+    desc: "Origin ground, foundational systems vision, and autonomous agent engineering philosophy.",
+  },
+  {
+    id: "agent",
+    index: "02",
+    name: "Neural Hub",
+    title: "Neural Workstation",
+    subtitle: "Autonomous Mini Vatsal CLI",
+    road: "SYSTEMS PKWY",
+    x: 48,
+    y: 12,
+    w: 22,
+    h: 18,
+    icon: "terminal",
+    desc: "Interactive Unix workstation terminal powered by Groq LLaMA and deterministic state graphs.",
+  },
+  {
+    id: "opensource",
+    index: "03",
+    name: "Matrix Junction",
+    title: "The Matrix Junction",
+    subtitle: "GitHub & Open Source",
+    road: "GIT BRANCH HWY",
+    x: 77,
+    y: 14,
+    w: 20,
+    h: 18,
+    icon: "network",
+    desc: "Live GitHub telemetry, upstream open source PRs (MLflow, DeepChem, Ansible), and code repositories.",
+  },
+  {
+    id: "skills",
+    index: "04",
+    name: "The Foundry",
+    title: "Engineering Foundry",
+    subtitle: "Core Toolkit & Systems",
+    road: "FOUNDRY ST",
+    x: 12,
+    y: 40,
+    w: 22,
+    h: 18,
+    icon: "gear",
+    desc: "Heavy architecture machinery: Python, C++, LangGraph, ChromaDB, PyTorch, Docker, and AWS.",
+  },
+  {
+    id: "projects",
+    index: "05",
+    name: "Downtown Everett",
+    title: "Innovation Metropolis",
+    subtitle: "3D Projects Carousel",
+    road: "DOWNTOWN EVERETT",
+    x: 46,
+    y: 38,
+    w: 25,
+    h: 20,
+    icon: "city",
+    desc: "Downtown district showcasing Context Pager, HelixDesk, FinSight AI, ClaimSure, and 14 builds.",
+  },
+  {
+    id: "experience",
+    index: "06",
+    name: "The Plant",
+    title: "The Production Plant",
+    subtitle: "Incrivelsoft & NUMAA.ai",
+    road: "REVERE BEACH PKWY",
+    x: 78,
+    y: 38,
+    w: 20,
+    h: 18,
+    icon: "factory",
+    desc: "AI & ML engineering track: 5 FastAPI microservices, Nutritionist Lite Agent, Qdrant RAG, and Gemini 2.5.",
+  },
+  {
+    id: "articles",
+    index: "07",
+    name: "Publishing Row",
+    title: "The Publishing Row",
+    subtitle: "Architecture Notes & Medium",
+    road: "EDITORIAL ROW",
+    x: 18,
+    y: 65,
+    w: 20,
+    h: 17,
+    icon: "press",
+    desc: "Published engineering deep dives on LLM token costs, agent complexity deletion, and healthcare RAG.",
+  },
+  {
+    id: "characters",
+    index: "08",
+    name: "Archetype Park",
+    title: "Hall of Archetypes",
+    subtitle: "Iconic Figures & Cinema",
+    road: "PARK AVE",
+    x: 48,
+    y: 64,
+    w: 22,
+    h: 17,
+    icon: "park",
+    desc: "Cinematic archetypes and discipline: Baki Hanma, Walter White, John Wick, Agamemnon, Homelander.",
+  },
+  {
+    id: "taste",
+    index: "09",
+    name: "Mystic Harbor",
+    title: "Mystic Brewery & Films",
+    subtitle: "Cinema & Cultural Roster",
+    road: "MYSTIC WATERFRONT",
+    x: 78,
+    y: 64,
+    w: 20,
+    h: 17,
+    icon: "ship",
+    desc: "Waterfront cinema harbor, Scorsese classics, Christopher Nolan mindbenders, and culture archive.",
+  },
+  {
+    id: "contact",
+    index: "10",
+    name: "Signal Beacon",
+    title: "The Signal Beacon",
+    subtitle: "Direct Channels & Outreach",
+    road: "BEACHAM ST",
+    x: 46,
+    y: 84,
+    w: 25,
+    h: 14,
+    icon: "beacon",
+    desc: "Direct communication station, mail dispatch desk, and verified developer social endpoints.",
+  },
+];
+
+export const regionIndex = (r) => r.index || "01";

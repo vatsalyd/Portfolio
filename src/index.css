@@ -2448,52 +2448,10 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
 }
 
 /* ======================================================================
-   ANCIENT MAP — parchment navigation
+   ILLUSTRATED CITY CARTOGRAPHY & PEEKING MAP DRAWER
    ====================================================================== */
-.map-trigger {
-  position: fixed;
-  right: clamp(16px, 3vw, 32px);
-  bottom: clamp(16px, 3vw, 32px);
-  z-index: 60;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 18px 12px 14px;
-  background: var(--bg-card);
-  border: var(--border-subtle);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow-elevated);
-  cursor: pointer;
-  font-family: var(--font-primary);
-  color: var(--text-heading);
-}
-.map-trigger-glyph {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px; height: 30px;
-  border-radius: 50%;
-  background: var(--text-heading);
-  color: var(--bg-primary);
-  font-size: 1.05rem;
-  animation: map-compass-spin 14s linear infinite;
-}
-@keyframes map-compass-spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-.map-trigger-label {
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
-}
-@media (max-width: 540px) {
-  .map-trigger-label { display: none; }
-  .map-trigger { padding: 10px; }
-}
 
-/* Scroll progress hairline — kept now that the navbar is gone */
+/* ── Scroll progress hairline at very top ── */
 .scroll-hairline {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -2505,183 +2463,586 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
 .scroll-hairline-fill {
   height: 100%;
   transform-origin: left;
-  background: var(--accent-violet);
-  box-shadow: 0 0 8px rgba(202,130,248,0.45);
+  background: #e64a38;
+  box-shadow: 0 0 8px rgba(230, 74, 56, 0.6);
 }
 
-/* Parchment overlay */
-.ancient-map-overlay {
-  position: fixed; inset: 0;
-  z-index: 200;
-  display: flex; align-items: center; justify-content: center;
-  padding: clamp(16px, 3vw, 40px);
-  background: rgba(60, 44, 28, 0.55);
-  backdrop-filter: blur(4px);
-}
-.ancient-map-paper {
-  position: relative;
-  width: min(100%, 1080px);
-  max-height: 92vh;
-  overflow: auto;
-  padding: clamp(28px, 4vw, 56px);
-  background:
-    radial-gradient(ellipse at 30% 18%, rgba(255,233,227,0.5), transparent 55%),
-    radial-gradient(ellipse at 75% 85%, rgba(202,130,248,0.07), transparent 55%),
-    linear-gradient(160deg, #F4EBD9 0%, #EADFC4 100%);
-  border: 1px solid rgba(90, 60, 30, 0.25);
-  box-shadow:
-    0 30px 80px rgba(40, 25, 10, 0.4),
-    inset 0 0 90px rgba(120, 80, 40, 0.12);
-  border-radius: var(--border-radius);
-  font-family: var(--font-primary);
-  color: #3A2A1A;
-}
-/* Torn paper edge texture */
-.ancient-map-paper::before {
-  content: '';
-  position: absolute; inset: 0;
-  pointer-events: none;
-  opacity: 0.5;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.45'/%3E%3C/svg%3E");
-  background-size: 220px 220px;
-  border-radius: inherit;
-}
-.ancient-map-paper > * { position: relative; z-index: 1; }
-
-.ancient-map-compass {
-  position: absolute;
-  top: 18px; right: 60px;
-  width: 36px; height: 36px;
-  border-radius: 50%;
-  border: 1.2px solid rgba(90,60,30,0.6);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 0.95rem;
-  color: rgba(90,60,30,0.7);
-}
-.ancient-map-compass::before {
-  content: '';
-  position: absolute; top: -6px; left: 50%;
-  width: 0; height: 0;
-  transform: translateX(-50%);
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-bottom: 7px solid rgba(90,60,30,0.7);
-}
-
-.ancient-map-close {
-  position: absolute; top: 16px; right: 16px;
-  width: 38px; height: 38px;
-  display: flex; align-items: center; justify-content: center;
-  background: rgba(255,255,255,0.4);
-  border: 1px solid rgba(90,60,30,0.25);
-  border-radius: 50%;
-  color: rgba(90,60,30,0.8);
+/* ── Right-Edge Emerging Peeking Map Drawer ── */
+.peeking-map-drawer {
+  position: fixed;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%) translateX(calc(100% - 46px));
+  z-index: 85;
+  display: flex;
+  align-items: stretch;
+  background: #f4efe6;
+  border: 2px solid #2d3135;
+  border-right: none;
+  border-radius: 12px 0 0 12px;
+  box-shadow: -8px 12px 32px rgba(0, 0, 0, 0.28), -2px 0 12px rgba(230, 74, 56, 0.25);
   cursor: pointer;
-  font-size: 1.1rem;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease;
+  overflow: hidden;
+  user-select: none;
 }
-.ancient-map-close:hover {
-  background: rgba(255,255,255,0.8);
+
+.peeking-map-drawer:hover,
+.peeking-map-drawer.is-expanded {
+  transform: translateY(-50%) translateX(0);
+  box-shadow: -14px 20px 48px rgba(0, 0, 0, 0.45), -4px 0 20px rgba(230, 74, 56, 0.45);
+}
+
+/* Vertical Peeking Handle (Always partially visible on screen edge) */
+.peeking-map-handle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 16px 12px;
+  background: #2d3135;
+  color: #f4efe6;
+  border-right: 2px solid #e64a38;
+  min-width: 46px;
+  cursor: pointer;
+}
+
+.peeking-compass-glyph {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #e64a38;
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.compass-spin-icon {
+  animation: map-compass-spin 16s linear infinite;
+}
+
+@keyframes map-compass-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.peeking-vertical-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #f4efe6;
+  text-transform: uppercase;
+}
+
+.peeking-active-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e64a38;
+  box-shadow: 0 0 8px #e64a38;
+  animation: peeking-pulse 1.8s infinite ease-in-out;
+}
+
+@keyframes peeking-pulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.4); opacity: 0.4; }
+}
+
+/* Peeking Body Revealed on Hover */
+.peeking-map-body {
+  width: 220px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: #f4efe6;
+  color: #2d3135;
+}
+
+.peeking-map-mini-header {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.peeking-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #e64a38;
+}
+
+.peeking-title {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #2d3135;
+  margin: 0;
+}
+
+.peeking-mini-canvas {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid rgba(45, 49, 53, 0.2);
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.mini-thumb-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.peeking-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.peeking-loc-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  color: #4d5358;
+}
+
+.peeking-pin-icon {
+  color: #e64a38;
+  font-size: 0.85rem;
+}
+
+.peeking-cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 5px 8px;
+  background: #2d3135;
+  color: #f4efe6;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ── Fullscreen Illustrated Vintage Cartography Modal ── */
+.illustrated-map-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(12px, 2.5vw, 32px);
+  background: rgba(18, 20, 24, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.illustrated-map-paper {
+  position: relative;
+  width: min(100%, 1160px);
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  background: #f4efe6;
+  border: 2px solid #2d3135;
+  border-radius: 12px;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.55), inset 0 0 80px rgba(120, 80, 40, 0.06);
+  color: #2d3135;
+  overflow: hidden;
+}
+
+/* Map Top Bar */
+.illustrated-map-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: #2d3135;
+  color: #f4efe6;
+  border-bottom: 2px solid #e64a38;
+}
+
+.map-badge-group {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.map-vintage-stamp {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  padding: 3px 8px;
+  border: 1.5px solid #e64a38;
+  border-radius: 4px;
+  color: #e64a38;
+}
+
+.map-title-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.map-main-title {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  color: #f4efe6;
+  margin: 0;
+}
+
+.map-sub-title {
+  font-family: var(--font-primary);
+  font-size: 0.72rem;
+  color: #a4adb5;
+}
+
+.map-topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.map-legend-capsule {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: #f4efe6;
+}
+
+.legend-dot.active-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e64a38;
+  box-shadow: 0 0 8px #e64a38;
+}
+
+.map-close-button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #f4efe6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.map-close-button:hover {
+  background: #e64a38;
+  border-color: #e64a38;
+  color: #ffffff;
   transform: rotate(90deg);
 }
 
-.ancient-map-header { margin-bottom: clamp(18px, 2.4vw, 30px); text-align: center; }
-.ancient-map-kicker {
+/* Illustrated Map Canvas Container */
+.illustrated-map-canvas-wrap {
+  position: relative;
+  flex: 1;
+  overflow: auto;
+  background: #f4efe6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.city-map-svg {
+  width: 100%;
+  height: auto;
+  max-height: 58vh;
+  display: block;
+  user-select: none;
+}
+
+/* Landmark Group Interactions */
+.map-landmark-group {
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.landmark-hitbox {
+  fill: transparent;
+  stroke: transparent;
+  transition: all 0.25s ease;
+}
+
+.map-landmark-group:hover,
+.map-landmark-group.is-hovered-district {
+  transform: scale(1.06);
+}
+
+.map-landmark-group:hover .landmark-hitbox,
+.map-landmark-group.is-hovered-district .landmark-hitbox {
+  fill: rgba(230, 74, 56, 0.08);
+  stroke: #e64a38;
+  stroke-dasharray: 4 4;
+}
+
+.active-aura-ring {
+  fill: rgba(230, 74, 56, 0.12);
+  stroke: #e64a38;
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+  animation: aura-pulse 3s infinite linear;
+}
+
+@keyframes aura-pulse {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.active-beacon-pin {
+  animation: beacon-bounce 2s infinite ease-in-out;
+}
+
+@keyframes beacon-bounce {
+  0%, 100% { transform: translate(0, -52px); }
+  50% { transform: translate(0, -58px); }
+}
+
+/* ── Micro-Animations on City Elements ── */
+/* Traffic Cars */
+.car-cruising-horizontal-1 {
+  animation: drive-road-1 18s linear infinite;
+}
+@keyframes drive-road-1 {
+  0% { transform: translate(40px, 180px); }
+  100% { transform: translate(960px, 180px); }
+}
+
+.van-cruising-horizontal-2 {
+  animation: drive-road-2 22s linear infinite;
+}
+@keyframes drive-road-2 {
+  0% { transform: translate(960px, 360px); }
+  100% { transform: translate(40px, 360px); }
+}
+
+.car-cruising-horizontal-3 {
+  animation: drive-road-3 15s linear infinite;
+}
+@keyframes drive-road-3 {
+  0% { transform: translate(40px, 520px); }
+  100% { transform: translate(960px, 520px); }
+}
+
+/* Sailboats Bobbing */
+.animated-sailboat {
+  animation: boat-bob 4s ease-in-out infinite;
+}
+.animated-sailboat-2 {
+  animation: boat-bob 5s ease-in-out infinite 1.5s;
+}
+@keyframes boat-bob {
+  0%, 100% { transform: translate(420px, 560px) rotate(0deg); }
+  50% { transform: translate(420px, 555px) rotate(2.5deg); }
+}
+
+/* River Ripples */
+.ripple-anim {
+  animation: wave-ripple 3s infinite ease-in-out;
+}
+.ripple-anim.delay-1 { animation-delay: 0.6s; }
+.ripple-anim.delay-2 { animation-delay: 1.2s; }
+.ripple-anim.delay-3 { animation-delay: 1.8s; }
+@keyframes wave-ripple {
+  0%, 100% { opacity: 0.3; transform: translateY(0); }
+  50% { opacity: 0.85; transform: translateY(-2px); }
+}
+
+/* Flag Flutter */
+.flag-flutter {
+  transform-origin: 0% 50%;
+  animation: flag-wave 1.8s ease-in-out infinite;
+}
+@keyframes flag-wave {
+  0%, 100% { transform: scaleX(1); }
+  50% { transform: scaleX(0.85) skewY(-4deg); }
+}
+
+/* Rotating Foundry Gear */
+.rotating-gear {
+  transform-origin: center;
+  animation: gear-spin 10s linear infinite;
+}
+@keyframes gear-spin {
+  from { transform: translate(-6px, 0) rotate(0deg); }
+  to   { transform: translate(-6px, 0) rotate(360deg); }
+}
+
+/* Smoke Puffs */
+.smoke-puff-1 {
+  animation: smoke-rise 2.5s infinite ease-out;
+}
+.smoke-puff-2 {
+  animation: smoke-rise 2.5s infinite ease-out 1.2s;
+}
+@keyframes smoke-rise {
+  0% { transform: translateY(0) scale(0.6); opacity: 0.9; }
+  100% { transform: translateY(-12px) scale(1.4); opacity: 0; }
+}
+
+/* Radio Waves Beacon */
+.radio-wave-1 {
+  animation: radio-expand 2s infinite ease-out;
+}
+.radio-wave-2 {
+  animation: radio-expand 2s infinite ease-out 0.8s;
+}
+@keyframes radio-expand {
+  0% { transform: scale(0.6); opacity: 0.9; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* Trampoline Jumpers */
+.jumper-bounce-1 {
+  animation: jump-bounce 1.4s infinite ease-in-out;
+}
+.jumper-bounce-2 {
+  animation: jump-bounce 1.6s infinite ease-in-out 0.4s;
+}
+@keyframes jump-bounce {
+  0%, 100% { transform: translate(-6px, -14px); }
+  50% { transform: translate(-6px, -28px); }
+}
+
+/* ── Bottom Infobar & Quick Jump Links ── */
+.illustrated-map-infobar {
+  padding: 12px 20px;
+  background: #2d3135;
+  color: #f4efe6;
+  border-top: 2px solid #e64a38;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.map-district-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-width: 460px;
+}
+
+.district-tag {
   font-family: var(--font-mono);
-  font-size: 0.66rem;
-  letter-spacing: 2.4px;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 1.2px;
   text-transform: uppercase;
-  color: rgba(90,60,30,0.65);
-}
-.ancient-map-title {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: clamp(1.6rem, 3.4vw, 2.6rem);
-  font-weight: 700;
-  color: #2A1A0A;
-  margin: 6px 0 8px;
-  letter-spacing: -0.02em;
-}
-.ancient-map-lede {
-  font-size: 0.92rem;
-  color: rgba(58,42,26,0.78);
-  max-width: 540px;
-  margin: 0 auto;
+  color: #e64a38;
 }
 
-.ancient-map-canvas { width: 100%; }
-.parchment-svg { width: 100%; height: auto; display: block; }
-
-.parchment-region { cursor: pointer; outline: none; }
-.parchment-region-blob {
-  fill: rgba(255, 250, 240, 0.55);
-  stroke: rgba(70, 45, 22, 0.75);
-  stroke-width: 0.35;
-  stroke-linejoin: round;
-  transition: fill 0.3s ease, stroke 0.3s ease, stroke-width 0.3s ease;
-}
-.parchment-region:hover .parchment-region-blob {
-  fill: rgba(202, 130, 248, 0.22);
-  stroke: rgba(122, 60, 130, 0.85);
-  stroke-width: 0.55;
-}
-.parchment-region.is-active .parchment-region-blob {
-  fill: rgba(202, 130, 248, 0.32);
-  stroke: rgba(122, 60, 130, 0.95);
-  stroke-width: 0.6;
-}
-.parchment-region-index {
-  font-family: var(--font-mono);
-  font-size: 2px;
-  fill: rgba(70,45,22,0.7);
-  letter-spacing: 0.4px;
-}
-.parchment-region-name {
+.district-title {
   font-family: var(--font-display);
-  font-size: 3.6px;
+  font-size: 0.95rem;
   font-weight: 700;
-  fill: #2A1A0A;
-  letter-spacing: 0.18px;
+  color: #f4efe6;
+  margin: 0;
 }
-.parchment-region-sub {
+
+.district-desc {
   font-family: var(--font-primary);
-  font-size: 1.7px;
-  fill: rgba(70,45,22,0.72);
-  font-style: italic;
-}
-.parchment-region-pin { fill: rgba(122,60,130,0.95); }
-
-.parchment-route {
-  fill: none;
-  stroke: rgba(70,45,22,0.4);
-  stroke-width: 0.35;
-  stroke-dasharray: 1 1.4;
-  stroke-linecap: round;
+  font-size: 0.72rem;
+  color: #a4adb5;
+  margin: 0;
+  line-height: 1.4;
 }
 
-.ancient-map-footer {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-top: clamp(16px, 2vw, 24px);
-  padding-top: 14px;
-  border-top: 1px dashed rgba(90,60,30,0.35);
+.map-quick-links-track {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  max-width: 580px;
+}
+
+.map-chip-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 9px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 4px;
+  color: #f4efe6;
   font-family: var(--font-mono);
   font-size: 0.68rem;
-  letter-spacing: 1px;
-  color: rgba(90,60,30,0.7);
-  text-transform: uppercase;
-}
-.ancient-map-legend { display: inline-flex; align-items: center; gap: 8px; }
-.ancient-map-legend .dot {
-  width: 9px; height: 9px; border-radius: 50%;
-  background: rgba(202,130,248,0.85);
-  box-shadow: 0 0 8px rgba(202,130,248,0.5);
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-@media (max-width: 640px) {
-  .ancient-map-compass { display: none; }
-  .ancient-map-title { font-size: 1.4rem; }
+.map-chip-btn .chip-idx {
+  color: #e64a38;
+  font-weight: 800;
+}
+
+.map-chip-btn:hover {
+  background: #e64a38;
+  border-color: #e64a38;
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+.map-chip-btn:hover .chip-idx {
+  color: #ffffff;
+}
+
+.map-chip-btn.is-active {
+  background: #e64a38;
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+.map-chip-btn.is-active .chip-idx {
+  color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .peeking-map-drawer {
+    top: auto;
+    bottom: 20px;
+    transform: translateY(0) translateX(calc(100% - 42px));
+  }
+  .peeking-map-drawer:hover,
+  .peeking-map-drawer.is-expanded {
+    transform: translateY(0) translateX(0);
+  }
+  .illustrated-map-infobar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 /* ======================================================================
