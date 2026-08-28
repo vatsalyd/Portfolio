@@ -69,12 +69,12 @@ I build the backend engine room for artificial intelligence — focusing on mult
 <!-- START_SECTION:activity -->
 | Repository | Contribution / Pull Request | Status |
 |:---|:---|:---:|
-| [`IncrivelsoftHQ/TummyTales-Platform`](https://github.com/IncrivelsoftHQ/TummyTales-Platform) | [refactor: single-provider Gemini migration + token budget fixes](https://github.com/IncrivelsoftHQ/TummyTales-Platform/pull/158) | ✅ Merged |
-| [`IncrivelsoftHQ/TummyTales-Platform`](https://github.com/IncrivelsoftHQ/TummyTales-Platform) | [perf: latency reduction — cache, ProfileRepository, service decomposition](https://github.com/IncrivelsoftHQ/TummyTales-Platform/pull/154) | ✅ Merged |
 | [`mlflow/mlflow`](https://github.com/mlflow/mlflow) | [Fix async trace export dropping workspace context (#24093)](https://github.com/mlflow/mlflow/pull/24275) | ✅ Merged |
 | [`deepchem/deepchem`](https://github.com/deepchem/deepchem) | [fix: DTNNEmbedding parameter misspelled (should be initializer) — Fixes #5020](https://github.com/deepchem/deepchem/pull/5025) | 🟡 Open |
 | [`mlflow/mlflow`](https://github.com/mlflow/mlflow) | [Support Gemini thought signature in AI Gateway](https://github.com/mlflow/mlflow/pull/24051) | ✅ Merged |
-| [`ansible/ansible`](https://github.com/ansible/ansible) | [Fix role lookup from ansible-playbook cwd](https://github.com/ansible/ansible/pull/87112) | ✅ Merged |
+| [`ansible/ansible`](https://github.com/ansible/ansible) | [Fix role lookup from ansible-playbook cwd](https://github.com/ansible/ansible/pull/87112) | ✅ Merged / Closed |
+| [`Roshanjossey/code-contributions`](https://github.com/Roshanjossey/code-contributions) | [add vatsalyd](https://github.com/Roshanjossey/code-contributions/pull/1225) | ✅ Merged |
+| [`mlflow/mlflow`](https://github.com/mlflow/mlflow) | [fix(tracking): warn when MlflowClient.search_runs() silently truncate…](https://github.com/mlflow/mlflow/pull/22218) | ✅ Merged / Closed |
 <!-- END_SECTION:activity -->
 
 > Full interactive feed with repository filters → [Portfolio Open Source Section](https://vatsalyd.github.io/Portfolio/#opensource)
