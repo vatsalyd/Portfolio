@@ -3,17 +3,27 @@ import { AnimatePresence, motion } from 'framer-motion';
 import {
     FiX,
     FiCompass,
-    FiMapPin,
     FiArrowRight,
     FiMap,
+    FiTerminal,
+    FiGitBranch,
+    FiCpu,
+    FiLayers,
+    FiBriefcase,
+    FiCalendar,
+    FiFileText,
+    FiFilm,
+    FiSend,
+    FiUser,
+    FiShield,
 } from 'react-icons/fi';
 import { mapRegions } from '../data/portfolioData';
 
 const CATEGORIES = [
-    { id: 'all', label: 'All', ids: null },
-    { id: 'systems', label: 'Systems', ids: ['hero', 'agent', 'opensource', 'skills'] },
-    { id: 'builds', label: 'Builds & Arena', ids: ['projects', 'experience', 'landscape'] },
-    { id: 'culture', label: 'Culture', ids: ['articles', 'characters', 'taste', 'contact'] },
+    { id: 'all', label: 'All Sections', ids: null },
+    { id: 'systems', label: 'Systems & Agent', ids: ['hero', 'agent', 'opensource', 'skills'] },
+    { id: 'engineering', label: 'Engineering & Events', ids: ['projects', 'experience', 'landscape'] },
+    { id: 'writing-culture', label: 'Writing & Channels', ids: ['articles', 'characters', 'taste', 'contact'] },
 ];
 
 export default function AncientMap() {
@@ -83,7 +93,7 @@ export default function AncientMap() {
                 const top = el.getBoundingClientRect().top + window.scrollY - 20;
                 window.scrollTo({ top, behavior: 'smooth' });
             }
-        }, 200);
+        }, 180);
     }, []);
 
     const activeRegionObj = useMemo(() => {
@@ -106,7 +116,7 @@ export default function AncientMap() {
                 onClick={() => setOpen(true)}
                 role="button"
                 tabIndex={0}
-                aria-label="Open portfolio map"
+                aria-label="Open portfolio navigation map"
                 onKeyDown={(e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
@@ -134,7 +144,7 @@ export default function AncientMap() {
                         transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
                         role="dialog"
                         aria-modal="true"
-                        aria-label="Portfolio Map"
+                        aria-label="Portfolio Navigation Map"
                         onClick={(e) => { if (e.target === e.currentTarget) setOpen(false); }}
                     >
                         <motion.div
@@ -147,10 +157,10 @@ export default function AncientMap() {
                             {/* Header */}
                             <div className="illustrated-map-topbar">
                                 <div className="map-badge-group">
-                                    <FiMap style={{ fontSize: '1.1rem', color: '#e64a38' }} />
+                                    <FiMap style={{ fontSize: '1.15rem', color: 'var(--accent-violet-dim)' }} />
                                     <div className="map-title-block">
-                                        <h2 className="map-main-title">PORTFOLIO MAP</h2>
-                                        <span className="map-sub-title">Navigate to any section</span>
+                                        <h2 className="map-main-title">PORTFOLIO INDEX MAP</h2>
+                                        <span className="map-sub-title">Direct teleportation across all 11 technical sections</span>
                                     </div>
                                 </div>
 
@@ -170,7 +180,7 @@ export default function AncientMap() {
 
                                     <div className="map-legend-capsule">
                                         <span className="legend-dot active-dot" />
-                                        <span>{activeRegionObj.name}</span>
+                                        <span>Current: {activeRegionObj.name}</span>
                                     </div>
 
                                     <button
@@ -207,17 +217,18 @@ export default function AncientMap() {
                                             transition={{ duration: 0.15 }}
                                         >
                                             <div className="card-header-row">
-                                                <span className="card-district-badge">{hoveredRegion.index}</span>
+                                                <span className="card-district-badge">SECTION {hoveredRegion.index}</span>
                                                 <span className="card-road-tag">{hoveredRegion.road}</span>
                                             </div>
                                             <h4 className="card-title">{hoveredRegion.name}</h4>
+                                            <div className="card-subtitle">{hoveredRegion.subtitle}</div>
                                             <p className="card-desc">{hoveredRegion.desc}</p>
                                             <button
                                                 type="button"
                                                 onClick={() => visit(hoveredRegion.id)}
                                                 className="card-sail-btn"
                                             >
-                                                <span>Go to Section</span>
+                                                <span>Jump to Section</span>
                                                 <FiArrowRight />
                                             </button>
                                         </motion.div>
@@ -305,7 +316,7 @@ function CityMapSVG({ regions, active, hoveredRegion, setHoveredRegion, filtered
                 </linearGradient>
             </defs>
 
-            {/* Base */}
+            {/* Base Paper */}
             <rect width="1000" height="680" fill="#f4efe6" />
 
             {/* Waterway */}
@@ -322,7 +333,7 @@ function CityMapSVG({ regions, active, hoveredRegion, setHoveredRegion, filtered
                 <path d="M 800 610 q 12 -4 24 0 q 12 4 24 0" className="ripple-anim delay-3" />
             </g>
 
-            {/* ── Road Grid ── */}
+            {/* ── Technical Road Grid ── */}
             <g className="city-road-grid">
                 {/* Secondary streets */}
                 <path
@@ -341,7 +352,7 @@ function CityMapSVG({ regions, active, hoveredRegion, setHoveredRegion, filtered
                     fill="none"
                 />
 
-                {/* Primary roads */}
+                {/* Primary technical transit routes */}
                 <path
                     d="
                     M 40 180 L 960 180
@@ -351,13 +362,13 @@ function CityMapSVG({ regions, active, hoveredRegion, setHoveredRegion, filtered
                     M 520 40 L 520 580
                     M 760 40 L 760 540
                     "
-                    stroke="#32373c"
-                    strokeWidth="14"
+                    stroke="#2d3135"
+                    strokeWidth="12"
                     strokeLinecap="round"
                     fill="none"
                 />
 
-                {/* Center dashes */}
+                {/* Center route dashes */}
                 <path
                     d="
                     M 40 180 L 960 180
@@ -375,7 +386,7 @@ function CityMapSVG({ regions, active, hoveredRegion, setHoveredRegion, filtered
                 />
             </g>
 
-            {/* Trees (simplified) */}
+            {/* Decorative Trees */}
             <g className="city-trees">
                 <PineTreeGroup x={80} y={90} />
                 <PineTreeGroup x={420} y={75} />
@@ -387,11 +398,11 @@ function CityMapSVG({ regions, active, hoveredRegion, setHoveredRegion, filtered
             {/* Compass Rose */}
             <StarCompassRose x={110} y={590} />
 
-            {/* Trajectory line */}
+            {/* Interactive Trajectory line */}
             {trajectoryPath && (
                 <path
                     d={trajectoryPath}
-                    stroke="#e64a38"
+                    stroke="#ca82f8"
                     strokeWidth="2.5"
                     strokeDasharray="8 6"
                     fill="none"
@@ -421,50 +432,74 @@ function CityMapSVG({ regions, active, hoveredRegion, setHoveredRegion, filtered
                     >
                         {/* Hit area */}
                         <rect
-                            x="-60"
+                            x="-65"
                             y="-55"
-                            width="120"
-                            height="105"
+                            width="130"
+                            height="110"
                             rx="8"
                             className="landmark-hitbox"
                         />
 
-                        {/* Active pulse */}
+                        {/* Active pulse aura */}
                         {isActive && (
                             <circle cx="0" cy="0" r="44" className="active-aura-ring" />
                         )}
 
-                        {/* Landmark icon */}
+                        {/* Landmark Graphic Icon */}
                         <DistrictLandmarkGraphic
                             icon={region.icon}
                             isActive={isActive}
                             isHovered={isHovered}
                         />
 
-                        {/* Label banner */}
+                        {/* High-Contrast Retentive Label Banner */}
                         <g transform="translate(0, 34)">
-                            <path
-                                d="M -50 -9 L 50 -9 L 44 5 L -44 5 Z"
-                                fill={isActive ? '#e64a38' : '#2d3135'}
+                            <rect
+                                x="-56"
+                                y="-10"
+                                width="112"
+                                height="18"
+                                rx="3"
+                                fill={isActive ? '#9d5fd0' : '#2d3135'}
                                 filter="url(#landmarkShadow)"
                             />
+                            {/* Section index indicator */}
+                            <circle
+                                cx="-44"
+                                cy="-1"
+                                r="5.5"
+                                fill={isActive ? '#ffffff' : '#ca82f8'}
+                            />
                             <text
-                                x="0"
+                                x="-44"
+                                y="1.5"
+                                textAnchor="middle"
+                                fill={isActive ? '#9d5fd0' : '#ffffff'}
+                                fontSize="6.5"
+                                fontWeight="800"
+                                fontFamily="var(--font-mono)"
+                            >
+                                {region.index}
+                            </text>
+                            {/* Section Name */}
+                            <text
+                                x="4"
                                 y="-1"
                                 textAnchor="middle"
                                 fill="#ffffff"
-                                fontSize="8"
+                                fontSize="7.5"
                                 fontWeight="700"
                                 fontFamily="var(--font-mono)"
-                                letterSpacing="0.6"
+                                letterSpacing="0.4"
                             >
                                 {region.name.toUpperCase()}
                             </text>
+                            {/* Subtitle */}
                             <text
                                 x="0"
-                                y="13"
+                                y="16"
                                 textAnchor="middle"
-                                fill="#5d6368"
+                                fill="#4a5056"
                                 fontSize="7"
                                 fontWeight="600"
                                 fontFamily="var(--font-primary)"
@@ -473,12 +508,12 @@ function CityMapSVG({ regions, active, hoveredRegion, setHoveredRegion, filtered
                             </text>
                         </g>
 
-                        {/* Active pin */}
+                        {/* Active Section Location Pin */}
                         {isActive && (
                             <g transform="translate(0, -50)" className="active-beacon-pin">
                                 <path
                                     d="M 0 -12 C -6 -12 -10 -8 -10 -2 C -10 5 0 14 0 14 C 0 14 10 5 10 -2 C 10 -8 6 -12 0 -12 Z"
-                                    fill="#e64a38"
+                                    fill="#9d5fd0"
                                     stroke="#ffffff"
                                     strokeWidth="1.5"
                                 />
@@ -492,23 +527,21 @@ function CityMapSVG({ regions, active, hoveredRegion, setHoveredRegion, filtered
     );
 }
 
-/* ── District Graphics ── */
+/* ── Schematic Landmark Graphics ── */
 function DistrictLandmarkGraphic({ icon, isActive, isHovered }) {
-    const accent = '#e64a38';
+    const accent = '#9d5fd0';
+    const teal = '#2a8c8c';
     const dark = '#2d3135';
     const light = '#f8f5ef';
 
     switch (icon) {
-        case 'castle':
+        case 'profile':
             return (
                 <g filter="url(#landmarkShadow)">
-                    <rect x="-22" y="-20" width="44" height="35" fill={dark} rx="2" />
-                    <polygon points="-26,-20 0,-38 26,-20" fill={accent} />
-                    <rect x="-16" y="-10" width="9" height="10" fill={light} />
-                    <rect x="7" y="-10" width="9" height="10" fill={light} />
-                    <rect x="-5" y="2" width="10" height="13" fill={light} rx="5" />
-                    <line x1="0" y1="-38" x2="0" y2="-48" stroke={dark} strokeWidth="1.5" />
-                    <polygon points="0,-48 12,-43 0,-38" fill={accent} className="flag-flutter" />
+                    <circle cx="0" cy="-8" r="22" fill={dark} rx="3" />
+                    <circle cx="0" cy="-14" r="8" fill={accent} />
+                    <path d="M -12 4 C -12 -3, 12 -3, 12 4 Z" fill={light} />
+                    <circle cx="12" cy="-22" r="3" fill={teal} />
                 </g>
             );
 
@@ -543,82 +576,86 @@ function DistrictLandmarkGraphic({ icon, isActive, isHovered }) {
         case 'gear':
             return (
                 <g filter="url(#landmarkShadow)">
-                    <rect x="-22" y="-12" width="44" height="26" fill={dark} rx="2" />
-                    <polygon points="-26,-12 -12,-24 0,-12 12,-24 26,-12" fill={accent} />
-                    <rect x="10" y="-32" width="7" height="12" fill={dark} />
-                    <circle cx="14" cy="-38" r="3" fill="#b0bac2" className="smoke-puff-1" />
-                    <circle cx="16" cy="-44" r="4.5" fill="#cbd4dc" className="smoke-puff-2" />
-                    <g className="rotating-gear" style={{ transformOrigin: '-6px 0px' }}>
-                        <circle cx="-6" cy="0" r="9" fill={accent} />
-                        <circle cx="-6" cy="0" r="3.5" fill={dark} />
-                    </g>
+                    <rect x="-22" y="-14" width="44" height="28" fill={dark} rx="2" />
+                    <rect x="-16" y="-8" width="32" height="16" fill="#1b1e22" rx="2" />
+                    <circle cx="0" cy="0" r="6" fill={accent} />
+                    <circle cx="0" cy="0" r="2.5" fill={dark} />
+                    {/* Chip Pins */}
+                    <line x1="-10" y1="-17" x2="-10" y2="-14" stroke={teal} strokeWidth="2" />
+                    <line x1="0" y1="-17" x2="0" y2="-14" stroke={teal} strokeWidth="2" />
+                    <line x1="10" y1="-17" x2="10" y2="-14" stroke={teal} strokeWidth="2" />
+                    <line x1="-10" y1="14" x2="-10" y2="17" stroke={teal} strokeWidth="2" />
+                    <line x1="0" y1="14" x2="0" y2="17" stroke={teal} strokeWidth="2" />
+                    <line x1="10" y1="14" x2="10" y2="17" stroke={teal} strokeWidth="2" />
                 </g>
             );
 
-        case 'city':
+        case 'layers':
             return (
                 <g filter="url(#landmarkShadow)">
-                    <rect x="-26" y="-35" width="20" height="48" fill={dark} rx="2" />
-                    <rect x="-22" y="-30" width="5" height="5" fill={accent} />
-                    <rect x="-13" y="-30" width="5" height="5" fill={light} />
-                    <rect x="-22" y="-21" width="5" height="5" fill={light} />
-                    <rect x="-13" y="-21" width="5" height="5" fill={accent} />
-                    <rect x="-22" y="-12" width="5" height="5" fill={light} />
-                    <rect x="-13" y="-12" width="5" height="5" fill={light} />
-                    <rect x="-2" y="-44" width="28" height="57" fill={accent} rx="2" />
-                    <polygon points="-2,-44 12,-54 26,-44" fill={dark} />
-                    <rect x="3" y="-38" width="6" height="5" fill={light} />
-                    <rect x="14" y="-38" width="6" height="5" fill={light} />
-                    <rect x="3" y="-29" width="6" height="5" fill={dark} />
-                    <rect x="14" y="-29" width="6" height="5" fill={light} />
-                    <rect x="3" y="-20" width="6" height="5" fill={light} />
-                    <rect x="14" y="-20" width="6" height="5" fill={dark} />
+                    <polygon points="0,-24 24,-12 0,0 -24,-12" fill={accent} />
+                    <polygon points="0,-14 24,-2 0,10 -24,-2" fill={dark} opacity="0.85" />
+                    <polygon points="0,-4 24,8 0,20 -24,8" fill={teal} />
                 </g>
             );
 
-        case 'factory':
+        case 'briefcase':
             return (
                 <g filter="url(#landmarkShadow)">
-                    <rect x="-24" y="-16" width="48" height="29" fill={dark} rx="2" />
-                    <polygon points="-24,-16 -8,-28 6,-16 22,-28 24,-16" fill={accent} />
-                    <rect x="-16" y="-5" width="9" height="9" fill={light} />
-                    <rect x="7" y="-5" width="9" height="9" fill={light} />
+                    <rect x="-22" y="-12" width="44" height="28" fill={dark} rx="3" />
+                    <path d="M -9 -12 L -9 -18 L 9 -18 L 9 -12" stroke={accent} strokeWidth="2.5" fill="none" />
+                    <line x1="-22" y1="0" x2="22" y2="0" stroke="#1f2327" strokeWidth="2" />
+                    <rect x="-4" y="-3" width="8" height="6" fill={accent} rx="1" />
+                </g>
+            );
+
+        case 'calendar':
+        case 'arena':
+            return (
+                <g filter="url(#landmarkShadow)">
+                    <rect x="-22" y="-18" width="44" height="34" fill={dark} rx="3" />
+                    <rect x="-22" y="-18" width="44" height="10" fill={accent} rx="2" />
+                    <line x1="-12" y1="-22" x2="-12" y2="-18" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
+                    <line x1="12" y1="-22" x2="12" y2="-18" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
+                    <circle cx="-10" cy="-1" r="2.5" fill={teal} />
+                    <circle cx="0" cy="-1" r="2.5" fill={light} />
+                    <circle cx="10" cy="-1" r="2.5" fill={light} />
+                    <circle cx="-10" cy="8" r="2.5" fill={light} />
+                    <circle cx="0" cy="8" r="2.5" fill={teal} />
+                    <circle cx="10" cy="8" r="2.5" fill={accent} />
                 </g>
             );
 
         case 'press':
             return (
                 <g filter="url(#landmarkShadow)">
-                    <rect x="-22" y="-18" width="44" height="31" fill={dark} rx="2" />
-                    <polygon points="-25,-18 0,-31 25,-18" fill={accent} />
-                    <rect x="-14" y="-9" width="28" height="4" fill={light} />
+                    <rect x="-20" y="-20" width="40" height="34" fill={dark} rx="2" />
+                    <polygon points="-20,-20 0,-32 20,-20" fill={accent} />
+                    <rect x="-14" y="-10" width="28" height="4" fill={light} />
                     <rect x="-12" y="-3" width="24" height="4" fill={light} />
-                    <rect x="-14" y="3" width="28" height="4" fill={light} />
+                    <rect x="-14" y="4" width="28" height="4" fill={light} />
                 </g>
             );
 
         case 'park':
             return (
                 <g filter="url(#landmarkShadow)">
-                    <rect x="-16" y="0" width="32" height="12" fill={dark} rx="2" />
-                    <rect x="-10" y="-10" width="20" height="10" fill={accent} />
-                    <circle cx="0" cy="-20" r="5.5" fill={dark} />
-                    <path d="M -6 -14 L 6 -14 L 8 -5 L -8 -5 Z" fill={dark} />
-                    <path d="M -10 -16 Q -14 -9 -9 -4" stroke={accent} strokeWidth="1.8" fill="none" />
-                    <path d="M 10 -16 Q 14 -9 9 -4" stroke={accent} strokeWidth="1.8" fill="none" />
+                    <polygon points="0,-24 20,-12 14,14 0,22 -14,14 -20,-12" fill={dark} rx="2" />
+                    <polygon points="0,-18 14,-8 10,10 0,16 -10,10 -14,-8" fill={accent} />
+                    <circle cx="0" cy="-2" r="5" fill={light} />
                 </g>
             );
 
         case 'ship':
             return (
                 <g filter="url(#landmarkShadow)">
-                    <rect x="-22" y="-28" width="18" height="38" rx="3" fill={accent} />
-                    <polygon points="-22,-28 -13,-38 -4,-28" fill={dark} />
-                    <g transform="translate(8, -10)">
-                        <path d="M -5 0 L 7 0 L 7 5" stroke={dark} strokeWidth="2.2" fill="none" />
-                        <path d="M 2 10 L 12 10 L 10 20 L 4 20 Z" fill={light} stroke={dark} strokeWidth="1.2" />
-                        <path d="M 3 13 L 11 13 L 9 19 L 5 19 Z" fill={accent} />
-                    </g>
+                    <circle cx="0" cy="-5" r="20" fill={dark} />
+                    <circle cx="0" cy="-5" r="16" fill="#14171a" />
+                    <circle cx="0" cy="-5" r="6" fill={accent} />
+                    <circle cx="-9" cy="-14" r="2.5" fill={light} />
+                    <circle cx="9" cy="-14" r="2.5" fill={light} />
+                    <circle cx="-9" cy="4" r="2.5" fill={light} />
+                    <circle cx="9" cy="4" r="2.5" fill={light} />
                 </g>
             );
 
@@ -642,16 +679,16 @@ function StarCompassRose({ x, y }) {
     return (
         <g transform={`translate(${x}, ${y})`} className="vintage-star-compass">
             <circle cx="0" cy="0" r="28" stroke="#2d3135" strokeWidth="1.5" fill="#f8f4ec" />
-            <circle cx="0" cy="0" r="24" stroke="#e64a38" strokeWidth="0.8" strokeDasharray="2 2" fill="none" />
+            <circle cx="0" cy="0" r="24" stroke="#9d5fd0" strokeWidth="0.8" strokeDasharray="2 2" fill="none" />
 
             <g className="compass-star-points">
-                <polygon points="0,-24 3,-5 0,0" fill="#e64a38" />
+                <polygon points="0,-24 3,-5 0,0" fill="#9d5fd0" />
                 <polygon points="0,-24 -3,-5 0,0" fill="#2d3135" />
-                <polygon points="0,24 -3,5 0,0" fill="#e64a38" />
+                <polygon points="0,24 -3,5 0,0" fill="#9d5fd0" />
                 <polygon points="0,24 3,5 0,0" fill="#2d3135" />
-                <polygon points="24,0 5,3 0,0" fill="#e64a38" />
+                <polygon points="24,0 5,3 0,0" fill="#9d5fd0" />
                 <polygon points="24,0 5,-3 0,0" fill="#2d3135" />
-                <polygon points="-24,0 -5,-3 0,0" fill="#e64a38" />
+                <polygon points="-24,0 -5,-3 0,0" fill="#9d5fd0" />
                 <polygon points="-24,0 -5,3 0,0" fill="#2d3135" />
             </g>
 
@@ -668,7 +705,7 @@ function PineTreeGroup({ x, y }) {
     return (
         <g transform={`translate(${x}, ${y})`}>
             <polygon points="0,-14 -5,-5 -2,-5 -6,0 6,0 2,-5 5,-5" fill="#2d3135" />
-            <polygon points="10,-10 6,-2 8,-2 5,3 15,3 12,-2 14,-2" fill="#e64a38" />
+            <polygon points="10,-10 6,-2 8,-2 5,3 15,3 12,-2 14,-2" fill="#2a8c8c" />
             <polygon points="-8,-9 -12,-2 -10,-2 -14,3 -3,3 -7,-2 -4,-2" fill="#2d3135" />
         </g>
     );
