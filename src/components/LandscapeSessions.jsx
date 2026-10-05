@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect, useCallback } from 'react';
+import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     FiUsers,
@@ -12,6 +12,11 @@ import {
     FiX,
     FiActivity,
     FiMaximize2,
+    FiChevronLeft,
+    FiChevronRight,
+    FiPlay,
+    FiPause,
+    FiImage,
     FiCheckCircle,
 } from 'react-icons/fi';
 import ScrollReveal from './ScrollReveal';
@@ -22,28 +27,99 @@ import {
     landscapeCategories,
 } from '../data/portfolioData';
 
+const SLIDE_DURATION = 6000; // ms per slide in auto-advance mode
+
 /**
- * LandscapeSessions — Creative showcase of conducted workshops, hackathons,
- * open-source sprints, and campus technical drives.
- *
- * Features:
- *   - Telemetry metric meters and audience reach counters
- *   - Dynamic category filtering across Hackathons, Workshops, Sprints & Outreach
- *   - Interactive mission ground cards with role chips & telemetry stats
- *   - Comprehensive inspection modal with curriculum breakdown & deliverables
+ * LandscapeSessions — Professional Slideshow & Telemetry Showcase
+ * for Hackathons, Workshops, Open-Source Sprints, and Campus Drives.
  */
 export default function LandscapeSessions() {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [isPlaying, setIsPlaying] = useState(true);
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [activeEvent, setActiveEvent] = useState(null);
+    const [imageErrors, setImageErrors] = useState({});
 
-    const openEvent = useCallback((event) => setActiveEvent(event), []);
-    const closeEvent = useCallback(() => setActiveEvent(null), []);
+    const timerRef = useRef(null);
+    const progressStartRef = useRef(Date.now());
+    const [progressPct, setProgressPct] = useState(0);
 
     // Filter events by selected category
     const filteredEvents = useMemo(() => {
         if (selectedCategory === 'all') return landscapeEvents;
         return landscapeEvents.filter((ev) => ev.category === selectedCategory);
     }, [selectedCategory]);
+
+    // Ensure currentIndex stays within bounds when filter changes
+    useEffect(() => {
+        setCurrentIndex(0);
+        setProgressPct(0);
+        progressStartRef.current = Date.now();
+    }, [selectedCategory]);
+
+    const currentEvent = filteredEvents[currentIndex] || filteredEvents[0] || landscapeEvents[0];
+    const totalSlides = filteredEvents.length;
+
+    // Navigation functions
+    const goToNext = useCallback(() => {
+        setCurrentIndex((prev) => (prev + 1) % totalSlides);
+        setProgressPct(0);
+        progressStartRef.current = Date.now();
+    }, [totalSlides]);
+
+    const goToPrev = useCallback(() => {
+        setCurrentIndex((prev) => (prev - 1 + totalSlides) % totalSlides);
+        setProgressPct(0);
+        progressStartRef.current = Date.now();
+    }, [totalSlides]);
+
+    const goToIndex = useCallback((idx) => {
+        setCurrentIndex(idx);
+        setProgressPct(0);
+        progressStartRef.current = Date.now();
+    }, []);
+
+    const togglePlayPause = () => {
+        setIsPlaying((prev) => !prev);
+    };
+
+    // Autoplay & Progress ticker
+    useEffect(() => {
+        if (!isPlaying || totalSlides <= 1) return;
+
+        progressStartRef.current = Date.now() - (progressPct / 100) * SLIDE_DURATION;
+        let animationFrame;
+
+        const updateTicker = () => {
+            const elapsed = Date.now() - progressStartRef.current;
+            const pct = Math.min((elapsed / SLIDE_DURATION) * 100, 100);
+            setProgressPct(pct);
+
+            if (pct >= 100) {
+                goToNext();
+            } else {
+                animationFrame = requestAnimationFrame(updateTicker);
+            }
+        };
+
+        animationFrame = requestAnimationFrame(updateTicker);
+        return () => cancelAnimationFrame(animationFrame);
+    }, [isPlaying, totalSlides, currentIndex, goToNext, progressPct]);
+
+    // Handle Image Error fallback
+    const handleImgError = useCallback((id) => {
+        setImageErrors((prev) => ({ ...prev, [id]: true }));
+    }, []);
+
+    // Open/Close Modal
+    const openInspectModal = useCallback((event) => {
+        setIsPlaying(false);
+        setActiveEvent(event);
+    }, []);
+
+    const closeInspectModal = useCallback(() => {
+        setActiveEvent(null);
+    }, []);
 
     return (
         <EditorialSection
@@ -55,15 +131,15 @@ export default function LandscapeSessions() {
             <div className="container landscape-container">
                 <ScrollReveal>
                     <div className="section-header">
-                        <span className="section-label">// Event Grounds · Sessions & Workshops</span>
+                        <span className="section-label">// Event Grounds · Telemetry Slideshow</span>
                         <h2 className="section-title">Technical Arena & Community Sprints</h2>
                         <p className="section-subtitle">
-                            Hands-on AI agent labs, deep learning workshops, hackathon tracks, and developer sprints conducted at IIT Bhilai and across the open-source ecosystem.
+                            Curated showcase of technical hackathons, autonomous agent workshops, deep learning labs, and developer sprints conducted at IIT Bhilai and across the open-source ecosystem.
                         </p>
                     </div>
                 </ScrollReveal>
 
-                {/* ── Telemetry Summary Banner ── */}
+                {/* ── Top Metric Summary Ribbon ── */}
                 <ScrollReveal delay={0.1}>
                     <div className="landscape-telemetry-banner glass-card">
                         <div className="telemetry-banner-grid">
@@ -78,7 +154,7 @@ export default function LandscapeSessions() {
                     </div>
                 </ScrollReveal>
 
-                {/* ── Category Filter Bar ── */}
+                {/* ── Category Filter Pills ── */}
                 <ScrollReveal delay={0.15}>
                     <div className="landscape-filter-bar" role="tablist" aria-label="Filter events by category">
                         {landscapeCategories.map((cat) => {
@@ -104,117 +180,270 @@ export default function LandscapeSessions() {
                     </div>
                 </ScrollReveal>
 
-                {/* ── Event Grounds Grid ── */}
-                <div className="landscape-grid">
-                    {filteredEvents.map((event, i) => (
-                        <ScrollReveal key={event.id} delay={i * 0.08}>
-                            <LandscapeEventCard
-                                event={event}
-                                onInspect={() => openEvent(event)}
+                {/* ── Cinematic Event Slideshow Stage ── */}
+                <ScrollReveal delay={0.2}>
+                    <div
+                        className="arena-slideshow-deck glass-card"
+                        onMouseEnter={() => setIsPlaying(false)}
+                        onMouseLeave={() => setIsPlaying(true)}
+                    >
+                        {/* Autoplay Progress Line */}
+                        <div className="slideshow-progress-line-track" aria-hidden="true">
+                            <div
+                                className="slideshow-progress-line-fill"
+                                style={{ width: `${progressPct}%` }}
                             />
-                        </ScrollReveal>
-                    ))}
-                </div>
+                        </div>
+
+                        {/* Top Deck Control Header */}
+                        <header className="slideshow-deck-topbar">
+                            <div className="deck-counter-badge">
+                                <span className="deck-stage-id">{currentEvent.stageCode || `STAGE-0${currentIndex + 1}`}</span>
+                                <span className="deck-counter-sep">/</span>
+                                <span className="deck-index-numbers">
+                                    {String(currentIndex + 1).padStart(2, '0')} of {String(totalSlides).padStart(2, '0')}
+                                </span>
+                            </div>
+
+                            <div className="deck-action-controls">
+                                <button
+                                    type="button"
+                                    className="deck-ctrl-btn"
+                                    onClick={togglePlayPause}
+                                    aria-label={isPlaying ? "Pause auto-advance" : "Play auto-advance"}
+                                    title={isPlaying ? "Pause slideshow" : "Play slideshow"}
+                                >
+                                    {isPlaying ? <FiPause /> : <FiPlay />}
+                                </button>
+                                <button
+                                    type="button"
+                                    className="deck-ctrl-btn"
+                                    onClick={goToPrev}
+                                    aria-label="Previous event slide"
+                                    title="Previous (Left Arrow)"
+                                >
+                                    <FiChevronLeft />
+                                </button>
+                                <button
+                                    type="button"
+                                    className="deck-ctrl-btn"
+                                    onClick={goToNext}
+                                    aria-label="Next event slide"
+                                    title="Next (Right Arrow)"
+                                >
+                                    <FiChevronRight />
+                                </button>
+                            </div>
+                        </header>
+
+                        {/* Slide Content Frame with Animated Switch */}
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={currentEvent.id}
+                                className="arena-slide-body"
+                                initial={{ opacity: 0, x: 18 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -18 }}
+                                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                            >
+                                {/* Left Side: Visual Media Stage Screen */}
+                                <div className="arena-media-viewport">
+                                    <StageMediaDisplay
+                                        event={currentEvent}
+                                        hasImgError={!!imageErrors[currentEvent.id]}
+                                        onImgError={() => handleImgError(currentEvent.id)}
+                                        onInspect={() => openInspectModal(currentEvent)}
+                                    />
+                                </div>
+
+                                {/* Right Side: Engineering Telemetry Panel */}
+                                <div className="arena-telemetry-panel">
+                                    <div className="arena-panel-meta">
+                                        <span className="arena-cat-pill">{currentEvent.category}</span>
+                                        <span className="arena-meta-period">
+                                            <FiCalendar /> {currentEvent.period}
+                                        </span>
+                                        <span className="arena-meta-location">
+                                            <FiMapPin /> {currentEvent.location}
+                                        </span>
+                                    </div>
+
+                                    <div className="arena-role-strip">
+                                        <span className="arena-role-pill">
+                                            <FiAward className="role-icon" /> {currentEvent.role}
+                                        </span>
+                                    </div>
+
+                                    <h3 className="arena-event-title">{currentEvent.title}</h3>
+                                    <div className="arena-event-org">{currentEvent.organization}</div>
+
+                                    <p className="arena-event-tagline">{currentEvent.tagline}</p>
+
+                                    {/* Telemetry Metrics Bar */}
+                                    {currentEvent.metrics && (
+                                        <div className="arena-metrics-grid">
+                                            {currentEvent.metrics.map((m, i) => (
+                                                <div key={i} className="arena-metric-cell">
+                                                    <span className="arena-m-val">{m.value}</span>
+                                                    <span className="arena-m-lbl">{m.label}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    {/* Highlights Preview */}
+                                    {currentEvent.highlights && currentEvent.highlights.length > 0 && (
+                                        <div className="arena-highlights-box">
+                                            <div className="arena-highlights-label">
+                                                <FiCheckCircle className="label-icon" /> Key Technical Deliverables
+                                            </div>
+                                            <ul className="arena-highlights-list">
+                                                {currentEvent.highlights.slice(0, 2).map((hl, i) => (
+                                                    <li key={i} className="arena-highlight-item">
+                                                        <span className="highlight-dot">{i + 1}</span>
+                                                        <span>{hl}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    )}
+
+                                    {/* Action Footers */}
+                                    <footer className="arena-panel-footer">
+                                        <button
+                                            type="button"
+                                            className="glow-btn arena-inspect-btn"
+                                            onClick={() => openInspectModal(currentEvent)}
+                                        >
+                                            <span>Inspect Deep-Dive Telemetry</span>
+                                            <FiMaximize2 />
+                                        </button>
+
+                                        {currentEvent.links && currentEvent.links.length > 0 && (
+                                            <div className="arena-ext-links">
+                                                {currentEvent.links.map((lnk, i) => (
+                                                    <a
+                                                        key={i}
+                                                        href={lnk.url}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        className="arena-link-affordance"
+                                                        title={lnk.label}
+                                                    >
+                                                        <span>{lnk.label}</span>
+                                                        <FiArrowUpRight />
+                                                    </a>
+                                                ))}
+                                            </div>
+                                        )}
+                                    </footer>
+                                </div>
+                            </motion.div>
+                        </AnimatePresence>
+
+                        {/* Bottom Stage Thumbnail Selector Bar */}
+                        <div className="arena-thumbnails-bar" role="tablist" aria-label="Select event slide">
+                            {filteredEvents.map((ev, idx) => {
+                                const isCurrent = idx === currentIndex;
+                                return (
+                                    <button
+                                        key={ev.id}
+                                        type="button"
+                                        role="tab"
+                                        aria-selected={isCurrent}
+                                        className={`arena-thumb-chip ${isCurrent ? 'is-active' : ''}`}
+                                        onClick={() => goToIndex(idx)}
+                                    >
+                                        <span className="thumb-chip-idx">{String(idx + 1).padStart(2, '0')}</span>
+                                        <span className="thumb-chip-name">{ev.shortTitle || ev.title}</span>
+                                        <span className="thumb-chip-category">{ev.category}</span>
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    </div>
+                </ScrollReveal>
             </div>
 
-            {/* ── Detailed Telemetry & Curriculum Modal ── */}
+            {/* ── Deep-Dive Telemetry Modal ── */}
             <EventInspectModal
                 event={activeEvent}
-                onClose={closeEvent}
+                onClose={closeInspectModal}
             />
         </EditorialSection>
     );
 }
 
-/* ── One Landscape Event Card ── */
-function LandscapeEventCard({ event, onInspect }) {
-    const isFeatured = event.featured;
+/* ── Stage Media Display (Real Photo or High-Tech Procedural Fallback) ── */
+function StageMediaDisplay({ event, hasImgError, onImgError, onInspect }) {
+    const imgSrc = event.image && !hasImgError
+        ? `${import.meta.env.BASE_URL}${event.image}`
+        : null;
 
     return (
-        <article className={`landscape-card glass-card ${isFeatured ? 'is-featured' : ''}`}>
-            {/* Top Eyebrow Header */}
-            <header className="landscape-card-header">
-                <div className="landscape-card-meta">
-                    <span className="landscape-meta-item">
-                        <FiCalendar className="meta-icon" /> {event.period}
-                    </span>
-                    <span className="landscape-meta-item">
-                        <FiMapPin className="meta-icon" /> {event.location}
-                    </span>
-                </div>
-                <div className="landscape-attendee-badge">
-                    <FiUsers className="attendee-icon" />
-                    <span>{event.attendees}</span>
-                </div>
-            </header>
-
-            {/* Role Chip */}
-            <div className="landscape-role-strip">
-                <span className="landscape-role-badge">
-                    <FiAward className="role-icon" /> {event.role}
-                </span>
-            </div>
-
-            {/* Event Title & Org */}
-            <div className="landscape-card-heading-group">
-                <h3 className="landscape-card-title">{event.title}</h3>
-                <div className="landscape-card-org">{event.organization}</div>
-            </div>
-
-            {/* Tagline / Mission briefing */}
-            <p className="landscape-card-tagline">{event.tagline}</p>
-
-            {/* Mini Telemetry Metrics Row */}
-            {event.metrics && event.metrics.length > 0 && (
-                <div className="landscape-metrics-row">
-                    {event.metrics.map((m, idx) => (
-                        <div key={idx} className="landscape-metric-cell">
-                            <span className="metric-cell-val">{m.value}</span>
-                            <span className="metric-cell-lbl">{m.label}</span>
+        <div className="stage-media-card">
+            {imgSrc ? (
+                <div className="stage-real-photo-wrap">
+                    <img
+                        src={imgSrc}
+                        alt={event.title}
+                        className="stage-photo-img"
+                        onError={onImgError}
+                        loading="lazy"
+                    />
+                    <div className="stage-photo-overlay-gradient" />
+                    {event.caption && (
+                        <div className="stage-photo-caption-bar">
+                            <span className="stage-caption-tag">Live Session</span>
+                            <span className="stage-caption-text">{event.caption}</span>
                         </div>
-                    ))}
+                    )}
+                </div>
+            ) : (
+                /* High-End Technical Architectural Blueprint Graphic */
+                <div className="stage-blueprint-fallback" onClick={onInspect}>
+                    <div className="blueprint-grid-overlay" />
+
+                    <div className="blueprint-stage-header">
+                        <div className="blueprint-radar-ring">
+                            <span className="radar-pulse" />
+                            <FiActivity className="radar-icon" />
+                        </div>
+                        <span className="blueprint-tag">{event.stageCode || "STAGE ARCHIVE"}</span>
+                        <span className="blueprint-attendees"><FiUsers /> {event.attendees}</span>
+                    </div>
+
+                    <div className="blueprint-center-matrix">
+                        <div className="matrix-icon-housing">
+                            <FiTerminal className="matrix-icon" />
+                        </div>
+                        <h4 className="matrix-title">{event.shortTitle || event.title}</h4>
+                        <span className="matrix-subtitle">{event.organization}</span>
+
+                        <div className="matrix-photo-slot-indicator">
+                            <FiImage className="photo-slot-icon" />
+                            <span>Photo Archive Slot Ready</span>
+                        </div>
+                    </div>
+
+                    <div className="blueprint-footer-telemetry">
+                        <span className="blueprint-coord">// LAT: IIT BHILAI · 21.1889° N, 81.2856° E</span>
+                        <span className="blueprint-date">{event.period}</span>
+                    </div>
                 </div>
             )}
 
-            {/* Topic Tags */}
-            <div className="landscape-card-tags">
-                {event.tags.slice(0, 4).map((tag, idx) => (
-                    <span key={idx} className="tag">{tag}</span>
-                ))}
-            </div>
-
-            {/* Action Footer */}
-            <footer className="landscape-card-footer">
-                <button
-                    type="button"
-                    className="landscape-inspect-btn"
-                    onClick={onInspect}
-                    aria-label={`Inspect telemetry and curriculum for ${event.title}`}
-                >
-                    <span className="inspect-btn-label">Inspect Session</span>
-                    <FiMaximize2 className="inspect-btn-icon" />
-                </button>
-
-                {event.links && event.links.length > 0 && (
-                    <div className="landscape-footer-links">
-                        {event.links.map((link, idx) => (
-                            <a
-                                key={idx}
-                                href={link.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="landscape-ext-link"
-                                aria-label={link.label}
-                                title={link.label}
-                            >
-                                <span className="ext-link-text">{link.label}</span>
-                                <FiArrowUpRight className="ext-link-icon" />
-                            </a>
-                        ))}
-                    </div>
-                )}
-            </footer>
-        </article>
+            {/* Quick Inspect Button Badge */}
+            <button
+                type="button"
+                className="stage-media-inspect-badge"
+                onClick={onInspect}
+                aria-label="Inspect session details"
+                title="Inspect session"
+            >
+                <FiMaximize2 />
+            </button>
+        </div>
     );
 }
 
