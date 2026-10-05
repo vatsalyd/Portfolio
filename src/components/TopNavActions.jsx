@@ -19,6 +19,7 @@ const TOUR_SECTIONS = [
     { id: 'skills', name: 'Technical Infrastructure', duration: 4500 },
     { id: 'projects', name: '3D Projects Carousel', duration: 5800 },
     { id: 'experience', name: 'Incrivelsoft & Track', duration: 4500 },
+    { id: 'landscape', name: 'Technical Arena & Events', duration: 4800 },
     { id: 'articles', name: 'Published Notes', duration: 4200 },
     { id: 'taste', name: 'Curated Cinema Roster', duration: 3800 },
     { id: 'characters', name: 'Iconic Archetypes', duration: 3600 },

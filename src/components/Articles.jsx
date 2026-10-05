@@ -26,7 +26,7 @@ export default function Articles() {
         <EditorialSection
             id="articles"
             ghost="ARTICLES"
-            eyebrowIndex="07"
+            eyebrowIndex="08"
             eyebrowLabel="ARTICLES"
         >
             <div className="container articles-container">

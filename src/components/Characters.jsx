@@ -113,7 +113,7 @@ export default function Characters() {
         <EditorialSection
             id="characters"
             ghost="CHARACTERS"
-            eyebrowIndex="09"
+            eyebrowIndex="10"
             eyebrowLabel="CHARACTERS"
         >
             <div className="taste-section-wrapper">
