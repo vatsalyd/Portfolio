@@ -669,6 +669,8 @@ export const landscapeEvents = [
   {
     id: "meraz-hackathon-2024",
     title: "Meraz AI/ML Track & Flagship Hackathon",
+    shortTitle: "Meraz AI/ML Track",
+    stageCode: "STAGE-01",
     category: "hackathons",
     role: "Lead Coordinator & Track Architect",
     organization: "Meraz (Annual Tech Fest) & DSAI Club, IIT Bhilai",
@@ -678,6 +680,8 @@ export const landscapeEvents = [
     tagline: "Orchestrated the premier AI/ML track for 100+ builders: authored problem statements, established evaluation rubrics, and guided 28 teams.",
     featured: true,
     accent: "violet",
+    image: "events/meraz-hackathon.jpg",
+    caption: "On-floor hackathon track coordination, problem statement briefing, and team mentorship at Meraz.",
     metrics: [
       { label: "Hackers", value: "100+" },
       { label: "Submissions", value: "28 Teams" },
@@ -704,6 +708,8 @@ export const landscapeEvents = [
   {
     id: "autonomous-agents-workshop",
     title: "Autonomous AI Agents & State Machines Hands-On Lab",
+    shortTitle: "LangGraph Agent Lab",
+    stageCode: "STAGE-02",
     category: "workshops",
     role: "Instructor & Technical Speaker",
     organization: "Data Science & AI Club (DSAI), IIT Bhilai",
@@ -713,6 +719,8 @@ export const landscapeEvents = [
     tagline: "Deep-dive technical workshop transitioning students from linear prompt chains to cyclic, deterministic multi-agent state machines with LangGraph.",
     featured: true,
     accent: "cyan",
+    image: "events/langgraph-workshop.jpg",
+    caption: "Live code-along session architecting deterministic multi-agent state machines with LangGraph and tool routing.",
     metrics: [
       { label: "Attendees", value: "65+" },
       { label: "Live Demos", value: "3 Graphs" },
@@ -739,6 +747,8 @@ export const landscapeEvents = [
   {
     id: "pytorch-deep-learning-lab",
     title: "Production Deep Learning & PyTorch Systems Lab",
+    shortTitle: "PyTorch Systems Lab",
+    stageCode: "STAGE-03",
     category: "workshops",
     role: "Technical Mentor & Instructor",
     organization: "Data Science & AI Club (DSAI), IIT Bhilai",
@@ -748,6 +758,8 @@ export const landscapeEvents = [
     tagline: "First-principles engineering lab covering tensor autograd mechanics, custom dataset pipelines, and neural network training loops.",
     featured: false,
     accent: "amber",
+    image: "events/pytorch-lab.jpg",
+    caption: "Teaching foundational tensor calculus, backward pass autograd graphs, and custom PyTorch data loaders.",
     metrics: [
       { label: "Students", value: "80+" },
       { label: "Code Labs", value: "4 Modules" },
@@ -773,6 +785,8 @@ export const landscapeEvents = [
   {
     id: "upstream-oss-git-sprint",
     title: "Upstream Open Source & Git Engineering Sprint",
+    shortTitle: "Upstream OSS Sprint",
+    stageCode: "STAGE-04",
     category: "sprints",
     role: "Session Lead & Sprint Facilitator",
     organization: "IIT Bhilai Developer Community",
@@ -782,6 +796,8 @@ export const landscapeEvents = [
     tagline: "Practical session on contributing to enterprise open source projects (MLflow, Ansible, DeepChem), Git rebase hygiene, and CI triage.",
     featured: false,
     accent: "emerald",
+    image: "events/oss-sprint.jpg",
+    caption: "Mentoring junior engineers through large-scale monorepo navigation, interactive Git rebasing, and pytest suites.",
     metrics: [
       { label: "Attendees", value: "50+" },
       { label: "PRs Raised", value: "12 Live" },
@@ -807,6 +823,8 @@ export const landscapeEvents = [
   {
     id: "campus-corporate-outreach-briefings",
     title: "Corporate Recruitment & Technical Drive Logistics",
+    shortTitle: "Corporate Tech Drives",
+    stageCode: "STAGE-05",
     category: "outreach",
     role: "Placement Volunteer & Technical Coordinator",
     organization: "Centre for Career Planning & Services (CCPS), IIT Bhilai",
@@ -816,6 +834,8 @@ export const landscapeEvents = [
     tagline: "Facilitated technical placement drives and company presentations for visiting engineering leaders, maintaining relational recruiter communications.",
     featured: false,
     accent: "rose",
+    image: "events/corporate-outreach.jpg",
+    caption: "Managing technical interview proctoring, online assessment computer labs, and campus recruiting pipelines.",
     metrics: [
       { label: "Recruiters", value: "100+" },
       { label: "Drives Held", value: "30+" },
