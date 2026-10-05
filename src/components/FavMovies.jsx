@@ -106,7 +106,7 @@ export default function FavMovies() {
         <EditorialSection
             id="taste"
             ghost="CINEMA"
-            eyebrowIndex="08"
+            eyebrowIndex="09"
             eyebrowLabel="THE TASTE"
         >
             {/* Alias for backward compatibility if navigated via #movies */}

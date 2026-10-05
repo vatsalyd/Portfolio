@@ -12,7 +12,7 @@ import { mapRegions } from '../data/portfolioData';
 const CATEGORIES = [
     { id: 'all', label: 'All', ids: null },
     { id: 'systems', label: 'Systems', ids: ['hero', 'agent', 'opensource', 'skills'] },
-    { id: 'builds', label: 'Builds', ids: ['projects', 'experience'] },
+    { id: 'builds', label: 'Builds & Arena', ids: ['projects', 'experience', 'landscape'] },
     { id: 'culture', label: 'Culture', ids: ['articles', 'characters', 'taste', 'contact'] },
 ];
 
