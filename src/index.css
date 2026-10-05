@@ -2463,8 +2463,8 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
 .scroll-hairline-fill {
   height: 100%;
   transform-origin: left;
-  background: #e64a38;
-  box-shadow: 0 0 8px rgba(230, 74, 56, 0.6);
+  background: var(--accent-violet);
+  box-shadow: 0 0 8px rgba(202, 130, 248, 0.6);
 }
 
 /* ── Peeking Map Drawer (compact handle only) ── */
@@ -2476,11 +2476,11 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
   z-index: 85;
   display: flex;
   align-items: stretch;
-  background: #2d3135;
-  border: 2px solid #2d3135;
+  background: #23272e;
+  border: 2px solid #23272e;
   border-right: none;
   border-radius: 10px 0 0 10px;
-  box-shadow: -4px 6px 20px rgba(0, 0, 0, 0.25), -2px 0 8px rgba(230, 74, 56, 0.15);
+  box-shadow: -4px 6px 20px rgba(0, 0, 0, 0.25), -2px 0 8px rgba(157, 95, 208, 0.2);
   cursor: pointer;
   transition: box-shadow 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
   overflow: hidden;
@@ -2488,7 +2488,7 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
 }
 
 .peeking-map-drawer:hover {
-  box-shadow: -8px 12px 32px rgba(0, 0, 0, 0.4), -3px 0 14px rgba(230, 74, 56, 0.35);
+  box-shadow: -8px 12px 32px rgba(0, 0, 0, 0.4), -3px 0 14px rgba(202, 130, 248, 0.35);
   transform: translateY(-50%) translateX(-4px);
 }
 
@@ -2499,7 +2499,7 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
   justify-content: center;
   gap: 10px;
   padding: 14px 10px;
-  background: #2d3135;
+  background: #23272e;
   color: #f4efe6;
   min-width: 40px;
 }
@@ -2511,7 +2511,7 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
   width: 26px;
   height: 26px;
   border-radius: 50%;
-  background: #e64a38;
+  background: var(--accent-violet-dim);
   color: #ffffff;
   font-size: 0.9rem;
 }
@@ -2541,8 +2541,8 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #e64a38;
-  box-shadow: 0 0 6px #e64a38;
+  background: var(--accent-violet);
+  box-shadow: 0 0 6px var(--accent-violet);
   animation: peeking-pulse 2s infinite ease-in-out;
 }
 
@@ -2572,10 +2572,10 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
   display: flex;
   flex-direction: column;
   background: #f4efe6;
-  border: 2px solid #2d3135;
+  border: 2px solid #23272e;
   border-radius: 12px;
   box-shadow: 0 28px 72px rgba(0, 0, 0, 0.5), inset 0 0 60px rgba(120, 80, 40, 0.04);
-  color: #2d3135;
+  color: #23272e;
   overflow: hidden;
 }
 
@@ -2585,9 +2585,9 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
   align-items: center;
   justify-content: space-between;
   padding: 12px 20px;
-  background: #2d3135;
+  background: #23272e;
   color: #f4efe6;
-  border-bottom: 2px solid #e64a38;
+  border-bottom: 2px solid var(--accent-violet-dim);
   gap: 12px;
   flex-wrap: wrap;
 }
@@ -2615,7 +2615,7 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
 
 .map-sub-title {
   font-family: var(--font-primary);
-  font-size: 0.7rem;
+  font-size: 0.72rem;
   color: #a4adb5;
 }
 
@@ -2655,7 +2655,7 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
 }
 
 .map-cat-chip.is-active {
-  background: #e64a38;
+  background: var(--accent-violet-dim);
   color: #ffffff;
 }
 
@@ -2676,8 +2676,8 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #e64a38;
-  box-shadow: 0 0 6px #e64a38;
+  background: var(--accent-violet);
+  box-shadow: 0 0 6px var(--accent-violet);
 }
 
 .map-close-button {
@@ -2696,8 +2696,8 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
 }
 
 .map-close-button:hover {
-  background: #e64a38;
-  border-color: #e64a38;
+  background: var(--accent-violet);
+  border-color: var(--accent-violet);
   color: #ffffff;
   transform: rotate(90deg);
 }
@@ -2728,13 +2728,13 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
   bottom: 20px;
   right: 20px;
   z-index: 30;
-  width: 270px;
-  background: #2d3135;
+  width: 280px;
+  background: #23272e;
   color: #f4efe6;
-  border: 1.5px solid #e64a38;
+  border: 1.5px solid var(--accent-violet-dim);
   border-radius: 8px;
-  padding: 12px 14px;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+  padding: 14px 16px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -2750,28 +2750,35 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
   font-family: var(--font-mono);
   font-size: 0.64rem;
   font-weight: 800;
-  color: #e64a38;
+  color: var(--accent-violet);
   letter-spacing: 1px;
 }
 
 .card-road-tag {
   font-family: var(--font-mono);
   font-size: 0.6rem;
-  color: #a4adb5;
+  color: #8b949e;
 }
 
 .card-title {
   font-family: var(--font-display);
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #ffffff;
   margin: 0;
 }
 
+.card-subtitle {
+  font-family: var(--font-primary);
+  font-size: 0.74rem;
+  color: #c9d1d9;
+  font-weight: 600;
+}
+
 .card-desc {
   font-family: var(--font-primary);
-  font-size: 0.7rem;
-  color: #d1d8de;
+  font-size: 0.72rem;
+  color: #8b949e;
   margin: 0;
   line-height: 1.45;
 }
@@ -2781,8 +2788,8 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  padding: 5px 10px;
-  background: #e64a38;
+  padding: 6px 12px;
+  background: var(--accent-violet-dim);
   border: none;
   border-radius: 4px;
   color: #ffffff;
@@ -2791,11 +2798,11 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
   font-weight: 700;
   cursor: pointer;
   transition: background 0.2s ease, transform 0.2s ease;
-  margin-top: 2px;
+  margin-top: 4px;
 }
 
 .card-sail-btn:hover {
-  background: #ff5544;
+  background: var(--accent-violet);
   transform: translateY(-1px);
 }
 
@@ -2817,24 +2824,17 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
   transition: fill 0.2s ease, stroke 0.2s ease;
 }
 
-.map-landmark-group:hover,
-.map-landmark-group.is-hovered-district {
-  /* Scale handled via CSS on the group — no conflict with inline SVG transforms
-     because each landmark group already uses translate() via the transform attr,
-     and CSS transform is additive in this context. */
-}
-
 .map-landmark-group:hover .landmark-hitbox,
 .map-landmark-group.is-hovered-district .landmark-hitbox {
-  fill: rgba(230, 74, 56, 0.08);
-  stroke: #e64a38;
+  fill: rgba(157, 95, 208, 0.08);
+  stroke: var(--accent-violet);
   stroke-width: 1.2;
   stroke-dasharray: 4 4;
 }
 
 .active-aura-ring {
-  fill: rgba(230, 74, 56, 0.1);
-  stroke: #e64a38;
+  fill: rgba(157, 95, 208, 0.1);
+  stroke: var(--accent-violet);
   stroke-width: 1.2;
   stroke-dasharray: 4 3;
   animation: aura-spin 4s infinite linear;
@@ -2942,9 +2942,9 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
 /* ── Bottom Quick Jump Bar ── */
 .illustrated-map-infobar {
   padding: 10px 20px;
-  background: #2d3135;
+  background: #23272e;
   color: #f4efe6;
-  border-top: 2px solid #e64a38;
+  border-top: 2px solid var(--accent-violet-dim);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2975,13 +2975,13 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
 }
 
 .map-chip-btn .chip-idx {
-  color: #e64a38;
+  color: var(--accent-violet);
   font-weight: 800;
 }
 
 .map-chip-btn:hover {
-  background: #e64a38;
-  border-color: #e64a38;
+  background: var(--accent-violet);
+  border-color: var(--accent-violet);
   color: #ffffff;
   transform: translateY(-1px);
 }
@@ -2991,7 +2991,7 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
 }
 
 .map-chip-btn.is-active {
-  background: #e64a38;
+  background: var(--accent-violet-dim);
   border-color: #ffffff;
   color: #ffffff;
 }
@@ -3001,8 +3001,8 @@ h3 { font-size: clamp(1rem, 2vw, 1.35rem); }
 }
 
 .map-chip-btn.is-hovered {
-  background: rgba(230, 74, 56, 0.2);
-  border-color: #e64a38;
+  background: rgba(157, 95, 208, 0.25);
+  border-color: var(--accent-violet);
 }
 
 @media (max-width: 768px) {
