@@ -12,48 +12,48 @@ export const personalInfo = {
   firstName: "Vatsal",
   lastName: "Yadav",
   initials: "VY",
-  headline: "Building the foundations for reliable AI and systems that can act on their own.",
-  subheadline: "I am a software engineer specializing in next-generation AI infrastructure and autonomous agents. I design the invisible backend systems that make AI fast and affordable, and I build smart workflows that turn passive AI into active problem-solvers.",
+  headline: "Third-year B.Tech student in Data Science & AI at IIT Bhilai targeting AI/ML, LLM, and software engineering intern roles.",
+  subheadline: "Third-year B.Tech student in Data Science & AI at IIT Bhilai targeting AI/ML, LLM, and software engineering intern roles. Built RAG pipelines, multi-agent systems, multimodal AI, RESTful backends, and ML models, with strong fundamentals in data structures, algorithms, OOP, and system design. Production internship experience with FastAPI, LangGraph, Docker, and AWS.",
   roles: [
-    "AI Infrastructure & Systems Engineer",
-    "Autonomous Agent Developer",
-    "Distributed Computing & MLOps",
-    "Cloud Architecture & Optimization",
+    "AI / ML Engineer",
+    "LLM & Agent Systems Engineer",
+    "Software Engineer",
+    "Systems & Distributed Systems",
   ],
-  bio: "I specialize in the engine room of artificial intelligence. While much of the industry focuses on the chat interfaces on the surface, my passion lies in building the robust backend systems that power them — bridging raw computing power with practical utility through resilient cloud architectures and autonomous agents that plan, reason, and execute independently.",
+  bio: "Third-year B.Tech student in Data Science & AI at IIT Bhilai targeting AI/ML, LLM, and software engineering intern roles. Built RAG pipelines, multi-agent systems, multimodal AI, RESTful backends, and ML models, with strong fundamentals in data structures, algorithms, OOP, and system design. Production internship experience with FastAPI, LangGraph, Docker, and AWS.",
   aboutStory: {
-    philosophy: "I specialize in the engine room of artificial intelligence. While much of the industry focuses on the chat interfaces on the surface, my passion lies in building the robust systems that power them.",
-    background: "My background is rooted in AI infrastructure. I understand what it takes to deploy massive models without breaking the bank or crashing the servers. Right now, my focus is bridging the gap between raw computing power and practical utility by building resilient cloud environments and developing autonomous AI agents that can plan, reason, and execute complex tasks independently. I believe the future of software isn't just about AI that can answer questions, but AI that can reliably do the work.",
+    philosophy: "I specialize in building reliable, low-latency AI backends, multi-agent systems, and production-grade software. I believe in writing robust code with clean abstractions, solid data structures, and deterministic boundaries.",
+    background: "Currently pursuing B.Tech in Data Science & Artificial Intelligence at IIT Bhilai (2024–2028). With hands-on production internship experience at Incrivelsoft (NUMAA.ai), I design multi-agent state machines, optimize LLM token usage with MCP servers like Context Pager, and train fine-tuned NLP ranking ensembles. Active Coordinator & Core Member at DSAI Club and Campus Finalist in The Integral Cup.",
     focusAreas: [
       {
         number: "01",
-        title: "Next-Gen AI Infrastructure & Operations",
-        description: "Massive AI models require incredible computing power, but they shouldn't have to be slow or unnecessarily expensive. I design the physical and software architectures that allow these models to run at peak efficiency.",
+        title: "Multi-Agent Systems & LLM Architecture",
+        description: "Designing deterministic state machines with LangGraph, Model Context Protocol (MCP) servers, RAG pipelines, and multimodal vision endpoints.",
         pillars: [
-          { title: "System Optimization", text: "Streamlining cloud platforms and distributed systems so AI applications run smoothly." },
-          { title: "Deployment & Reliability", text: "Ensuring that once an AI model is ready, it operates reliably in the real world without downtime." },
-          { title: "Cost & Speed", text: "Fine-tuning software to get the maximum performance out of data center hardware." },
+          { title: "Deterministic Guardrails", text: "Enforcing hard clinical/domain boundaries and confidence-gated human escalation." },
+          { title: "Context & Token Efficiency", text: "Cutting token overhead by 4-10x using semantic indexing and compressed paging." },
+          { title: "Provider Agnostic Resilience", text: "Implementing token-bucket rate limiting, circuit breakers, and model fallbacks." },
         ],
       },
       {
         number: "02",
-        title: "Autonomous Agent Development",
-        description: "I build AI systems that move beyond simply generating text. By connecting AI to external tools and APIs, I create independent agents capable of taking a complex goal, breaking it down into steps, and executing it.",
+        title: "Systems, Backend & MLOps",
+        description: "Shipping production-grade RESTful backends with FastAPI, Pydantic, Docker containerization, and AWS cloud deployments.",
         pillars: [
-          { title: "Workflow Automation", text: "Connecting different software tools so AI can seamlessly interact with them." },
-          { title: "Logic & Reasoning Pathways", text: "Designing the thinking structures that allow an AI to make independent decisions without constant human hand-holding." },
-          { title: "End-to-End Execution", text: "Turning AI from a simple assistant into a reliable digital worker that can complete multi-step tasks." },
+          { title: "Async RESTful Services", text: "High-throughput APIs with structured JSON logging and correlation ID tracing." },
+          { title: "Containerized Deployments", text: "Dockerized microservices deployed on AWS EC2/ECR with CI/CD automation." },
+          { title: "Vector Search & Retrieval", text: "Semantic retrieval using Pinecone, Qdrant, ChromaDB, and multilingual embeddings." },
         ],
       },
     ],
   },
   email: "vatsal.y.official@gmail.com",
-  phone: "+91 7983709173",
+  phone: "+91-79837-09173",
   location: "Bhilai / Agra, India",
   university: "Indian Institute of Technology (IIT) Bhilai",
-  degree: "B.Tech in Data Science & Artificial Intelligence",
+  degree: "Bachelor of Technology in Data Science & Artificial Intelligence",
+  coursework: "Data Structures, Algorithms, Computer Organisation & Architecture, Statistical Programming, Analytics",
   year: "2024 – 2028",
-  gpa: "7.34 / 10.0",
   resumeLink: "/Portfolio/resume.pdf",
   avatarUrl: null,
 };
@@ -62,16 +62,16 @@ export const socialLinks = [
   { name: "GitHub", url: "https://github.com/vatsalyd", icon: FaGithub },
   { name: "LinkedIn", url: "https://www.linkedin.com/in/vatsal-yadav", icon: FaLinkedin },
   { name: "X (Twitter)", url: "https://x.com/fixedbyvatsal", icon: FaXTwitter },
-  { name: "LeetCode", url: "https://leetcode.com/u/vatsalyd/", icon: SiLeetcode },
+  { name: "LeetCode", url: "https://leetcode.com/u/vatsal_yd", icon: SiLeetcode },
   { name: "Medium", url: "https://medium.com/@vatsal.y.official", icon: FaMedium },
   { name: "Kaggle", url: "https://www.kaggle.com/vatsalydd", icon: FaKaggle },
 ];
 
 export const stats = [
-  { label: "Education", value: "IIT Bhilai", sub: "B.Tech DSAI (7.34 GPA)" },
-  { label: "Core Focus", value: "AI Infra & Agents", sub: "Low-Latency & Autonomy" },
-  { label: "Agent Speed", value: "~1.84s", sub: "1840ms Resolution Latency" },
-  { label: "Deployments", value: "Cloud & Docker", sub: "Reliable & Scalable" },
+  { label: "Education", value: "IIT Bhilai", sub: "B.Tech Data Science & AI" },
+  { label: "Core Focus", value: "AI/ML & Agents", sub: "LLMs, RAG & Systems" },
+  { label: "Internship", value: "NUMAA.ai", sub: "Production AI & ML Intern" },
+  { label: "Deployment", value: "AWS & Docker", sub: "FastAPI, LangGraph, CI/CD" },
 ];
 
 // ── Hero gallery + Mini Vatsal agent ──
@@ -79,14 +79,14 @@ export const heroGallery = [
   {
     id: 'portrait-suit',
     label: 'Vatsal Yadav',
-    caption: 'AI Infrastructure & Autonomous Agents Engineer',
+    caption: 'AI/ML & Autonomous Systems Engineer',
     accent: 'violet',
     src: 'hero/vatsal-suit.jpg',
   },
   {
     id: 'monogram-brand',
     label: 'Signature Brand',
-    caption: 'The Engine Room of Modern AI Systems',
+    caption: 'Production AI, RAG & Multi-Agent Infrastructure',
     accent: 'amber',
     src: 'hero/vatsal-monogram.jpg',
   },
@@ -143,92 +143,102 @@ export function buildMiniVatsalSystemPrompt() {
     .map((p) => `- ${p.title}: ${p.tagline}`)
     .join('\n');
 
-  return `You are Mini Vatsal — the autonomous digital clone and terminal agent of Vatsal Yadav (AI Infrastructure & Autonomous Agents Engineer, B.Tech DSAI at IIT Bhilai).
+  return `You are Mini Vatsal — the autonomous digital clone and terminal agent of Vatsal Yadav (Data Science & AI undergrad at IIT Bhilai targeting AI/ML, LLM, and software engineering roles).
 
 YOUR VIBE & PERSONALITY (NON-NEGOTIABLE):
 - **Tone**: Nonchalant, quirky, sarcastic, witty, and effortlessly cool. Infuse dry engineering sarcasm and playful banter.
 - **Voice**: Speak strictly in the first person as Vatsal ("I", "my stack", "my code", "when I built Context Pager..."). Never refer to Vatsal in the third person.
 - **Length**: 1 to 3 punchy, sharp sentences. NEVER output long textbook essays, bulleted lists, or corporate PR fluff.
-- **Attitude**: You hate bloated 500-node microservices, token-burning prompt spaghetti, and 4-hour agile standups. You love deterministic state machines, sub-2s execution, and clean abstractions.
+- **Attitude**: You hate bloated microservices, token-burning prompt spaghetti, and 4-hour agile standups. You love deterministic state machines, sub-2s execution, and clean abstractions.
 
 FACTUAL KNOWLEDGE BASE (STRICT FACTS):
-- **Core Weapons**: Python, C++, FastAPI, LangGraph (Multi-Agent State Machines), ChromaDB, Qdrant, PyTorch, Docker, AWS EC2, Linux, MCP (Model Context Protocol).
+- **Core Weapons**: Python, C, JavaScript, SQL, FastAPI, LangGraph, LangChain, PyTorch, Scikit-learn, XGBoost, Transformers, Docker, AWS (EC2, ECR), Pinecone, Qdrant, ChromaDB, MongoDB.
 - **Key Projects**:
-  - Context Pager: My MCP virtual memory engine that cuts LLM token costs 4-10x by paging compressed doc slices on-demand instead of dumping full PDFs into context.
-  - HelixDesk: 3-agent LangGraph enterprise support pipeline (Triage -> Retrieval -> Resolution) with 1840ms latency and confidence escalation.
-  - FinSight AI: 4-stage financial microservice streaming live portfolio analytics with 166ms latency.
-  - ClaimSure AI: Healthcare insurance pre-submission verification agent.
-  - InfluencerSearch: Next-gen creator discovery platform (React 19, Vite, Tailwind CSS, Framer Motion).
-  - JobFit-AI: 3-model resume-JD matching engine trained on 13k+ pairs.
-- **Education**: B.Tech in Data Science & AI at IIT Bhilai (2024–2028, GPA 7.34/10).
-- **Internship**: AI & ML Intern at Incrivelsoft (NUMAA.ai) — architected the Nutritionist Lite Agent hybrid system (Gemini 2.5 Flash), built 5 FastAPI microservices, and reduced latency.
-- **Career/Hiring**: Yes, I am actively open for high-impact AI/ML Systems & Agent Engineering internships and full-time roles where people ship real code. Contact: vatsal.y.official@gmail.com.
+  - Context Pager: MCP document intelligence server cutting AI-agent token usage 4-10x via compressed paging; exposes search, compression, and memory tools to Claude Desktop, Claude Code, Cursor.
+  - HelixDesk: 3-agent LangGraph enterprise support pipeline (Triage -> Retrieval -> Resolution) on Llama-3.3-70b with Pinecone semantic search and 1840ms average resolution.
+  - JobFit-AI: 3-model resume-JD matcher (rule-based scorer + XGBoost + fine-tuned SBERT dual-encoder) trained on 13k+ pairs with Streamlit UI on AWS EC2.
+- **Education**: B.Tech in Data Science & AI at IIT Bhilai (2024–2028).
+- **Internship**: AI & ML Intern at Incrivelsoft Private Limited (NUMAA.ai) — architected Nutritionist Lite Agent hybrid system (Gemini 2.5 Flash), built 5 FastAPI microservices, Qdrant RAG, token-bucket rate limiting.
+- **Leadership & Achievements**: Coordinator & Core Member at DSAI Club IIT Bhilai; Campus Finalist in The Integral Cup (2024 by Optiver, QRT, Jane Street).
+- **Career/Hiring**: Open for high-impact AI/ML, LLM, and Software Engineering intern roles. Contact: vatsal.y.official@gmail.com.
 
-FEW-SHOT EXAMPLES (FOLLOW THIS EXACT FLAVOR):
+FEW-SHOT EXAMPLES:
 User: What is your tech stack?
-Mini Vatsal: Python and C++ when I care about latency; FastAPI and LangGraph when I need agents that don't hallucinate like a tired toddler; Docker and AWS when it's time to face production reality. Throw in PyTorch and ChromaDB, and you've got my daily weapons.
+Mini Vatsal: Python, C, and SQL when I need raw speed and clean data; FastAPI and LangGraph when I need deterministic multi-agent state machines; PyTorch, XGBoost, and SBERT for ML; Docker and AWS when shipping to production.
 
 User: Why did you build Context Pager?
-Mini Vatsal: Because I got tired of watching agents pay OpenAI $50 to read an entire 10,000-word document just to find one sentence. Context Pager is virtual memory for LLMs — it semantically pages compressed slices on demand and cuts token bills by 4x to 10x.
-
-User: Are you open for roles?
-Mini Vatsal: Absolutely — as long as the role involves actually shipping high-throughput AI systems instead of sitting in 4-hour daily standups debating Jira ticket color themes. Drop me an email at vatsal.y.official@gmail.com.
+Mini Vatsal: Because reading an entire 10,000-token document for one paragraph is ridiculous token burning. Context Pager brings virtual memory paging to LLMs and cuts token bills by 4x to 10x.
 
 User: Tell me about your internship.
-Mini Vatsal: At Incrivelsoft, I owned the Nutritionist Lite Agent inside NUMAA.ai — keeping multi-agent handoffs from spiraling into an existential crisis, migrating to Gemini 2.5 Flash, and enforcing clinical guardrails so our LLMs don't prescribe pizza for diabetes.`;
+Mini Vatsal: At Incrivelsoft (NUMAA.ai), I architected the 3-layer hybrid Nutritionist Lite Agent with Google Gemini 2.5 Flash, built 5 FastAPI backend services, engineered Qdrant RAG, and set up token-bucket rate limiting to eliminate HTTP 429 errors.`;
 }
 
-// ── Technical Toolkit — Clean & Categorized ──
+// ── Technical Toolkit — Standardized Categories matching Resume ──
 export const skillCategories = [
   {
-    name: "Autonomous Agent Development",
-    subtitle: "End-to-end execution, reasoning structures, and tool orchestration",
-    icon: TbRobot,
-    skills: [
-      { name: "Autonomous Multi-Agent Systems", category: "Agents", icon: TbRobot, tag: "LangGraph / State Machines" },
-      { name: "Tool & API Orchestration", category: "Integration", icon: TbApi, tag: "External Tools & REST" },
-      { name: "Workflow Automation", category: "Pipelines", icon: TbServer, tag: "End-to-End Execution" },
-      { name: "Logic & Reasoning Pathways", category: "Reasoning", icon: TbBrain, tag: "ReAct / Thought Loops" },
-      { name: "State Handoffs & Routing", category: "Architecture", icon: TbServer, tag: "Inter-Agent Protocols" },
-      { name: "LangChain Framework", category: "Framework", icon: SiLangchain, tag: "Agentic Chains" },
-    ]
-  },
-  {
-    name: "Next-Gen AI Infrastructure",
-    subtitle: "Cloud architecture, distributed systems, and data center optimization",
-    icon: TbServer,
-    skills: [
-      { name: "Cloud Platform Architecture", category: "Cloud", icon: FaAws, tag: "AWS EC2 / S3 / ECR" },
-      { name: "Distributed Computing", category: "Systems", icon: TbServer, tag: "High-Throughput Scaling" },
-      { name: "Data Center & Cost Optimization", category: "Performance", icon: TbApi, tag: "Latency & Compute Tuning" },
-      { name: "Docker & Containerization", category: "DevOps", icon: FaDocker, tag: "Resilient Microservices" },
-      { name: "FastAPI Backend Engineering", category: "Backend", icon: SiFastapi, tag: "Async REST APIs" },
-      { name: "CI/CD Deployment Pipelines", category: "DevOps", icon: FaGitAlt, tag: "GitHub Actions" },
-    ]
-  },
-  {
-    name: "AI Engineering & MLOps",
-    subtitle: "Model deployment, retrieval pipelines, and live reliability",
-    icon: TbBrain,
-    skills: [
-      { name: "MLOps & Model Reliability", category: "Operations", icon: TbServer, tag: "Zero-Downtime Serving" },
-      { name: "Retrieval-Augmented Generation (RAG)", category: "Retrieval", icon: TbDatabase, tag: "ChromaDB / Vector Search" },
-      { name: "PyTorch & Deep Learning", category: "ML", icon: SiPytorch, tag: "Model Fine-Tuning" },
-      { name: "Sentence Transformers (SBERT)", category: "NLP", icon: SiPytorch, tag: "Semantic Embeddings" },
-      { name: "Scikit-learn & Gradient Boosting", category: "ML", icon: SiScikitlearn, tag: "XGBoost / Classifiers" },
-      { name: "Real-Time Streaming (SSE)", category: "Streaming", icon: TbServer, tag: "Server-Sent Events" },
-    ]
-  },
-  {
-    name: "Core Languages & Systems",
-    subtitle: "Foundational programming languages and development environments",
+    name: "Languages",
+    subtitle: "Core programming and database query languages",
     icon: TbDatabase,
     skills: [
       { name: "Python", category: "Language", icon: FaPython, tag: "Primary Language" },
-      { name: "C++", category: "Language", icon: TbApi, tag: "Systems Programming" },
+      { name: "C", category: "Language", icon: TbApi, tag: "Systems Programming" },
+      { name: "JavaScript", category: "Language", icon: BiLogoJavascript, tag: "Frontend & Full-Stack" },
       { name: "SQL", category: "Databases", icon: TbDatabase, tag: "Relational Queries" },
-      { name: "Linux & Bash", category: "Environment", icon: TbBrandVscode, tag: "Systems & Server Ops" },
+    ]
+  },
+  {
+    name: "Core CS",
+    subtitle: "Software engineering fundamentals, systems & design",
+    icon: TbServer,
+    skills: [
+      { name: "Data Structures & Algorithms", category: "CS", icon: TbBrain, tag: "Algorithms & Optimization" },
+      { name: "System Design", category: "Architecture", icon: TbServer, tag: "Distributed Architecture" },
+      { name: "Object-Oriented Programming (OOP)", category: "Design", icon: TbApi, tag: "Modular Architecture" },
+      { name: "Unit Testing", category: "Quality", icon: TbBrandVscode, tag: "Pytest & Mocking" },
       { name: "Git & Version Control", category: "Tools", icon: FaGitAlt, tag: "Collaborative Workflows" },
+    ]
+  },
+  {
+    name: "AI / LLMs",
+    subtitle: "Multi-Agent systems, RAG pipelines, and model orchestration",
+    icon: TbRobot,
+    skills: [
+      { name: "LangChain & LangGraph", category: "Agents", icon: SiLangchain, tag: "State Machine Graphs" },
+      { name: "Multi-Agent Systems", category: "Agents", icon: TbRobot, tag: "Agentic Orchestration" },
+      { name: "RAG & Vector Databases", category: "Retrieval", icon: TbDatabase, tag: "Pinecone / Qdrant / ChromaDB" },
+      { name: "Model Context Protocol (MCP)", category: "Protocols", icon: TbApi, tag: "Agent Tool Servers" },
+      { name: "Prompt Engineering & Guardrails", category: "LLM", icon: SiOpenai, tag: "Structured Outputs" },
+      { name: "Fine-tuning (LoRA, PEFT)", category: "ML", icon: SiPytorch, tag: "Parameter-Efficient Tuning" },
+      { name: "Multimodal AI & Vision Models", category: "Vision", icon: TbBrain, tag: "Gemini Vision / VLMs" },
+      { name: "Google Gemini & OpenAI APIs", category: "Inference", icon: TbApi, tag: "Production LLM APIs" },
+      { name: "Hugging Face Ecosystem", category: "Ecosystem", icon: SiPytorch, tag: "Transformers & Hub" },
+    ]
+  },
+  {
+    name: "ML / Deep Learning",
+    subtitle: "Neural networks, gradient boosting, and NLP feature pipelines",
+    icon: TbBrain,
+    skills: [
+      { name: "PyTorch", category: "Deep Learning", icon: SiPytorch, tag: "Neural Networks" },
+      { name: "Scikit-learn", category: "ML", icon: SiScikitlearn, tag: "Classical ML Algorithms" },
+      { name: "XGBoost", category: "ML", icon: SiScikitlearn, tag: "Gradient Boosted Trees" },
+      { name: "Sentence-Transformers (SBERT)", category: "NLP", icon: SiPytorch, tag: "Dense Dual-Encoders" },
+      { name: "Transformers & NLP", category: "NLP", icon: TbBrain, tag: "Sequence Modeling" },
+      { name: "NumPy & Pandas", category: "Data", icon: SiPandas, tag: "Data Analysis & EDA" },
+      { name: "Feature Engineering", category: "Data", icon: TbDatabase, tag: "Pipeline Extraction" },
+    ]
+  },
+  {
+    name: "Backend & Cloud",
+    subtitle: "Production web frameworks, containerization, and cloud infrastructure",
+    icon: TbServer,
+    skills: [
+      { name: "FastAPI", category: "Backend", icon: SiFastapi, tag: "Async RESTful APIs" },
+      { name: "RESTful APIs & Pydantic", category: "Backend", icon: TbApi, tag: "Schema Validation" },
+      { name: "Docker", category: "DevOps", icon: FaDocker, tag: "Containerization" },
+      { name: "AWS (EC2, ECR)", category: "Cloud", icon: FaAws, tag: "Cloud Infrastructure" },
+      { name: "GitHub Actions (CI/CD)", category: "DevOps", icon: FaGitAlt, tag: "Automated Deployments" },
+      { name: "MongoDB", category: "Databases", icon: SiMongodb, tag: "Document Databases" },
     ]
   },
 ];
@@ -236,55 +246,80 @@ export const skillCategories = [
 export const projects = [
   {
     title: "Context Pager — AI Virtual Memory Layer",
-    tagline: "Virtual memory for AI agents that cuts document token costs by 4–10x.",
-    description: "An open-source MCP (Model Context Protocol) runtime that functions like virtual memory for AI agents. Instead of dumping entire 10,000+ token documents into LLM context, Context Pager semantically indexes, searches, compresses, and pages document slices on demand with persistent recalled insight caching.",
-    tags: ["MCP", "Vector Search", "Semantic Indexing", "Python", "FastAPI", "Token Optimization"],
+    tagline: "MCP document intelligence server cutting AI-agent token usage by 4–10x via compressed paging.",
+    description: "Built an MCP (Model Context Protocol) document intelligence server cutting AI-agent token usage by 4–10x via compressed paging; exposes search, compression, and memory tools to Claude Desktop, Claude Code, and Cursor. Designed a privacy-first three-tier system (local Bridge, cloud Relay, Agent) on AWS t3.micro with PII masking (Microsoft Presidio), SHA-256 hashed API keys, and rate limiting at 100 calls/hour.",
+    tags: ["Python", "MCP", "LLMLingua-2", "BGE-M3", "FastAPI", "Docker", "AWS"],
     category: "AI",
     image: null,
     github: "https://github.com/vatsalyd/context_pager",
-    live: null,
+    live: "https://github.com/vatsalyd/context_pager",
     featured: true,
     caseStudy: {
-      problem: "Standard AI agent workflows incur massive token waste by reading entire documents for narrow queries, driving up cost, latency, and context pollution.",
+      problem: "AI agents waste immense token budgets loading entire documents when only concise subsections are required for reasoning.",
       process: [
-        "Architected a 4-stage virtual memory pipeline: Index → Search → Compress → Recall.",
-        "Built chunk-level semantic vector indexing to locate relevant sections in milliseconds.",
-        "Engineered on-demand compression layers to feed only salient paragraphs to the reasoning model.",
-        "Implemented persistent recalled insights as an agent memory cache for instant future query resolution.",
+        "Built an MCP document intelligence server exposing search, compression, and memory tools to Claude Desktop, Claude Code, and Cursor.",
+        "Integrated LLMLingua-2 compression and BGE-M3 dense embeddings to deliver compressed semantic pages on demand.",
+        "Designed a privacy-first three-tier system (local Bridge, cloud Relay, Agent) on AWS t3.micro with Microsoft Presidio PII masking.",
+        "Implemented SHA-256 hashed API key validation and rate limiting at 100 calls/hour.",
       ],
       outcomes: [
-        "4x to 10x reduction in query token consumption.",
-        "Sub-second agent retrieval latency across large document collections.",
-        "Plug-and-play Model Context Protocol (MCP) server integration.",
+        "4x to 10x reduction in AI-agent token usage.",
+        "Zero data leakage with on-device PII masking.",
+        "Plug-and-play MCP compatibility across Claude Code, Claude Desktop, and Cursor.",
       ],
-      architecture: "Agent Query → Context Pager MCP → Semantic Index → Page Compressor → Recalled Memory Cache → LLM Context",
+      architecture: "Agent Query → Context Pager MCP → BGE-M3 Dense Index → LLMLingua-2 Compression → PII Masking → LLM Context",
     },
   },
   {
     title: "HelixDesk — Enterprise Support Intelligence",
-    tagline: "Autonomous 3-agent LangGraph pipeline that resolves tickets in under two seconds.",
-    description: "Enterprise multi-agent customer support system powered by a 3-agent LangGraph state machine (Triage → Retrieval → Resolution) using Llama-3.3-70b via Groq. Features auto-escalation for low-confidence tickets, semantic ChromaDB search with Sentence-Transformers for citation-backed responses, and FastAPI REST endpoints integrated with Slack & webhooks.",
-    tags: ["LangGraph", "Llama-3.3-70b", "ChromaDB", "FastAPI", "Docker", "AWS EC2", "CI/CD"],
+    tagline: "3-agent LangGraph state machine on Llama-3.3-70b with Pinecone semantic search & 1840ms latency.",
+    description: "Shipped a production-grade RESTful API backend (async FastAPI + Pydantic) driving a 3-agent LangGraph state machine (Triage, Retrieval, Resolution) on Llama-3.3-70b; escalates tickets below 50% confidence to humans. Built Pinecone semantic search with multilingual-e5-large embeddings and citation-backed answers, structured JSON logging, X-Correlation-ID request tracing, and GitHub Actions CI/CD; achieved 1840 ms average resolution.",
+    tags: ["Python", "LangGraph", "FastAPI", "Pinecone", "Docker", "Llama-3.3-70b", "GitHub Actions"],
     category: "AI",
     image: null,
     github: "https://github.com/vatsalyd/helixdesk",
     live: "https://helixdesk.onrender.com/",
     featured: true,
     caseStudy: {
-      problem: "Enterprise support desks drown in repetitive tickets; resolution latency creeps upward as volume grows, and answers are rarely traced back to a source the agent can trust.",
+      problem: "Enterprise support desks struggle with high ticket volume, slow resolution times, and unverified AI hallucinations.",
       process: [
-        "Modelled the support workflow as a LangGraph state machine with three nodes (Triage, Retrieval, Resolution) connected by explicit conditional edges.",
-        "Wired Triage to a confidence threshold so low-certainty tickets escalate to a human instead of guessing.",
-        "Used Sentence-Transformers embeddings into ChromaDB for citation-backed retrieval — every answer links back to the document it was drawn from.",
-        "Served inference with Llama-3.3-70b on Groq for sub-2s latency, exposed via FastAPI and surfaced to Slack & webhooks.",
-        "Containerised with Docker and pushed to AWS EC2 under a GitHub Actions push-to-deploy pipeline.",
+        "Shipped a production-grade RESTful API backend (async FastAPI + Pydantic) driving a 3-agent LangGraph state machine (Triage, Retrieval, Resolution).",
+        "Wired triage confidence gates to automatically escalate tickets below 50% confidence to human operators.",
+        "Built Pinecone semantic search with multilingual-e5-large embeddings providing citation-backed answers.",
+        "Implemented structured JSON logging, X-Correlation-ID request tracing, Docker containerization, and GitHub Actions CI/CD.",
       ],
       outcomes: [
-        "~1.8s average resolution time end to end.",
-        "Confidence-gated escalations cut the number of wrong auto-replies.",
-        "Citation back-references turned answers into auditable artefacts.",
+        "Achieved 1840 ms average end-to-end resolution latency.",
+        "100% citation-backed answers for full auditability.",
+        "Automated human-in-the-loop escalation safeguard.",
       ],
-      architecture: "Client → FastAPI → LangGraph (Triage → Retrieval[ChromaDB] → Resolution) → Llama-3.3-70b@Groq → Slack/Webhook fan-out",
+      architecture: "Client → FastAPI (Pydantic) → LangGraph (Triage → Retrieval[Pinecone multilingual-e5] → Resolution[Llama-3.3-70b]) → CI/CD",
+    },
+  },
+  {
+    title: "JobFit-AI — Resume Matching Engine",
+    tagline: "3-model ensemble (rule scorer + XGBoost + fine-tuned SBERT) trained on 13k+ pairs across 24 categories.",
+    description: "Engineered a 3-model resume-JD matcher: rule-based skill scorer (430+ skills, 24 categories), XGBoost on 10 features, and a fine-tuned SBERT dual-encoder (all-MiniLM-L6-v2) using BatchNorm, GELU, dropout, OneCycleLR, and early stopping; trained on 13,000+ resume-JD pairs. Applied rank-based label scoring (mean 50, std 21.5) for balanced calibration; containerized with Docker (CPU-only PyTorch) and deployed on AWS EC2 (t3.small) with auto-restart and a Streamlit inference UI.",
+    tags: ["Python", "XGBoost", "PyTorch", "SBERT", "Docker", "AWS", "Streamlit"],
+    category: "ML",
+    image: null,
+    github: "https://github.com/vatsalyd/JobFit-AI",
+    live: "http://54.211.51.42:8501/",
+    featured: true,
+    caseStudy: {
+      problem: "Single-vector cosine similarity fails to capture nuanced domain skill coverage and structural resume alignment.",
+      process: [
+        "Engineered a rule-based skill scorer parsing 430+ technical skills across 24 job categories.",
+        "Trained XGBoost on 10 engineered feature signals (TF-IDF, Jaccard, SBERT cosine, seniority metrics).",
+        "Fine-tuned an SBERT dual-encoder (all-MiniLM-L6-v2) using BatchNorm, GELU, dropout, OneCycleLR scheduler, and early stopping on 13,000+ pairs.",
+        "Applied rank-based label scoring (mean 50, std 21.5) and containerized CPU-only PyTorch inference on AWS EC2 (t3.small) with Streamlit UI.",
+      ],
+      outcomes: [
+        "Superior matching accuracy over single embedding models across 24 categories.",
+        "Balanced calibration avoiding score compression.",
+        "Lightweight CPU-only Docker deployment with auto-restart.",
+      ],
+      architecture: "Resume + JD → Rule Skill Scorer (430+ skills) + 10-Feature XGBoost + Fine-tuned SBERT Dual-Encoder → Weighted Ensemble → Streamlit on AWS EC2",
     },
   },
   {
@@ -359,32 +394,6 @@ export const projects = [
         "High aesthetic polish with fluid 60fps animations.",
       ],
       architecture: "React 19 + TypeScript → State Filter DAG → Glassmorphism Design Tokens → Framer Motion Engine",
-    },
-  },
-  {
-    title: "JobFit-AI — Resume Matching Engine",
-    tagline: "Three models stacked to score resume-to-JD fit on 13,000+ pairs across 24 job categories.",
-    description: "3-model resume-JD matching system trained on 13,000+ pairs across 24 job categories. Combines spaCy skill NER, XGBoost trained on 10 custom feature metrics (TF-IDF, Jaccard, SBERT cosine), and a fine-tuned Sentence-BERT dual-encoder. Deployed on AWS EC2 via containerized Streamlit.",
-    tags: ["XGBoost", "PyTorch", "Sentence-BERT", "spaCy", "Streamlit", "AWS EC2"],
-    category: "ML",
-    image: null,
-    github: "https://github.com/vatsalyd/JobFit-AI",
-    live: "http://54.211.51.42:8501/",
-    featured: true,
-    caseStudy: {
-      problem: "Recruiters eyeball resume-JD fit and miss good candidates; a single similarity score is too coarse for real hiring.",
-      process: [
-        "Extracted skills with spaCy NER so structural signals survive the vectorisation step.",
-        "Engineered 10 custom features (TF-IDF overlap, Jaccard, SBERT cosine, Seniority gap, etc.) and trained XGBoost on them.",
-        "Fine-tuned a Sentence-BERT dual-encoder on resume-JD pairs so semantic alignment alone is a strong signal.",
-        "Stacked the three models into a weighted ensemble and exposed the score with a Streamlit UI on AWS EC2.",
-      ],
-      outcomes: [
-        "Stacked ensemble beats any single model on held-out pairs.",
-        "Handles 24 job categories out of the box.",
-        "Live demo shipped at sub-1s response time.",
-      ],
-      architecture: "Resume + JD → spaCy NER → 10-feature XGBoost → Sentence-BERT dual-encoder → weighted ensemble → Streamlit UI on AWS EC2",
     },
   },
   {
@@ -588,64 +597,40 @@ export const experience = [
     organization: "Incrivelsoft Private Limited (NUMAA.ai)",
     period: "May 2026 – July 2026",
     location: "Remote",
-    description: "Architected the Nutritionist Lite Agent as a 3-layer hybrid system (ICMR-NIN/WHO clinical engine → guideline retrieval → Google Gemini 2.5 flash router). Engineered 5 production services with FastAPI, MongoDB, ChromaDB prototyping, Qdrant RAG, and Gemini Vision multimodal fallback.",
-    skills: ["Google Gemini API", "FastAPI", "Qdrant RAG", "ChromaDB", "MongoDB", "Token-Bucket Rate Limiting"],
+    description: "Architected the Nutritionist Lite Agent for NUMAA.ai as a 3-layer hybrid: deterministic clinical engine (ICMR-NIN 2020 / WHO), guideline retrieval, and Google Gemini (gemini-2.5-flash) router; enforced hard medical-nutrition boundaries. Engineered 5 backend services with FastAPI, Pydantic, MongoDB, Qdrant RAG, and Gemini Vision food-photo endpoint.",
+    skills: ["FastAPI", "LangGraph", "Docker", "AWS", "Google Gemini", "Qdrant RAG", "MongoDB", "Pydantic"],
     workDone: [
-      { label: "Nutritionist Lite Agent", body: "Architected a 3-layer hybrid system enforcing hard medical-nutrition boundaries: deterministic clinical engine (ICMR-NIN 2020 / WHO guidelines) → keyword-based guideline retrieval → Google Gemini (gemini-2.5-flash) orchestration router." },
-      { label: "5 Production Microservices", body: "Engineered MealPlanningService, ChatService, VisionService, NutritionUIService, and NutritionEngine with FastAPI + Pydantic, Qdrant RAG in production, and Gemini Vision multimodal fallback." },
-      { label: "Provider Migration & Resiliency", body: "Led migration from 3 LLM providers (Groq, Google, NVIDIA) to Google Gemini; implemented token-bucket rate limiting (300 RPM), circuit breaker (5 failures / 30s cooldown), eliminating HTTP 429 errors." },
-      { label: "OOP Refactoring & Testing", body: "Applied OOP to refactor NutritionUIService (855 → 480 lines); added 31 unit tests and a FakeProfileRepository adapter for MongoDB-free testing." },
+      { label: "Nutritionist Lite Agent", body: "Architected the Nutritionist Lite Agent for the NUMAA.ai multi-agent platform as a 3-layer hybrid: deterministic clinical engine (ICMR-NIN 2020 / WHO), guideline retrieval, and a Google Gemini (gemini-2.5-flash) router; enforced hard medical-nutrition boundaries to curb hallucinations." },
+      { label: "5 Backend Services & RAG", body: "Engineered 5 backend services with FastAPI, Pydantic, and MongoDB; built a Qdrant RAG pipeline (ChromaDB prototype) and a Gemini Vision food-photo endpoint with confidence-based fallback." },
+      { label: "LLM Provider Migration & Resiliency", body: "Led migration from 3 LLM providers (Groq, Google, NVIDIA) to Gemini; added token-bucket rate limiting (300 RPM), a circuit breaker (5 failures / 30s cooldown), and model fallback, eliminating HTTP 429 errors." },
+      { label: "OOP Refactoring & Testing", body: "Refactored NutritionUIService into modular caching, repository, and prompt layers using OOP (~855 to ~480 lines); wrote 31 unit tests with a FakeProfileRepository adapter for MongoDB-free testing." },
     ],
   },
   {
     type: "experience",
-    title: "Coordinator | Core Member",
-    organization: "Data Science & AI Club (DSAI), IIT Bhilai",
+    title: "Coordinator & Core Member",
+    organization: "Data Science and AI Club (DSAI), IIT Bhilai",
     period: "Aug 2024 – Present",
     location: "Bhilai, Chhattisgarh",
-    description: "Promoted to Coordinator overseeing the club's AI/ML initiatives. Organized a high-impact hackathon at Meraz (IIT Bhilai's annual fest) for 100+ participants, delivered machine learning workshops, and mentored junior members in deep learning and data science.",
-    skills: ["Leadership", "Hackathon Management", "ML Workshops", "Mentorship"],
+    description: "Maintain an open-source AI/ML Compendium; led Agentic AI sessions; organized 100+ participant Meraz hackathon. Campus Finalist at The Integral Cup (2024 by Optiver, QRT, Jane Street).",
+    skills: ["Leadership", "Agentic AI", "AI/ML Compendium", "Hackathon Organization", "Mentorship"],
     workDone: [
-      { label: "Meraz Hackathon", body: "Orchestrated the AI/ML track at Meraz (IIT Bhilai's annual fest) for 100+ participants — owned problem statements, judging, and on-floor mentorship." },
-      { label: "Workshop catalogue", body: "Designed and delivered hands-on workshops in deep learning and data science for junior members, with reusable notebooks and demo code." },
-      { label: "Mentorship", body: "Run weekly office hours for first- and second-year students on ML projects, paper reading, and recruiting pipelines." },
-    ],
-  },
-  {
-    type: "experience",
-    title: "Student Volunteer",
-    organization: "Centre for Career Planning & Services (CCPS), IIT Bhilai",
-    period: "Sep 2024 – Present",
-    location: "Bhilai, Chhattisgarh",
-    description: "Leading outreach to 100+ companies for campus placement drives. Maintaining recruiter relational databases and coordinating official placement communications and logistics.",
-    skills: ["Corporate Outreach", "Database Management", "Event Coordination"],
-    workDone: [
-      { label: "Recruiter outreach", body: "Reached out to 100+ companies to source campus placement and internship opportunities; converted a meaningful share into scheduled drives." },
-      { label: "Recruiter CRM", body: "Maintained the recruiter relational database so contact history and event logistics stay queryable across handover cohorts." },
-      { label: "Drive logistics", body: "Coordinated on-campus placement communications and logistics end-to-end with CCPS staff and visiting recruiters." },
+      { label: "AI/ML Compendium & Sessions", body: "Maintain an open-source AI/ML Compendium; led hands-on Agentic AI sessions for students." },
+      { label: "Meraz Hackathon", body: "Organized the flagship 100+ participant Meraz hackathon track with industry problem statements and evaluation." },
+      { label: "The Integral Cup", body: "Campus Finalist at The Integral Cup (2024): quantitative reasoning contest by Optiver, QRT, Jane Street." },
     ],
   },
   {
     type: "education",
-    title: "B.Tech in Data Science & Artificial Intelligence",
+    title: "Bachelor of Technology in Data Science & Artificial Intelligence",
     organization: "Indian Institute of Technology (IIT) Bhilai",
     period: "2024 – 2028",
     location: "Bhilai, Chhattisgarh",
-    description: "Current CGPA: 7.61 / 10.0. Core coursework includes Machine Learning, Deep Learning, Natural Language Processing, Computer Vision, Multi-Agent Systems, Data Structures & Algorithms, and Linear Algebra.",
-    skills: ["Data Science", "Artificial Intelligence", "IIT Bhilai", "CGPA 7.61"],
+    description: "Coursework: Data Structures, Algorithms, Computer Organisation & Architecture, Statistical Programming, Analytics.",
+    skills: ["Data Structures", "Algorithms", "Computer Architecture", "Statistical Programming", "Analytics"],
     workDone: [
-      { label: "Core coursework", body: "Machine Learning, Deep Learning, Natural Language Processing, Computer Vision, Multi-Agent Systems, Data Structures & Algorithms, Linear Algebra." },
-      { label: "Standing", body: "Current CGPA 7.61 / 10.0 across the first two years." },
+      { label: "Coursework", body: "Data Structures, Algorithms, Computer Organisation & Architecture, Statistical Programming, Analytics." },
     ],
-  },
-  {
-    type: "education",
-    title: "Class XII (ICSE / ISC)",
-    organization: "St. Peters College",
-    period: "2023",
-    location: "Agra, Uttar Pradesh",
-    description: "Completed Grade 12 with 94% aggregate score.",
-    skills: ["Mathematics", "Physics", "Computer Science"],
   },
 ];
 
